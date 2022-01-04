@@ -1,10 +1,17 @@
-import { makeStyles } from '@mui/styles'
+export const modalCardActions = {
+	justifyContent: 'center',
+}
 
-const useStyles = makeStyles({
-	root: {
-		borderRadius: 10,
-		color: 'red',
-	},
-})
+export const modalGrid = {
+	justifyContent: 'center',
+	alignItems: 'center',
+	marginTop: '7rem',
+}
 
-export default useStyles
+export const modalText = {
+	textAlign: 'center',
+}
+
+export const modalButton = {
+	marginBottom: '1rem',
+}

@@ -1,12 +1,13 @@
 import { CssBaseline } from '@mui/material'
 import Modal from './components/Modal/Modal'
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
 	return (
 		<>
 			<CssBaseline />
 			<div className='App'>
-				<h1>hello</h1>
+				<Navbar />
 				<Modal />
 			</div>
 		</>

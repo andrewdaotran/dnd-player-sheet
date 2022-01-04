@@ -11,19 +11,14 @@ import {
 	Grid,
 } from '@mui/material'
 
-import useStyles from './styles'
+import { modalButton, modalCardActions, modalGrid, modalText } from './styles'
 
 const Modal = () => {
-	const classes = useStyles()
 	return (
-		// <Container>
-		// 	<Typography variant='h2'>Modal</Typography>
-		// </Container>
 		<Container>
-			{/* remove alignItems and justifyContent after styling */}
-			<Grid container alignItems='center' justifyContent='center'>
+			<Grid container sx={modalGrid}>
 				<Card>
-					<Grid item>
+					<Grid item sx={modalText}>
 						<CardContent>
 							<Typography variant='h4'>
 								Welcome to ndru's DnD Character Creator
@@ -31,8 +26,10 @@ const Modal = () => {
 						</CardContent>
 					</Grid>
 					<Grid item justifyItems='center' alignItems='center'>
-						<CardActions>
-							<Button className={classes.root}>Create a Character</Button>
+						<CardActions sx={modalCardActions}>
+							<Button sx={modalButton} variant='contained'>
+								Create a Character
+							</Button>
 						</CardActions>
 					</Grid>
 				</Card>
