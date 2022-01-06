@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { getAbilityScores } from './characterSheetExtraReducers'
+
 const initialState = {
 	inventory: [],
 	hitPoints: 0,
@@ -22,13 +24,18 @@ const initialState = {
 	bonds: [],
 	flaws: [],
 	backgroundStory: [],
+	abilityScores: [],
 }
 
 const characterSheetSlice = createSlice({
 	initialState,
 	name: 'Character Sheet',
 	reducers: {},
-	extraReducers: {},
+	extraReducers: {
+		[getAbilityScores.fulfilled]: (state, action) => {
+			state.abilityScores = action.payload
+		},
+	},
 })
 
-export default characterSheetSlice
+export default characterSheetSlice.reducer

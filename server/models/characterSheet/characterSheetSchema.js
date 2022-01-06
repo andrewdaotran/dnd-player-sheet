@@ -68,6 +68,10 @@ const characterSheetOptions = {
 	bonds: [String],
 	flaws: [String],
 	backgroundStory: [String],
+	abilityScores: {
+		default: [],
+		type: [Object],
+	},
 }
 
 export default characterSheetOptions

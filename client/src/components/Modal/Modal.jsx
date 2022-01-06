@@ -11,11 +11,17 @@ import {
 	Grid,
 } from '@mui/material'
 
-import { modalButton, modalCardActions, modalGrid, modalText } from './styles'
+import {
+	modalButton,
+	modalCardActions,
+	modalGrid,
+	modalText,
+	container,
+} from './styles'
 
 const Modal = () => {
 	return (
-		<Container>
+		<Container sx={container}>
 			<Grid container sx={modalGrid}>
 				<Card>
 					<Grid item sx={modalText}>

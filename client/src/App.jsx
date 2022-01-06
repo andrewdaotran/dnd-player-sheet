@@ -1,6 +1,7 @@
 import { CssBaseline } from '@mui/material'
 import Modal from './components/Modal/Modal'
 import Navbar from './components/Navbar/Navbar'
+import PlayerSheet from './components/PlayerSheet/PlayerSheet'
 import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
 				<Navbar />
 				<Sidebar />
 				<Modal />
+				<PlayerSheet />
 			</div>
 		</>
 	)

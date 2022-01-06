@@ -1,3 +1,7 @@
+export const container = {
+	marginBottom: '2rem',
+}
+
 export const modalCardActions = {
 	justifyContent: 'center',
 }
