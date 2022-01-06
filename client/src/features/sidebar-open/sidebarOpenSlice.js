@@ -8,11 +8,9 @@ const sidebarOpenSlice = createSlice({
 	name: 'Sidebar State',
 	reducers: {
 		open: (state) => {
-			console.log('open')
 			state.isSidebarOpen = true
 		},
 		close: (state) => {
-			console.log('close')
 			state.isSidebarOpen = false
 		},
 	},

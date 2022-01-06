@@ -1,5 +1,5 @@
 export const container = {
-	marginBottom: '2rem',
+	// marginBottom: '2rem',
 }
 
 export const modalCardActions = {

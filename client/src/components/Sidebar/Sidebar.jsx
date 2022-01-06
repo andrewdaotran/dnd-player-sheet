@@ -19,7 +19,7 @@ const Sidebar = () => {
 	const dispatch = useDispatch()
 	const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen)
 	const drawerWidth = useSelector((state) => state.sidebar.drawerWidth)
-	console.log(drawerWidth)
+
 	return (
 		<Drawer
 			variant='persistent'

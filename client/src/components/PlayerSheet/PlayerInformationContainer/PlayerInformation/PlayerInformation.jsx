@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
 	Container,
 	Paper,
@@ -5,8 +6,9 @@ import {
 	Typography,
 	Grid,
 	Card,
+	useMediaQuery,
 } from '@mui/material'
-import { useState } from 'react'
+import { useTheme } from '@mui/material/styles'
 
 import { container, gridContainer, gridItem, card } from './styles'
 const PlayerInformation = () => {
@@ -19,13 +21,23 @@ const PlayerInformation = () => {
 		'Level',
 		'Exp',
 	])
+
+	const theme = useTheme()
+	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
+
 	return (
-		<Container sx={container}>
+		<Container
+			sx={
+				mediumScreenAndDown
+					? { container, margin: '1rem auto 0 auto' }
+					: container
+			}
+		>
 			<Card sx={card}>
 				<Grid container spacing={2} sx={gridContainer}>
 					{labels.map((label) => {
 						return (
-							<Grid item xs={6} sx={gridItem} key={label}>
+							<Grid item md={6} key={label} sx={gridItem}>
 								<TextField label={label} />
 							</Grid>
 						)
