@@ -8,7 +8,7 @@ export const modalCardActions = {
 
 export const modalGrid = {
 	justifyContent: 'center',
-	alignItems: 'center',
+
 	marginTop: '7rem',
 }
 

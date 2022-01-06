@@ -43,7 +43,15 @@ const Stat = ({ url, name }) => {
 						//value depends on value of ability score, never let player edit this number
 						value={'+2'}
 						disabled
-						InputProps={{ inputProps: { style: { textAlign: 'center' } } }}
+						variant='standard'
+						InputProps={{
+							disableUnderline: true,
+							inputProps: {
+								style: {
+									textAlign: 'center',
+								},
+							},
+						}}
 					/>
 				</Paper>
 			</Container>

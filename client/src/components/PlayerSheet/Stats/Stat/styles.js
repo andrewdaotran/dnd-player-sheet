@@ -14,4 +14,6 @@ export const paperItem = {
 	left: 0,
 	right: 0,
 	top: '70%',
+	borderRadius: '30%',
+	border: '1px solid red',
 }
