@@ -3,7 +3,7 @@ export const container = {
 	// width: '500px',
 }
 
-export const gridContainer = {
+export const inputContainer = {
 	padding: '1rem',
 	justifyContent: 'center',
 }
@@ -11,6 +11,7 @@ export const card = {
 	margin: '0 auto',
 }
 
-export const gridItem = {
+export const inputItem = {
 	textAlign: 'center',
+	border: '1px solid red',
 }

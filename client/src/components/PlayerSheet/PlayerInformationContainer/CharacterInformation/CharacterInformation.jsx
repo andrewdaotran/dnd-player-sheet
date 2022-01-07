@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
 	Container,
 	Paper,
@@ -15,22 +15,33 @@ import { useTheme } from '@mui/material/styles'
 
 import {
 	container,
-	gridContainer,
-	gridItem,
+	inputContainer,
+	inputItem,
 	card,
 	radioTypography,
-	radioGroup,
 	deathSaveTypography,
 	deathSavesContainer,
 	deathSaveFailures,
 	deathSaveSuccesses,
+	hitDiceTypography,
 } from './styles'
 
 const CharacterInformation = () => {
 	//need to pull player information from backend from authorization and character sheet, put into state value
-	const [labels, setLabels] = useState(['Armor Class', 'Initiative', 'Speed'])
+	const [labels, setLabels] = useState([
+		'Armor Class',
+		'Initiative',
+		'Speed',
+		// 'hello',
+		// 'goodbye',
+		// 'bye',
+	])
 	const [radioValueSuccess, setRadioValueSuccess] = useState('')
 	const [radioValueFail, setRadioValueFail] = useState('')
+
+	const theme = useTheme()
+	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
+	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
 
 	const handleRadioSuccess = (e) => {
 		if (radioValueSuccess === e.target.value) {
@@ -48,33 +59,36 @@ const CharacterInformation = () => {
 		}
 	}
 
-	const theme = useTheme()
-	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
+	// change Armor Class to AC when screen goes small
+	useEffect(() => {
+		if (smallScreenAndDown) {
+			setLabels(['AC', 'Initiative', 'Speed'])
+		} else {
+			setLabels(['Armor Class', 'Initiative', 'Speed'])
+		}
+	}, [smallScreenAndDown])
+
 	return (
 		<Container
 			sx={
 				mediumScreenAndDown
-					? { container, margin: '0 auto 1rem auto' }
+					? { ...container, margin: '0 auto 1rem auto' }
 					: container
 			}
 		>
 			<Card sx={card}>
-				<Grid container spacing={2} sx={gridContainer}>
+				<Grid container spacing={2} sx={inputContainer}>
 					{labels.map((label) => {
 						return (
-							<Grid
-								item
-								xs={4}
-								key={label}
-								sx={(gridItem, { border: '1px solid red' })}
-							>
+							<Grid item xs={4} key={label} sx={inputItem}>
 								<TextField label={label} />
 							</Grid>
 						)
 					})}
 					<Grid item sm={6} xs={12}>
-						Hit Dice
-						{/* https://wiki.roll20.net/Character_Sheets */}
+						<Typography variant='h6' sx={hitDiceTypography}>
+							Hit Dice
+						</Typography>
 					</Grid>
 					<Grid item sm={6} xs={12} sx={deathSavesContainer}>
 						<Grid container sx={deathSaveSuccesses}>

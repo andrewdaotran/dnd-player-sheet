@@ -19,7 +19,14 @@ import {
 	container,
 } from './styles'
 
+// delete later, just disable and enable inputs for now
+import { useDispatch } from 'react-redux'
+import { toggleInputs } from '../../features/disable-inputs/disableInputsSlice'
+
 const Modal = () => {
+	// delete later, just disable and enable inputs for now
+	const dispatch = useDispatch()
+
 	return (
 		<Container sx={container}>
 			<Grid container sx={modalGrid}>
@@ -32,7 +39,10 @@ const Modal = () => {
 						</CardContent>
 					</Grid>
 					<Grid item justifyItems='center' alignItems='center'>
-						<CardActions sx={modalCardActions}>
+						<CardActions
+							sx={modalCardActions}
+							onClick={() => dispatch(toggleInputs())}
+						>
 							<Button sx={modalButton} variant='contained'>
 								Create a Character
 							</Button>

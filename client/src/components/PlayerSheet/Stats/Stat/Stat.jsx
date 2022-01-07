@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Container, Paper } from '@mui/material'
 import * as api from '../../../../api/dndApi'
 import { textField, paperItem, paperContainer } from './styles'
@@ -7,6 +7,9 @@ import { textField, paperItem, paperContainer } from './styles'
 const Stat = ({ url, name }) => {
 	const [abilityScore, setAbilityScore] = useState({})
 	const [playerScore, setPlayerScore] = useState(10)
+
+	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
+	console.log(areInputsDisabled)
 
 	// function to get data for individual ability scores from dnd api
 	const individualAbilityScore = async (url) => {
@@ -33,7 +36,7 @@ const Stat = ({ url, name }) => {
 					// type='number'
 					value={playerScore}
 					sx={textField}
-					disabled
+					disabled={areInputsDisabled}
 					InputProps={{ inputProps: { style: { textAlign: 'center' } } }}
 				/>
 			</Container>
@@ -42,7 +45,7 @@ const Stat = ({ url, name }) => {
 					<TextField
 						//value depends on value of ability score, never let player edit this number
 						value={'+2'}
-						disabled
+						disabled={areInputsDisabled}
 						variant='standard'
 						InputProps={{
 							disableUnderline: true,
