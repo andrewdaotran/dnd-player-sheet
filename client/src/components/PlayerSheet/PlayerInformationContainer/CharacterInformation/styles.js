@@ -13,29 +13,50 @@ export const card = {
 
 export const inputItem = {
 	textAlign: 'center',
-	border: '1px solid red',
 }
 
 export const radioTypography = {
 	textAlign: 'center',
 }
 
-export const deathSavesContainer = {
-	border: '1px solid red',
-}
+export const deathSavesContainer = {}
 
 export const deathSaveSuccesses = {
-	border: '1px solid green',
 	justifyContent: 'center',
+	alignItems: 'center',
+}
+
+export const deathSaveSuccessesTypography = {
+	textAlign: 'center',
 }
 
 export const deathSaveFailures = {
-	border: '1px solid yellow',
 	justifyContent: 'center',
+	alignItems: 'center',
+}
+
+export const deathSaveFailuresTypography = {
+	textAlign: 'center',
 }
 
 export const deathSaveTypography = {
 	textAlign: 'center',
 }
 
-export const hitDiceTypography = deathSaveTypography
+export const hitDiceTotalContainer = {
+	justifyContent: 'center',
+	alignItems: 'center',
+}
+
+export const hitDiceTotalTypography = {
+	textAlign: 'center',
+}
+
+export const hitDiceNumberContainer = {
+	...deathSaveSuccesses,
+	marginTop: '1rem',
+}
+
+export const hitDiceTypography = {
+	textAlign: 'center',
+}

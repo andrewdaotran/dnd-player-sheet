@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
 	Container,
 	Paper,
@@ -7,9 +8,7 @@ import {
 	Grid,
 	Card,
 	useMediaQuery,
-	RadioGroup,
 	Radio,
-	FormControlLabel,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
@@ -24,22 +23,23 @@ import {
 	deathSaveFailures,
 	deathSaveSuccesses,
 	hitDiceTypography,
+	hitDiceTotalContainer,
+	hitDiceTotalTypography,
+	hitDiceNumberContainer,
+	deathSaveFailuresTypography,
+	deathSaveSuccessesTypography,
 } from './styles'
 
 const CharacterInformation = () => {
 	//need to pull player information from backend from authorization and character sheet, put into state value
-	const [labels, setLabels] = useState([
-		'Armor Class',
-		'Initiative',
-		'Speed',
-		// 'hello',
-		// 'goodbye',
-		// 'bye',
-	])
+	const [labels, setLabels] = useState(['Armor Class', 'Initiative', 'Speed'])
 	const [radioValueSuccess, setRadioValueSuccess] = useState('')
 	const [radioValueFail, setRadioValueFail] = useState('')
 
+	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
+
 	const theme = useTheme()
+	const mediumScreenAndUp = useMediaQuery(theme.breakpoints.up('md'))
 	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
 	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -81,19 +81,59 @@ const CharacterInformation = () => {
 					{labels.map((label) => {
 						return (
 							<Grid item xs={4} key={label} sx={inputItem}>
-								<TextField label={label} />
+								<TextField
+									label={label}
+									disabled={areInputsDisabled}
+									InputProps={{
+										inputProps: { style: { textAlign: 'center' } },
+									}}
+								/>
 							</Grid>
 						)
 					})}
 					<Grid item sm={6} xs={12}>
+						<Grid container sx={hitDiceTotalContainer}>
+							<Grid item>
+								<Grid container>
+									<Grid item xs={6} sx={hitDiceTotalTypography}>
+										<Typography>Total:</Typography>
+									</Grid>
+									<Grid item xs={6}>
+										<TextField
+											variant='standard'
+											disabled={areInputsDisabled}
+											defaultValue={0}
+											type='number'
+											InputProps={{
+												inputProps: { style: { textAlign: 'center' } },
+											}}
+										/>
+									</Grid>
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid container sx={hitDiceNumberContainer}>
+							<Grid item>
+								<TextField
+									type='number'
+									disabled={areInputsDisabled}
+									defaultValue={0}
+									InputProps={{
+										inputProps: { style: { textAlign: 'center' } },
+									}}
+								/>
+							</Grid>
+						</Grid>
 						<Typography variant='h6' sx={hitDiceTypography}>
 							Hit Dice
 						</Typography>
 					</Grid>
 					<Grid item sm={6} xs={12} sx={deathSavesContainer}>
 						<Grid container sx={deathSaveSuccesses}>
-							<Grid item>
-								<Typography>Successes</Typography>
+							<Grid item md={12}>
+								<Typography sx={deathSaveSuccessesTypography}>
+									Successes
+								</Typography>
 							</Grid>
 							<Grid item>
 								<Radio
@@ -117,8 +157,10 @@ const CharacterInformation = () => {
 							</Grid>
 						</Grid>
 						<Grid container sx={deathSaveFailures}>
-							<Grid item>
-								<Typography sx={radioTypography}>Failures</Typography>
+							<Grid item md={12}>
+								<Typography sx={deathSaveFailuresTypography}>
+									Failures
+								</Typography>
 							</Grid>
 							<Grid item>
 								<Radio

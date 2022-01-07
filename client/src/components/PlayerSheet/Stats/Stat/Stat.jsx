@@ -9,7 +9,6 @@ const Stat = ({ url, name }) => {
 	const [playerScore, setPlayerScore] = useState(10)
 
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
-	console.log(areInputsDisabled)
 
 	// function to get data for individual ability scores from dnd api
 	const individualAbilityScore = async (url) => {

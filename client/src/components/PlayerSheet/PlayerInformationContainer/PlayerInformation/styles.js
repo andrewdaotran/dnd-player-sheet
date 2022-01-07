@@ -1,5 +1,6 @@
 export const container = {
 	margin: '2rem auto 2rem 0',
+	height: '100%',
 	// width: '500px',
 }
 

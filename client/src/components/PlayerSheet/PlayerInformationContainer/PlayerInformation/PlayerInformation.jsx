@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
 	Container,
 	Paper,
 	TextField,
-	Typography,
 	Grid,
 	Card,
 	useMediaQuery,
@@ -19,8 +19,10 @@ const PlayerInformation = () => {
 		'Background',
 		'Alignment',
 		'Level',
-		'Exp',
+		'Experience Points',
 	])
+
+	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const theme = useTheme()
 	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
@@ -38,7 +40,7 @@ const PlayerInformation = () => {
 					{labels.map((label) => {
 						return (
 							<Grid item md={6} sm={4} key={label} sx={inputItem}>
-								<TextField label={label} />
+								<TextField label={label} disabled={areInputsDisabled} />
 							</Grid>
 						)
 					})}
