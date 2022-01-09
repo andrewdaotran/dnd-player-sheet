@@ -40,7 +40,17 @@ const PlayerInformation = () => {
 					{labels.map((label) => {
 						return (
 							<Grid item md={6} sm={4} key={label} sx={inputItem}>
-								<TextField label={label} disabled={areInputsDisabled} />
+								<TextField
+									label={label}
+									disabled={areInputsDisabled}
+									InputProps={{
+										inputProps: {
+											style: {
+												textAlign: 'center',
+											},
+										},
+									}}
+								/>
 							</Grid>
 						)
 					})}

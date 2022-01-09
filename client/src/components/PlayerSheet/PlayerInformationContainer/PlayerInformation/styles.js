@@ -14,5 +14,4 @@ export const card = {
 
 export const inputItem = {
 	textAlign: 'center',
-	border: '1px solid red',
 }

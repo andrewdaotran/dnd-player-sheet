@@ -1,6 +1,10 @@
 import { CssBaseline } from '@mui/material'
+import CharacterPersonalityDetailsContainer from './components/CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
+
+import HitPointsContainer from './components/HitPointsContainer/HitPointsContainer'
 import Modal from './components/Modal/Modal'
 import Navbar from './components/Navbar/Navbar'
+
 import PlayerInformationContainer from './components/PlayerSheet/PlayerInformationContainer/PlayerInformationContainer'
 import PlayerSheet from './components/PlayerSheet/PlayerSheet'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -14,8 +18,10 @@ function App() {
 				<Navbar />
 				<Sidebar />
 				<Modal />
+				<HitPointsContainer />
 				<PlayerInformationContainer />
 				<PlayerSheet />
+				<CharacterPersonalityDetailsContainer />
 			</div>
 		</>
 	)

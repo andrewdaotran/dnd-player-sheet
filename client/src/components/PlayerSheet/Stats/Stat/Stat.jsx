@@ -6,7 +6,7 @@ import { textField, paperItem, paperContainer } from './styles'
 
 const Stat = ({ url, name }) => {
 	const [abilityScore, setAbilityScore] = useState({})
-	const [playerScore, setPlayerScore] = useState(10)
+	const [playerScore, setPlayerScore] = useState(12)
 
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
@@ -44,7 +44,7 @@ const Stat = ({ url, name }) => {
 					<TextField
 						//value depends on value of ability score, never let player edit this number
 						value={'+2'}
-						disabled={areInputsDisabled}
+						disabled
 						variant='standard'
 						InputProps={{
 							disableUnderline: true,
