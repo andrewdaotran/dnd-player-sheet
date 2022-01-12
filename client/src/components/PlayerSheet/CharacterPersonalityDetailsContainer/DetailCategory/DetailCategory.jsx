@@ -23,6 +23,7 @@ import {
 	detailTitleTypography,
 	detailTypography,
 	submitButton,
+	cancelButton,
 } from './styles'
 
 const DetailCategory = ({ detail }) => {
@@ -31,13 +32,16 @@ const DetailCategory = ({ detail }) => {
 
 	const handleIsEditing = () => {
 		setIsEditing(!isEditing)
-		console.log('hi')
 	}
 
 	const submitDetails = () => {
 		setIsEditing(!isEditing)
 		setDetailContent('')
-		console.log('bye')
+	}
+
+	const cancelAdding = () => {
+		setIsEditing(!isEditing)
+		setDetailContent('')
 	}
 
 	return (
@@ -72,6 +76,13 @@ const DetailCategory = ({ detail }) => {
 							sx={submitButton}
 						>
 							Submit
+						</Button>
+						<Button
+							variant='contained'
+							onClick={cancelAdding}
+							sx={cancelButton}
+						>
+							Cancel
 						</Button>
 					</>
 				) : null}

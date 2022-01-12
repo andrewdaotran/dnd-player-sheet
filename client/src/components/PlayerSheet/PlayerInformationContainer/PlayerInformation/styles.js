@@ -12,6 +12,11 @@ export const card = {
 	margin: '0 auto',
 }
 
+export const selectItem = {
+	textAlign: 'center',
+	minWidth: 120,
+}
+
 export const inputItem = {
 	textAlign: 'center',
 }

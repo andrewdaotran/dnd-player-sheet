@@ -1,3 +1,5 @@
+import { red } from '@mui/material/colors'
+
 export const detailTitleTypography = {
 	textAlign: 'center',
 }
@@ -8,7 +10,6 @@ export const detailTypography = {
 
 export const detailTextField = {
 	marginTop: '1rem',
-	flexGrow: '1',
 }
 
 export const submitButton = {
@@ -17,4 +18,10 @@ export const submitButton = {
 
 export const addButton = {
 	margin: '0 0 1rem 1rem',
+}
+
+export const cancelButton = {
+	margin: '1rem 0 0 1rem',
+	backgroundColor: red[800],
+	'&:hover': { backgroundColor: red[900] },
 }
