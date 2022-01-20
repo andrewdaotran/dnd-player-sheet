@@ -22,6 +22,9 @@ const CharacterPersonalityDetailsContainer = () => {
 		'Ideals',
 		'Bonds',
 		'Flaws',
+		'Proficiencies and Languages',
+		'Senses',
+		'Notes',
 	])
 	return (
 		<Container>

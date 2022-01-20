@@ -1,7 +1,7 @@
 import { red } from '@mui/material/colors'
 
 export const container = {
-	marginTop: '2rem',
+	marginTop: '1rem',
 }
 
 export const sectionTitles = {
@@ -11,6 +11,8 @@ export const sectionTitles = {
 export const addButton = {
 	margin: '1rem 0 0 1rem',
 }
+
+export const editButton = {}
 
 export const listContainer = {
 	marginBottom: '1rem',

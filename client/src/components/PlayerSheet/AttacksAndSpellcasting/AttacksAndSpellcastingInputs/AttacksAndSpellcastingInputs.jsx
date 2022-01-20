@@ -26,7 +26,7 @@ const AttacksAndSpellcastingInputs = ({
 
 	return (
 		<>
-			<Grid item xs={5}>
+			<Grid item xs={4.5}>
 				<TextField
 					fullWidth
 					disabled={edit ? false : areInputsDisabled}
@@ -89,7 +89,7 @@ const AttacksAndSpellcastingInputs = ({
 					value={edit ? newAttackOrSpell.attack : attackOrSpell.attack}
 				/>
 			</Grid>
-			<Grid item xs={5}>
+			<Grid item xs={4.5}>
 				<TextField
 					fullWidth
 					variant='filled'

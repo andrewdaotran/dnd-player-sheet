@@ -19,6 +19,7 @@ import { useTheme } from '@mui/material/styles'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
 
 import {
 	sectionTitles,
@@ -28,6 +29,7 @@ import {
 	cancelButton,
 	submitButtonXS,
 	listContainer,
+	editButton,
 } from './styles'
 import AttacksAndSpellcastingInputs from './AttacksAndSpellcastingInputs/AttacksAndSpellcastingInputs'
 
@@ -76,13 +78,13 @@ const AttacksAndSpellcasting = () => {
 					</AccordionSummary>
 					<AccordionDetails>
 						<Grid container spacing={2}>
-							<Grid item xs={5} sx={sectionTitles}>
+							<Grid item xs={4.5} sx={sectionTitles}>
 								<Typography variant='subtitle1'>Name</Typography>
 							</Grid>
 							<Grid item xs={2} sx={sectionTitles}>
 								<Typography variant='subtitle1'>Atk</Typography>
 							</Grid>
-							<Grid item xs={5} sx={sectionTitles}>
+							<Grid item xs={4.5} sx={sectionTitles}>
 								<Typography variant='subtitle1'>Damage/Type</Typography>
 							</Grid>
 						</Grid>
@@ -94,13 +96,20 @@ const AttacksAndSpellcasting = () => {
 							{existingAttacksOrSpells.map((attackOrSpell) => {
 								return (
 									//pass setIsEditing prop down
+									<>
+										<AttacksAndSpellcastingInputs
+											attackOrSpell={attackOrSpell}
+											edit={false}
+											existingAttacksOrSpells={existingAttacksOrSpells}
+											setExistingAttacksOrSpells={setExistingAttacksOrSpells}
+										/>
 
-									<AttacksAndSpellcastingInputs
-										attackOrSpell={attackOrSpell}
-										edit={false}
-										existingAttacksOrSpells={existingAttacksOrSpells}
-										setExistingAttacksOrSpells={setExistingAttacksOrSpells}
-									/>
+										<Grid item xs={1}>
+											<IconButton sx={editButton}>
+												<EditIcon />
+											</IconButton>
+										</Grid>
+									</>
 								)
 							})}
 						</Grid>
@@ -112,6 +121,7 @@ const AttacksAndSpellcasting = () => {
 										setNewAttackOrSpell={setNewAttackOrSpell}
 										edit={true}
 									/>
+
 									<Button
 										variant='contained'
 										onClick={submitDetails}

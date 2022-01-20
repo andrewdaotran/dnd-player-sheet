@@ -1,24 +1,30 @@
 import { CssBaseline } from '@mui/material'
 
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+
 import Modal from './components/Modal/Modal'
 import Navbar from './components/Navbar/Navbar'
+import CreateCharacter from './components/PlayerSheet/CreateCharacter/CreateCharacter'
 
 import PlayerSheet from './components/PlayerSheet/PlayerSheet'
 import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
 	// useEffect and dispatch from backend and fill all values with that information into redux
+
 	return (
-		<>
-			<CssBaseline />
-			<div className='App'>
+		<div className='App'>
+			<Router>
+				<CssBaseline />
 				<Navbar />
 				<Sidebar />
-				<Modal />
-
-				<PlayerSheet />
-			</div>
-		</>
+				<Routes>
+					<Route path='/modal' element={<Modal />} />
+					<Route path='/create/*' element={<CreateCharacter />} />
+					<Route path='/character' element={<PlayerSheet />} />
+				</Routes>
+			</Router>
+		</div>
 	)
 }
 

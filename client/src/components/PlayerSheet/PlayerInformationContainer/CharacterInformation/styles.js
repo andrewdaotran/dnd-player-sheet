@@ -1,5 +1,5 @@
 export const container = {
-	margin: '2rem 0 2rem auto',
+	// margin: '2rem 0 2rem auto',
 	// width: '500px',
 }
 
@@ -8,7 +8,8 @@ export const inputContainer = {
 	justifyContent: 'center',
 }
 export const card = {
-	margin: '0 auto',
+	// margin: '0 auto',
+	margin: '2rem 0 2rem auto',
 }
 
 export const inputItem = {

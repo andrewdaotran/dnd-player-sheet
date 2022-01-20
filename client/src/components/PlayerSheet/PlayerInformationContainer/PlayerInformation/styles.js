@@ -7,16 +7,21 @@ export const container = {
 export const inputContainer = {
 	padding: '1rem',
 	justifyContent: 'center',
+	maxWidth: '700px',
 }
 export const card = {
-	margin: '0 auto',
+	// margin: '0 auto',
+	margin: '2rem auto 0 0',
+	padding: '.85rem 0',
 }
 
 export const selectItem = {
 	textAlign: 'center',
-	minWidth: 120,
+	// width: 195,
+	display: 'flex',
 }
 
 export const inputItem = {
 	textAlign: 'center',
+	// width: 195,
 }
