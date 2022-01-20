@@ -10,6 +10,7 @@ import {
 import _TitleTypography from '../../ReusableComponents/_TitleTypography/_TitleTypography'
 import PlayerInformation from '../PlayerInformationContainer/PlayerInformation/PlayerInformation'
 import CharacterInformation from '../PlayerInformationContainer/CharacterInformation/CharacterInformation'
+import Stats from '../Stats/Stats'
 
 import { gridContainer } from './styles'
 
@@ -23,60 +24,9 @@ const CreateCharacter = () => {
 
 	const characterSheet = useSelector((state) => state.characterSheet)
 
-	const [playerInformation, setPlayerInformation] = useState({
-		class: characterSheet.class,
-		race: characterSheet.race,
-		background: characterSheet.background,
-		alignment: characterSheet.alignment,
-		level: characterSheet.level,
-		experiencePoints: characterSheet.experiencePoints,
-	})
+	// refactor so the logic is done inside the components and changes to values will be dispatched directly to redux instead
 
-	const updatePlayerInformation = (e) => {
-		setPlayerInformation({
-			...playerInformation,
-			[e.target.name]: {
-				...playerInformation[e.target.name],
-				value: e.target.value,
-			},
-		})
-	}
-
-	const [characterInformationMapped, setCharacterInformationMapped] = useState({
-		armorClass: characterSheet.armorClass,
-		initiative: characterSheet.initiative,
-		speed: characterSheet.speed,
-	})
-
-	const [characterInformationNonMapped, setCharacterInformationNonMapped] =
-		useState({
-			hitDiceTotal: characterSheet.hitDiceTotal,
-			hitDiceType: characterSheet.hitDiceType,
-			deathSaveSuccess: characterSheet.deathSaveSuccess,
-			deathSaveFail: characterSheet.deathSaveFail,
-		})
-
-	const updateCharacterInformationMapped = (name, input) => {
-		setCharacterInformationMapped({
-			...characterInformationMapped,
-			[name]: {
-				...characterInformationMapped[name],
-				value: input,
-			},
-		})
-	}
-
-	const updateCharacterInformationNonMapped = (name, input) => {
-		setCharacterInformationNonMapped({
-			...characterInformationNonMapped,
-			[name]: {
-				...characterInformationNonMapped[name],
-				value: input,
-			},
-		})
-	}
-
-	// console.log(characterSheet)
+	console.log(characterSheet)
 
 	return (
 		<Grid container sx={gridContainer}>
@@ -88,16 +38,12 @@ const CreateCharacter = () => {
 							path='/player-information'
 							element={
 								<>
-									<PlayerInformation
-										character={playerInformation}
-										changeValues={updatePlayerInformation}
-										create={true}
-									/>
+									<PlayerInformation create={true} />
 									<_BackAndNextButtons
 										next={'create/character-information'}
 										//change back button to modal
 										back={'create/player-information'}
-										submitData={() => dispatch(addData(playerInformation))}
+										submitData={() => {}}
 									/>
 								</>
 							}
@@ -106,24 +52,24 @@ const CreateCharacter = () => {
 							path='character-information'
 							element={
 								<>
-									<CharacterInformation
-										character={characterInformationMapped}
-										character2={characterInformationNonMapped}
-										changeValuesMapped={updateCharacterInformationMapped}
-										changeValuesNonMapped={updateCharacterInformationNonMapped}
-										create={true}
-									/>
+									<CharacterInformation create={true} />
 									<_BackAndNextButtons
-										next={'create/character-information'}
+										next={'create/ability-scores'}
 										back={'create/player-information'}
-										submitData={() => {
-											dispatch(
-												addData({
-													...characterInformationMapped,
-													...characterInformationNonMapped,
-												})
-											)
-										}}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+						<Route
+							path='ability-scores'
+							element={
+								<>
+									<Stats />
+									<_BackAndNextButtons
+										next={'create/ability-scores'}
+										back={'create/character-information'}
+										submitData={() => {}}
 									/>
 								</>
 							}

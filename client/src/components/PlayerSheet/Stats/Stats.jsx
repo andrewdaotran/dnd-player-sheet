@@ -1,27 +1,22 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Grid, Container, TextField, Typography, Paper } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { Grid, Container } from '@mui/material'
 
-import { getAbilityScores } from '../../../features/character-sheet/characterSheetExtraReducers'
 import Stat from './Stat/Stat'
 import { gridItem } from './styles'
 
 const Stats = () => {
-	const dispatch = useDispatch()
 	const abilityScores = useSelector(
 		(state) => state.characterSheet.abilityScores
 	)
-	useEffect(() => {
-		dispatch(getAbilityScores())
-	}, [dispatch])
+	console.log('stats', abilityScores)
 
 	return (
 		<Container>
 			<Grid container spacing={5}>
-				{abilityScores.map((score) => {
+				{Object.keys(abilityScores).map((score) => {
 					return (
-						<Grid item xs={4} md={2} key={score.name} sx={gridItem}>
-							<Stat {...score} />
+						<Grid item xs={4} md={2} key={score} sx={gridItem}>
+							<Stat {...abilityScores[score]} />
 						</Grid>
 					)
 				})}

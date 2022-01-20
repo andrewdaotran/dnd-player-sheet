@@ -3,39 +3,57 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Container, Paper } from '@mui/material'
 import * as api from '../../../../api/dndApi'
 import { textField, paperItem, paperContainer } from './styles'
+import { addData } from '../../../../features/character-sheet/characterSheetSlice'
 
-const Stat = ({ url, name }) => {
-	const [abilityScore, setAbilityScore] = useState({})
-	const [playerScore, setPlayerScore] = useState(12)
+const Stat = ({ url, name, title, value, modifier }) => {
+	// const [abilityScore, setAbilityScore] = useState({})
+	// const [playerScore, setPlayerScore] = useState(12)
 
+	const dispatch = useDispatch()
+	const characterSheet = useSelector((state) => state.characterSheet)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	// function to get data for individual ability scores from dnd api
-	const individualAbilityScore = async (url) => {
-		try {
-			const { data } = await api.getIndividualAbilityScores(url)
-			setAbilityScore(data)
-		} catch (error) {
-			console.log(error)
-		}
-	}
+	// const individualAbilityScore = async (url) => {
+	// 	try {
+	// 		const { data } = await api.getIndividualAbilityScores(url)
+	// 		setAbilityScore(data)
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 	}
+	// }
 
 	// getting data for individual ability scores from dnd api
-	useEffect(() => {
-		individualAbilityScore(url)
-	}, [])
+	// useEffect(() => {
+	// 	individualAbilityScore(url)
+	// }, [])
+
+	const handleInputValue = (e) => {
+		dispatch(
+			addData({
+				...characterSheet,
+				abilityScores: {
+					...characterSheet.abilityScores,
+					[e.target.name]: {
+						...characterSheet.abilityScores[e.target.name],
+						value: e.target.value,
+					},
+				},
+			})
+		)
+	}
 
 	return (
 		<Paper elevation={3} sx={paperContainer}>
-			{abilityScore.full_name}
+			{title}
 			<Container>
 				<TextField
 					variant='outlined'
-					// add type when editing
-					// type='number'
-					value={playerScore}
+					name={name}
+					value={value}
+					onChange={handleInputValue}
 					sx={textField}
-					disabled={areInputsDisabled}
+					// disabled={areInputsDisabled}
 					InputProps={{ inputProps: { style: { textAlign: 'center' } } }}
 				/>
 			</Container>
@@ -43,7 +61,7 @@ const Stat = ({ url, name }) => {
 				<Paper sx={paperItem}>
 					<TextField
 						//value depends on value of ability score, never let player edit this number
-						value={'+2'}
+						value={`+${modifier}`}
 						disabled
 						variant='standard'
 						InputProps={{

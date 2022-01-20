@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
 	TextField,
 	Typography,
@@ -25,13 +25,11 @@ import {
 	deathSaveSuccessesTypography,
 } from './styles'
 
-const CharacterInformation = ({
-	create,
-	character,
-	character2,
-	changeValuesMapped,
-	changeValuesNonMapped,
-}) => {
+import { addData } from '../../../../features/character-sheet/characterSheetSlice'
+
+const CharacterInformation = ({ create }) => {
+	const dispatch = useDispatch()
+	const characterSheet = useSelector((state) => state.characterSheet)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const theme = useTheme()
@@ -39,36 +37,57 @@ const CharacterInformation = ({
 	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
 	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
 
-	const handleInputValue = (e) => {
-		const val = e.target.value
-		changeValuesMapped(e.target.name, val)
+	//refactor so names are not character and character2
+	const character = {
+		armorClass: characterSheet.armorClass,
+		initiative: characterSheet.initiative,
+		speed: characterSheet.speed,
 	}
 
-	const handleDiceInput = (e) => {
-		const val = e.target.value
-		changeValuesNonMapped(e.target.name, val)
+	const character2 = {
+		hitDiceTotal: characterSheet.hitDiceTotal,
+		hitDiceType: characterSheet.hitDiceType,
+		deathSaveSuccess: characterSheet.deathSaveSuccess,
+		deathSaveFail: characterSheet.deathSaveFail,
 	}
 
-	const handleRadioSuccess = (e) => {
-		if (character2.deathSaveSuccess.value === e.target.value) {
-			changeValuesNonMapped(character2.deathSaveSuccess.name, '')
+	const handleInputs = (e) => {
+		dispatch(
+			addData({
+				...characterSheet,
+				[e.target.name]: {
+					...characterSheet[e.target.name],
+					value: e.target.value,
+				},
+			})
+		)
+	}
+	const handleRadio = (e) => {
+		let val = ''
+		if (
+			e.target.value === character2.deathSaveSuccess.value ||
+			e.target.value === character2.deathSaveFail.value
+		) {
+			val = ''
 		} else {
-			changeValuesNonMapped(character2.deathSaveSuccess.name, e.target.value)
+			val = e.target.value
 		}
-	}
-
-	const handleRadioFail = (e) => {
-		if (character2.deathSaveFail.value === e.target.value) {
-			changeValuesNonMapped(character2.deathSaveFail.name, '')
-		} else {
-			changeValuesNonMapped(character2.deathSaveFail.name, e.target.value)
-		}
+		dispatch(
+			addData({
+				...characterSheet,
+				[e.target.name]: {
+					...characterSheet[e.target.name],
+					value: val,
+				},
+			})
+		)
 	}
 
 	return (
 		<Card
 			sx={mediumScreenAndDown ? { ...card, margin: '0 auto 1rem auto' } : card}
 		>
+			{/* Armor Class, Initiative, and Speed Inputs */}
 			<Grid container spacing={2} sx={inputContainer}>
 				{Object.keys(character).map((name) => {
 					return (
@@ -76,13 +95,13 @@ const CharacterInformation = ({
 							<TextField
 								label={
 									name === 'armorClass' && smallScreenAndDown
-										? character[name].smallTitle
+										? character[name].abbrev
 										: character[name].title
 								}
 								name={name}
 								disabled={create ? false : areInputsDisabled}
 								value={character[name].value}
-								onChange={handleInputValue}
+								onChange={handleInputs}
 								InputProps={{
 									inputProps: { style: { textAlign: 'center' } },
 								}}
@@ -91,7 +110,7 @@ const CharacterInformation = ({
 					)
 				})}
 
-				{/* Hit Dice */}
+				{/* Hit Dice Total */}
 				<Grid item sm={6} xs={12}>
 					<Grid container sx={hitDiceTotalContainer}>
 						<Grid item>
@@ -105,7 +124,7 @@ const CharacterInformation = ({
 										disabled={create ? false : areInputsDisabled}
 										name={character2.hitDiceTotal.name}
 										value={character2.hitDiceTotal.value}
-										onChange={handleDiceInput}
+										onChange={handleInputs}
 										InputProps={{
 											inputProps: { style: { textAlign: 'center' } },
 										}}
@@ -114,13 +133,15 @@ const CharacterInformation = ({
 							</Grid>
 						</Grid>
 					</Grid>
+
+					{/* Hit Dice Type */}
 					<Grid container sx={hitDiceNumberContainer}>
 						<Grid item>
 							<TextField
 								disabled={create ? false : areInputsDisabled}
 								name={character2.hitDiceType.name}
 								value={character2.hitDiceType.value}
-								onChange={handleDiceInput}
+								onChange={handleInputs}
 								InputProps={{
 									inputProps: { style: { textAlign: 'center' } },
 								}}
@@ -132,24 +153,23 @@ const CharacterInformation = ({
 					</Typography>
 				</Grid>
 
-				{/* Death Saves */}
 				<Grid item sm={6} xs={12} sx={deathSavesContainer}>
+					{/* Death Saves Success */}
 					<Grid container sx={deathSaveSuccesses}>
 						<Grid item md={12}>
 							<Typography sx={deathSaveSuccessesTypography}>
 								Successes
 							</Typography>
 						</Grid>
-
 						<Grid item>
 							{['s1', 's2', 's3'].map((item) => {
 								return (
 									<Radio
 										key={item}
-										disabled={create ? true : areInputsDisabled}
+										// disabled={create ? true : areInputsDisabled}
 										size='small'
 										value={item}
-										onClick={handleRadioSuccess}
+										onClick={handleRadio}
 										name={character2.deathSaveSuccess.name}
 										checked={character2.deathSaveSuccess.value === item}
 									/>
@@ -157,6 +177,8 @@ const CharacterInformation = ({
 							})}
 						</Grid>
 					</Grid>
+
+					{/* Death Saves Fail */}
 					<Grid container sx={deathSaveFailures}>
 						<Grid item md={12}>
 							<Typography sx={deathSaveFailuresTypography}>Failures</Typography>
@@ -166,10 +188,10 @@ const CharacterInformation = ({
 								return (
 									<Radio
 										key={item}
-										disabled={create ? true : areInputsDisabled}
+										// disabled={create ? true : areInputsDisabled}
 										size='small'
 										value={item}
-										onClick={handleRadioFail}
+										onClick={handleRadio}
 										name={character2.deathSaveFail.name}
 										checked={character2.deathSaveFail.value === item}
 									/>
