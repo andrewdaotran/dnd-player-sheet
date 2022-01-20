@@ -40,10 +40,16 @@ const characterSheetOptions = {
 	// 		},
 	// 	],
 	// },
-	inventory: {
-		type: [String],
-		default: [],
-	},
+	inventory: [
+		{
+			type: { Object },
+			default: {
+				title: '',
+				items: [{}],
+				isEditing: false,
+			},
+		},
+	],
 	hitPoints: Number,
 	armorClass: Number,
 	initiative: Number,

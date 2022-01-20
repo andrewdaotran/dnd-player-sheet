@@ -9,6 +9,16 @@ export const getAllCharacterSheets = async (req, res) => {
 	}
 }
 
+export const getSingleCharacterSheet = async (req, res) => {
+	const { id } = req.params
+	try {
+		const characterSheet = await CharacterSheetModel.findById(id)
+		res.status(200).json(characterSheet)
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export const createCharacterSheet = async (req, res) => {
 	const character = req.body
 	const characterSheet = new CharacterSheetModel(character)
