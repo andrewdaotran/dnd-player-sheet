@@ -18,21 +18,24 @@ import { getSkills } from '../../../api/dndApi'
 // to be deleted
 
 import { skillsContainer, skillsTypography, paper } from './styles'
+import { useSelector } from 'react-redux'
 
-const Skills = () => {
+const Skills = ({ create }) => {
 	// to be deleted
-	const [skills, setSkills] = useState([])
+	// const [skills, setSkills] = useState([])
 
-	const gettingSkills = async () => {
-		const { data } = await getSkills()
-		setSkills(data.results)
-	}
+	// const gettingSkills = async () => {
+	// 	const { data } = await getSkills()
+	// 	setSkills(data.results)
+	// }
 
-	useState(() => {
-		gettingSkills()
-	}, [])
+	// useState(() => {
+	// 	gettingSkills()
+	// }, [])
 
-	console.log(skills)
+	const skills = useSelector((state) => state.skills.skills)
+
+	// console.log(skills)
 
 	// to be deleted
 	return (
@@ -44,8 +47,8 @@ const Skills = () => {
 							Skills
 						</Typography>
 					</Grid>
-					{skills.map((skill) => {
-						return <Skill key={skill.index} skill={skill} />
+					{Object.keys(skills).map((skill) => {
+						return <Skill create={create} key={skill} skill={skills[skill]} />
 					})}
 				</Grid>
 			</Paper>

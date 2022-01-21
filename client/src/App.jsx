@@ -19,9 +19,18 @@ function App() {
 				<Navbar />
 				<Sidebar />
 				<Routes>
-					<Route path='/modal' element={<Modal />} />
+					{/* Need to update to push to /character/:id when authorization is implemented */}
+					<Route path='/' element={<PlayerSheet />} />
+					<Route
+						path='/modal'
+						element={
+							<>
+								<Modal />
+							</>
+						}
+					/>
 					<Route path='/create/*' element={<CreateCharacter />} />
-					<Route path='/character' element={<PlayerSheet />} />
+					{/* <Route path='/character' element={<PlayerSheet />} /> */}
 				</Routes>
 			</Router>
 		</div>

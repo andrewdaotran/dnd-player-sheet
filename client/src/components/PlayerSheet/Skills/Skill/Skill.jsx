@@ -1,57 +1,65 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-	Box,
 	Typography,
 	Grid,
-	Container,
-	Paper,
-	TextField,
 	Checkbox,
 	useMediaQuery,
+	Popover,
+	Container,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import axios from 'axios'
 
-import { addCheck, removeCheck } from '../../../../features/skills/skillsSlice'
+import {
+	addCheck,
+	removeCheck,
+	injectDescription,
+} from '../../../../features/skills/skillsSlice'
 import { skillContainer } from './styles'
-const Skill = ({ skill }) => {
+const Skill = ({ skill, create }) => {
 	const dispatch = useDispatch()
+	const theme = useTheme()
 	const fourMaxChecked = useSelector((state) => state.skills.fourMaxChecked)
-	const [skillData, setSkillData] = useState({})
-	const [checked, setChecked] = useState(false)
+	const smallScreenAndUp = useMediaQuery(theme.breakpoints.up('sm'))
+	const [anchor, setAnchor] = useState(null)
 
-	const handleCheck = () => {
-		if (checked) {
-			dispatch(removeCheck())
-		} else {
-			dispatch(addCheck())
-		}
-		setChecked(!checked)
+	const getDescription = async () => {
+		const {
+			data: { desc },
+		} = await axios.get(skill.url)
+		dispatch(injectDescription({ name: skill.name, desc }))
 	}
 
-	const getSkillAbility = async () => {
-		const { data } = await axios.get(`https://www.dnd5eapi.co${skill.url}`)
-		setSkillData(data)
-	}
 	useEffect(() => {
-		getSkillAbility()
+		getDescription()
 	}, [])
 
-	const theme = useTheme()
-	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
+	const handleCheck = () => {
+		if (skill.checked) {
+			dispatch(removeCheck(skill.name))
+		} else {
+			dispatch(addCheck(skill.name))
+		}
+	}
 
-	// console.log(skillData.ability_score)
+	const handleMouseOver = (e) => {
+		setAnchor(e.currentTarget)
+	}
+
+	const handleMouseLeave = () => {
+		setAnchor(null)
+	}
 
 	return (
 		<Grid item xs={6} md={4}>
 			<Grid container spacing={2} sx={skillContainer}>
 				<Grid item xs={2}>
 					<Checkbox
-						checked={checked}
+						checked={skill.checked}
 						onChange={handleCheck}
 						disabled={
-							(fourMaxChecked === 4 && checked) || fourMaxChecked < 4
+							(fourMaxChecked === 4 && skill.checked) || fourMaxChecked < 4
 								? false
 								: true
 						}
@@ -60,16 +68,41 @@ const Skill = ({ skill }) => {
 				<Grid item xs={2}>
 					<Typography>
 						{/* added modifiers: proficiency bonus, stats, and class/race bonus */}
-						3
+						{skill.modifier}
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Typography variant={'subtitle2'}>
-						{skill.name}
-						{/* for some reason the app breaks if it starts on a small screen, please fix */}
-						{/* {`(${skillData.ability_score.name})`} */}
-						{/* {smallScreenAndDown ? null : `(${skillData.ability_score.name})`} */}
+					<Typography
+						variant={'subtitle2'}
+						onMouseEnter={handleMouseOver}
+						onMouseLeave={handleMouseLeave}
+					>
+						{skill.title}{' '}
+						{smallScreenAndUp ? ` (${skill.abilityScore.abbrev})` : null}
 					</Typography>
+					{create ? (
+						<Popover
+							sx={{
+								pointerEvents: 'none',
+							}}
+							anchorEl={anchor}
+							open={Boolean(anchor)}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'left',
+							}}
+							onClose={handleMouseLeave}
+							disableRestoreFocus
+						>
+							<Container>
+								<Typography>{skill.description}</Typography>
+							</Container>
+						</Popover>
+					) : null}
 				</Grid>
 			</Grid>
 		</Grid>

@@ -166,7 +166,7 @@ const CharacterInformation = ({ create }) => {
 								return (
 									<Radio
 										key={item}
-										// disabled={create ? true : areInputsDisabled}
+										disabled={create ? true : areInputsDisabled}
 										size='small'
 										value={item}
 										onClick={handleRadio}
@@ -188,7 +188,7 @@ const CharacterInformation = ({ create }) => {
 								return (
 									<Radio
 										key={item}
-										// disabled={create ? true : areInputsDisabled}
+										disabled={create ? true : areInputsDisabled}
 										size='small'
 										value={item}
 										onClick={handleRadio}

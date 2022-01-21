@@ -16,6 +16,7 @@ import { gridContainer } from './styles'
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import _BackAndNextButtons from '../../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
+import Skills from '../Skills/Skills'
 
 const CLASS_LABEL = 'Class'
 
@@ -35,14 +36,14 @@ const CreateCharacter = () => {
 					<_TitleTypography title={'Create Your Character'} />
 					<Routes>
 						<Route
-							path='/player-information'
+							path='player-information'
 							element={
 								<>
 									<PlayerInformation create={true} />
 									<_BackAndNextButtons
 										next={'create/character-information'}
 										//change back button to modal
-										back={'create/player-information'}
+										back={'modal'}
 										submitData={() => {}}
 									/>
 								</>
@@ -67,8 +68,21 @@ const CreateCharacter = () => {
 								<>
 									<Stats />
 									<_BackAndNextButtons
-										next={'create/ability-scores'}
+										next={'create/skills'}
 										back={'create/character-information'}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+						<Route
+							path='skills'
+							element={
+								<>
+									<Skills create={true} />
+									<_BackAndNextButtons
+										next={'create/skills'}
+										back={'create/ability-scores'}
 										submitData={() => {}}
 									/>
 								</>
