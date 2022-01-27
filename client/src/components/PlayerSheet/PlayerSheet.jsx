@@ -3,10 +3,10 @@ import { useState } from 'react'
 import Stats from './Stats/Stats'
 import HitPointsContainer from './HitPointsContainer/HitPointsContainer'
 import PlayerInformationContainer from './PlayerInformationContainer/PlayerInformationContainer'
-import AttacksAndSpellcasting from './AttacksAndSpellcasting/AttacksAndSpellcasting'
 
 import CharacterPersonalityDetailsContainer from './CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 import Skills from './Skills/Skills'
+import AttacksAndSpellcastingAccordion from './AttacksAndSpellcastingAccordion/AttacksAndSpellcastingAccordion'
 // import Inventory from './Inventory/Inventory'
 
 const PlayerSheet = () => {
@@ -17,7 +17,9 @@ const PlayerSheet = () => {
 			<PlayerInformationContainer />
 			<Stats />
 			<Skills />
-			<AttacksAndSpellcasting />
+
+			<AttacksAndSpellcastingAccordion />
+
 			{/* <Inventory /> */}
 			<CharacterPersonalityDetailsContainer />
 		</>

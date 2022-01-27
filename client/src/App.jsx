@@ -1,6 +1,7 @@
 import { CssBaseline } from '@mui/material'
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import EditButton from './components/EditButton/EditButton'
 
 import Modal from './components/Modal/Modal'
 import Navbar from './components/Navbar/Navbar'
@@ -20,7 +21,16 @@ function App() {
 				<Sidebar />
 				<Routes>
 					{/* Need to update to push to /character/:id when authorization is implemented */}
-					<Route path='/' element={<PlayerSheet />} />
+					<Route
+						path='/'
+						element={
+							<>
+								<EditButton />
+								<PlayerSheet />
+							</>
+						}
+					/>
+
 					<Route
 						path='/modal'
 						element={

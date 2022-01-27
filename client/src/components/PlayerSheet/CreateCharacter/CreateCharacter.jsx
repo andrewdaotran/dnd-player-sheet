@@ -18,6 +18,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import _BackAndNextButtons from '../../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
 import Skills from '../Skills/Skills'
 
+import AttacksAndSpellcasting from '../AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
+
 const CLASS_LABEL = 'Class'
 
 const CreateCharacter = () => {
@@ -41,9 +43,8 @@ const CreateCharacter = () => {
 								<>
 									<PlayerInformation create={true} />
 									<_BackAndNextButtons
-										next={'create/character-information'}
-										//change back button to modal
 										back={'modal'}
+										next={'create/character-information'}
 										submitData={() => {}}
 									/>
 								</>
@@ -55,8 +56,8 @@ const CreateCharacter = () => {
 								<>
 									<CharacterInformation create={true} />
 									<_BackAndNextButtons
-										next={'create/ability-scores'}
 										back={'create/player-information'}
+										next={'create/ability-scores'}
 										submitData={() => {}}
 									/>
 								</>
@@ -68,8 +69,8 @@ const CreateCharacter = () => {
 								<>
 									<Stats />
 									<_BackAndNextButtons
-										next={'create/skills'}
 										back={'create/character-information'}
+										next={'create/skills'}
 										submitData={() => {}}
 									/>
 								</>
@@ -81,8 +82,22 @@ const CreateCharacter = () => {
 								<>
 									<Skills create={true} />
 									<_BackAndNextButtons
-										next={'create/skills'}
 										back={'create/ability-scores'}
+										next={'create/attacks-and-spellcasting'}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+						<Route
+							path='attacks-and-spellcasting'
+							element={
+								<>
+									<AttacksAndSpellcasting create={true} />
+									{/* <AttacksAndSpellcasting /> */}
+									<_BackAndNextButtons
+										back={'create/skills'}
+										next={'create/attacks-and-spellcasting'}
 										submitData={() => {}}
 									/>
 								</>

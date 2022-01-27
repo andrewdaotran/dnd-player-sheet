@@ -80,7 +80,7 @@ const DetailCategory = ({ detail }) => {
 				{detail === 'Proficiencies and Languages' ? (
 					proficiencies.map((proficiency) => {
 						return (
-							<Accordion>
+							<Accordion key={proficiency}>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='subtitle1' sx={detailTitleTypography}>
 										{proficiency}

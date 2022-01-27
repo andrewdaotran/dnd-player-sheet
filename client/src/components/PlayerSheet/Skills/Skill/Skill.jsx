@@ -16,6 +16,7 @@ import {
 	removeCheck,
 	injectDescription,
 } from '../../../../features/skills/skillsSlice'
+
 import { skillContainer } from './styles'
 const Skill = ({ skill, create }) => {
 	const dispatch = useDispatch()

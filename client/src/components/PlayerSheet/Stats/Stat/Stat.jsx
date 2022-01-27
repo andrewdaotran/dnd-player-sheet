@@ -13,21 +13,6 @@ const Stat = ({ url, name, title, value, modifier }) => {
 	const characterSheet = useSelector((state) => state.characterSheet)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
-	// function to get data for individual ability scores from dnd api
-	// const individualAbilityScore = async (url) => {
-	// 	try {
-	// 		const { data } = await api.getIndividualAbilityScores(url)
-	// 		setAbilityScore(data)
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 	}
-	// }
-
-	// getting data for individual ability scores from dnd api
-	// useEffect(() => {
-	// 	individualAbilityScore(url)
-	// }, [])
-
 	const handleInputValue = (e) => {
 		dispatch(
 			addData({

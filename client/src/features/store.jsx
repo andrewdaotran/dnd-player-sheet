@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import attacksAndSpellcastingSlice from './character-sheet/attacksAndSpellcastingSlice'
 import characterSheetSlice from './character-sheet/characterSheetSlice'
 import disableInputsSlice from './disable-inputs/disableInputsSlice'
 import inventorySlice from './inventory/inventorySlice'
@@ -12,6 +13,7 @@ const store = configureStore({
 		disableInputs: disableInputsSlice,
 		skills: skillsSlice,
 		inventory: inventorySlice,
+		attacksAndSpellcasting: attacksAndSpellcastingSlice,
 	},
 })
 
