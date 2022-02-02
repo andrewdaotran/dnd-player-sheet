@@ -30,14 +30,15 @@ const AttacksAndSpellcastingInputs = ({
 		dispatch(
 			editAandS({
 				index,
-				data: { ...attackOrSpell, [e.target.name]: e.target.value },
+				name: e.target.name,
+				input: e.target.value,
 			})
 		)
 	}
 
 	return (
 		<>
-			<Grid item xs={create ? 5 : 4.5}>
+			<Grid item xs={4.5}>
 				<TextField
 					fullWidth
 					name='name'
@@ -71,7 +72,7 @@ const AttacksAndSpellcastingInputs = ({
 					onChange={newItem ? handleNewPost : handleEditPost}
 				/>
 			</Grid>
-			<Grid item xs={create ? 5 : 4.5}>
+			<Grid item xs={4.5}>
 				<TextField
 					fullWidth
 					name='damageType'

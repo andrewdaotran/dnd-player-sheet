@@ -15,12 +15,22 @@ import {
 	addCheck,
 	removeCheck,
 	injectDescription,
-} from '../../../../features/skills/skillsSlice'
+} from '../../../../features/character-sheet/skillsSlice'
 
 import { skillContainer } from './styles'
-const Skill = ({ skill, create }) => {
+const Skill = ({
+	name,
+	title,
+	checked,
+	modifier,
+	description,
+	abilityScore,
+	url,
+	create,
+}) => {
 	const dispatch = useDispatch()
 	const theme = useTheme()
+	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 	const fourMaxChecked = useSelector((state) => state.skills.fourMaxChecked)
 	const smallScreenAndUp = useMediaQuery(theme.breakpoints.up('sm'))
 	const [anchor, setAnchor] = useState(null)
@@ -28,8 +38,8 @@ const Skill = ({ skill, create }) => {
 	const getDescription = async () => {
 		const {
 			data: { desc },
-		} = await axios.get(skill.url)
-		dispatch(injectDescription({ name: skill.name, desc }))
+		} = await axios.get(url)
+		dispatch(injectDescription({ name: name, desc }))
 	}
 
 	useEffect(() => {
@@ -37,10 +47,10 @@ const Skill = ({ skill, create }) => {
 	}, [])
 
 	const handleCheck = () => {
-		if (skill.checked) {
-			dispatch(removeCheck(skill.name))
+		if (checked) {
+			dispatch(removeCheck(name))
 		} else {
-			dispatch(addCheck(skill.name))
+			dispatch(addCheck(name))
 		}
 	}
 
@@ -57,10 +67,12 @@ const Skill = ({ skill, create }) => {
 			<Grid container spacing={2} sx={skillContainer}>
 				<Grid item xs={2}>
 					<Checkbox
-						checked={skill.checked}
+						checked={checked}
 						onChange={handleCheck}
 						disabled={
-							(fourMaxChecked === 4 && skill.checked) || fourMaxChecked < 4
+							!create && areInputsDisabled
+								? true
+								: (fourMaxChecked === 4 && checked) || fourMaxChecked < 4
 								? false
 								: true
 						}
@@ -69,7 +81,7 @@ const Skill = ({ skill, create }) => {
 				<Grid item xs={2}>
 					<Typography>
 						{/* added modifiers: proficiency bonus, stats, and class/race bonus */}
-						{skill.modifier}
+						{modifier}
 					</Typography>
 				</Grid>
 				<Grid item>
@@ -78,8 +90,7 @@ const Skill = ({ skill, create }) => {
 						onMouseEnter={handleMouseOver}
 						onMouseLeave={handleMouseLeave}
 					>
-						{skill.title}{' '}
-						{smallScreenAndUp ? ` (${skill.abilityScore.abbrev})` : null}
+						{title} {smallScreenAndUp ? ` (${abilityScore.abbrev})` : null}
 					</Typography>
 					{create ? (
 						<Popover
@@ -100,7 +111,7 @@ const Skill = ({ skill, create }) => {
 							disableRestoreFocus
 						>
 							<Container>
-								<Typography>{skill.description}</Typography>
+								<Typography>{description}</Typography>
 							</Container>
 						</Popover>
 					) : null}

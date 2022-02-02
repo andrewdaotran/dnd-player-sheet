@@ -1,37 +1,35 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
 
 import { TextField, Grid, InputAdornment } from '@mui/material'
 
 import { playerHitPoints, playerHitPointsContainer } from './styles'
 
-const HitPoints = () => {
-	const [currentPlayerHitPoints, setCurrentPlayerHitpoints] = useState(100)
-	const [totalPlayerHitPoints, setTotalPlayerHitPoints] = useState(100)
+import { updateHitPoints } from '../../../../features/character-sheet/hitPointsSlice'
+
+const HitPoints = ({ create }) => {
+	const dispatch = useDispatch()
+
+	const hitPoints = useSelector((state) => state.hitPoints.hitPoints)
+	const totalHitPoints = useSelector((state) => state.hitPoints.totalHitPoints)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
-	const handleCurrentPlayerHitPoints = (e) => {
-		setCurrentPlayerHitpoints(parseInt(e.target.value))
+	const handleInput = (e) => {
+		dispatch(updateHitPoints({ name: e.target.name, input: e.target.value }))
 	}
 
-	const handleMaxHitPoints = (e) => {
-		setTotalPlayerHitPoints(e.target.value)
-	}
-
-	useEffect(() => {
-		if (!currentPlayerHitPoints) {
-			setCurrentPlayerHitpoints(0)
-		}
-	}, [currentPlayerHitPoints, totalPlayerHitPoints])
 	return (
 		<Grid item>
 			<Grid container sx={playerHitPointsContainer}>
 				<Grid item sx={playerHitPoints}>
-					{/* figure out how to not leave text field blank and default to 0 without prepending the 0 at the beginning of the value when typing a new value in  */}
 					<TextField
-						label='Hit Points'
-						value={currentPlayerHitPoints}
-						onChange={handleCurrentPlayerHitPoints}
+						label={hitPoints.title}
+						name={hitPoints.name}
+						value={
+							!hitPoints.value.value
+								? hitPoints.value.default
+								: hitPoints.value.value
+						}
+						onChange={handleInput}
 						InputProps={{
 							inputProps: {
 								style: { textAlign: 'center', width: '4ch' },
@@ -42,7 +40,8 @@ const HitPoints = () => {
 									{/* Text field for some reason is elevated, need to fix */}
 									<TextField
 										variant='standard'
-										disabled={areInputsDisabled}
+										disabled={create ? false : areInputsDisabled}
+										name={totalHitPoints.name}
 										InputProps={{
 											disableUnderline: true,
 											inputProps: {
@@ -52,8 +51,12 @@ const HitPoints = () => {
 												},
 											},
 										}}
-										value={totalPlayerHitPoints}
-										onChange={handleMaxHitPoints}
+										value={
+											!totalHitPoints.value.value
+												? totalHitPoints.value.default
+												: totalHitPoints.value.value
+										}
+										onChange={handleInput}
 									/>
 								</InputAdornment>
 							),

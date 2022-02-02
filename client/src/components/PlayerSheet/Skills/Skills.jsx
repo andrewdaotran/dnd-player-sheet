@@ -18,7 +18,7 @@ const Skills = ({ create }) => {
 						</Typography>
 					</Grid>
 					{Object.keys(skills).map((skill) => {
-						return <Skill create={create} key={skill} skill={skills[skill]} />
+						return <Skill create={create} key={skill} {...skills[skill]} />
 					})}
 				</Grid>
 			</Paper>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
 	Container,
@@ -17,15 +18,8 @@ import DetailCategory from './DetailCategory/DetailCategory'
 import { card } from './styles'
 
 const CharacterPersonalityDetailsContainer = () => {
-	const [detailCategories, setDetailCategories] = useState([
-		'Personality Traits',
-		'Ideals',
-		'Bonds',
-		'Flaws',
-		'Proficiencies and Languages',
-		'Senses',
-		'Notes',
-	])
+	const detailCategories = useSelector((state) => state.characterDetails)
+
 	return (
 		<Container>
 			<Card sx={card}>
@@ -34,8 +28,10 @@ const CharacterPersonalityDetailsContainer = () => {
 						<Typography variant='h6'>Character Details</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						{detailCategories.map((detail) => {
-							return <DetailCategory detail={detail} key={detail} />
+						{Object.keys(detailCategories).map((detail) => {
+							return (
+								<DetailCategory {...detailCategories[detail]} key={detail} />
+							)
 						})}
 					</AccordionDetails>
 				</Accordion>

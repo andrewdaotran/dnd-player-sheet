@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
+
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
 	Container,
@@ -12,11 +14,12 @@ import {
 	Typography,
 	IconButton,
 	Button,
+	useMediaQuery,
 } from '@mui/material'
 
+import { useTheme } from '@mui/material/styles'
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
 
 import {
 	addButton,
@@ -27,194 +30,126 @@ import {
 	cancelButton,
 } from './styles'
 
-const DetailCategory = ({ detail }) => {
+import {
+	createNewDetail,
+	removeDetail,
+	editDetail,
+} from '../../../../features/character-sheet/characterDetailsSlice'
+import _EditTextFieldAndButtons from '../../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
+import _AddIcon from '../../../ReusableComponents/_AddIcon/_AddIcon'
+import _EditIcon from '../../../ReusableComponents/_EditIcon/_EditIcon'
+import _CancelIcon from '../../../ReusableComponents/_CancelIcon/_CancelIcon'
+import _UserItemEntryAndButtons from '../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
+
+const DetailCategory = ({ name, value, title }) => {
+	const dispatch = useDispatch()
+	const characterDetails = useSelector((state) => state.characterDetails)
+	const detailCategory = useSelector((state) => state.characterDetails[name])
+
+	const theme = useTheme()
+	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
+
 	const [isAdding, setIsAdding] = useState(false)
-	const [isEditing, setIsEditing] = useState(false)
-	const [detailItems, setDetailItems] = useState(
-		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem at quidem qui repudiandae blanditiis impeditdelectus? Odio saepe a, obcaecati sed quam soluta quos, fuga nihil pariatur molestiae, reiciendis exercitationem.'
-	)
-	const [proficiencies, setProficiencies] = useState([
-		'Armor',
-		'Weapons',
-		'Tools',
-		'Languages',
-	])
 
-	const [detailContent, setDetailContent] = useState('')
+	// const handleEdit = (name, data, index) => {
+	// 	dispatch(editDetail({ ...characterDetails, name: { ...characterDetails[ name ], value: [ ...characterDetails[ name ].value, index = { ...characterDetails[ name ].value[ index ], text: data ]}}}))
+	// }
 
-	const handleIsEditing = (e) => {
-		setDetailItems(e.target.value)
-	}
+	// const handleIsEditing = () => {
 
-	const submitDetailItemEdit = () => {
-		setIsEditing(false)
-	}
-
-	const cancelEditing = () => {
-		setIsEditing(false)
-	}
+	// }
 
 	const handleIsAdding = () => {
 		setIsAdding(!isAdding)
-	}
-
-	const submitDetails = (e) => {
-		e.preventDefault()
-		setIsAdding(!isAdding)
-		setDetailContent('')
-	}
-
-	const cancelAdding = () => {
-		setIsAdding(!isAdding)
-		setDetailContent('')
 	}
 
 	return (
 		<Accordion>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography variant='subtitle1' sx={detailTitleTypography}>
-					{detail}
+					{title}
 				</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				{detail === 'Proficiencies and Languages' ? (
-					proficiencies.map((proficiency) => {
+				{title !== 'Proficiencies and Languages' ? (
+					<Grid container>
+						{value.map((item) => {
+							return !item.isEditing ? (
+								<_UserItemEntryAndButtons
+									key={item.id}
+									text={item.text}
+									handleIsEditing={() => {}}
+									handleDelete={() => {}}
+								/>
+							) : (
+								<_EditTextFieldAndButtons
+									key={item.id}
+									// handleIsEditing={(e) =>
+									// 	handleEdit(value.name, e.target.value, index)
+									// }
+									cancelEditing={() => {}}
+									submitItem={() => {}}
+									textFieldValue={item.text}
+								/>
+							)
+						})}
+
+						{isAdding ? (
+							<_EditTextFieldAndButtons
+								handleIsEditing={() => {}}
+								cancelEditing={() => {}}
+								submitItem={() => {}}
+								textFieldValue='temporariiieeesss'
+							/>
+						) : (
+							<_AddIcon handleIsAdding={handleIsAdding} />
+						)}
+					</Grid>
+				) : (
+					Object.keys(value).map((proficiency) => {
 						return (
 							<Accordion key={proficiency}>
 								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 									<Typography variant='subtitle1' sx={detailTitleTypography}>
-										{proficiency}
+										{value[proficiency].title}
 									</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
 									<Grid container>
-										{isEditing ? (
-											<>
-												<Grid item xs={12}>
-													<TextField
-														fullWidth
-														multiline={true}
-														rows={3}
-														value={detailItems}
-														onChange={handleIsEditing}
-													/>
-													<Button
-														variant='contained'
-														onClick={submitDetailItemEdit}
-														sx={submitButton}
-														// type='submit'
-													>
-														Submit
-													</Button>
+										{value[proficiency].value.map((item) => {
+											return !item.isEditing ? (
+												<_UserItemEntryAndButtons
+													key={item.id}
+													text={item.text}
+													handleIsEditing={() => {}}
+													handleDelete={() => {}}
+												/>
+											) : (
+												<_EditTextFieldAndButtons
+													handleIsEditing={() => {}}
+													cancelEditing={() => {}}
+													submitItem={() => {}}
+													textFieldValue={item.text}
+													key={item.id}
+												/>
+											)
+										})}
 
-													<Button
-														variant='contained'
-														onClick={cancelEditing}
-														sx={cancelButton}
-													>
-														Cancel
-													</Button>
-												</Grid>
-											</>
-										) : (
-											<>
-												<Grid item xs={11}>
-													<Typography variant='body2' sx={detailTypography}>
-														{detailItems}
-													</Typography>
-												</Grid>
-												<Grid item>
-													<Grid item xs={1}>
-														<IconButton onClick={() => setIsEditing(true)}>
-															<EditIcon />
-														</IconButton>
-													</Grid>
-												</Grid>
-											</>
-										)}
 										{isAdding ? (
-											<>
-												<TextField
-													fullWidth
-													multiline={true}
-													rows={3}
-													sx={detailTextField}
-													value={detailContent}
-													onChange={(e) => setDetailContent(e.target.value)}
-												></TextField>
-												<Button
-													variant='contained'
-													onClick={submitDetails}
-													sx={submitButton}
-													type='submit'
-												>
-													Submit
-												</Button>
-												<Button
-													variant='contained'
-													onClick={cancelAdding}
-													sx={cancelButton}
-												>
-													Cancel
-												</Button>
-											</>
+											<_EditTextFieldAndButtons
+												handleIsEditing={() => {}}
+												cancelEditing={() => {}}
+												submitItem={() => {}}
+												textFieldValue='temporary'
+											/>
 										) : (
-											<IconButton sx={addButton} onClick={handleIsAdding}>
-												<AddIcon />
-											</IconButton>
+											<_AddIcon handleIsAdding={handleIsAdding} />
 										)}
 									</Grid>
 								</AccordionDetails>
 							</Accordion>
 						)
 					})
-				) : (
-					<Grid container>
-						{isEditing ? (
-							<>
-								<Grid item xs={12}>
-									<TextField
-										fullWidth
-										multiline={true}
-										rows={3}
-										value={detailItems}
-										onChange={handleIsEditing}
-									/>
-									<Button
-										variant='contained'
-										onClick={submitDetailItemEdit}
-										sx={submitButton}
-										// type='submit'
-									>
-										Submit
-									</Button>
-
-									<Button
-										variant='contained'
-										onClick={cancelEditing}
-										sx={cancelButton}
-									>
-										Cancel
-									</Button>
-								</Grid>
-							</>
-						) : (
-							<>
-								<Grid item xs={11}>
-									<Typography variant='body2' sx={detailTypography}>
-										{detailItems}
-									</Typography>
-								</Grid>
-								<Grid item>
-									<Grid item xs={1}>
-										<IconButton onClick={() => setIsEditing(true)}>
-											<EditIcon />
-										</IconButton>
-									</Grid>
-								</Grid>
-							</>
-						)}
-					</Grid>
 				)}
 			</AccordionDetails>
 		</Accordion>

@@ -173,16 +173,18 @@ const skillsSlice = createSlice({
 	initialState,
 	reducers: {
 		addCheck: (state, action) => {
+			// dispatch name
 			if (state.fourMaxChecked < 4) {
 				state.fourMaxChecked += 1
-
 				state.skills[action.payload].checked = true
 			}
 		},
+		// dispatch name
 		removeCheck: (state, action) => {
 			state.fourMaxChecked -= 1
 			state.skills[action.payload].checked = false
 		},
+		// dispatch {name, desc}
 		injectDescription: (state, action) => {
 			state.skills[action.payload.name].description = action.payload.desc
 		},

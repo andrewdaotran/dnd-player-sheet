@@ -25,11 +25,13 @@ import {
 	deathSaveSuccessesTypography,
 } from './styles'
 
-import { addData } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateCharacterInformation } from '../../../../features/character-sheet/characterInformationSlice'
 
 const CharacterInformation = ({ create }) => {
 	const dispatch = useDispatch()
-	const characterSheet = useSelector((state) => state.characterSheet)
+	const characterInformation = useSelector(
+		(state) => state.characterInformation
+	)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const theme = useTheme()
@@ -37,50 +39,28 @@ const CharacterInformation = ({ create }) => {
 	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
 	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
 
-	//refactor so names are not character and character2
 	const character = {
-		armorClass: characterSheet.armorClass,
-		initiative: characterSheet.initiative,
-		speed: characterSheet.speed,
-	}
-
-	const character2 = {
-		hitDiceTotal: characterSheet.hitDiceTotal,
-		hitDiceType: characterSheet.hitDiceType,
-		deathSaveSuccess: characterSheet.deathSaveSuccess,
-		deathSaveFail: characterSheet.deathSaveFail,
+		armorClass: characterInformation.armorClass,
+		initiative: characterInformation.initiative,
+		speed: characterInformation.speed,
 	}
 
 	const handleInputs = (e) => {
 		dispatch(
-			addData({
-				...characterSheet,
-				[e.target.name]: {
-					...characterSheet[e.target.name],
-					value: e.target.value,
-				},
-			})
+			updateCharacterInformation({ name: e.target.name, input: e.target.value })
 		)
 	}
 	const handleRadio = (e) => {
 		let val = ''
 		if (
-			e.target.value === character2.deathSaveSuccess.value ||
-			e.target.value === character2.deathSaveFail.value
+			e.target.value === characterInformation.deathSaveSuccess.value ||
+			e.target.value === characterInformation.deathSaveFail.value
 		) {
 			val = ''
 		} else {
 			val = e.target.value
 		}
-		dispatch(
-			addData({
-				...characterSheet,
-				[e.target.name]: {
-					...characterSheet[e.target.name],
-					value: val,
-				},
-			})
-		)
+		dispatch(updateCharacterInformation({ name: e.target.name, input: val }))
 	}
 
 	return (
@@ -122,8 +102,8 @@ const CharacterInformation = ({ create }) => {
 									<TextField
 										variant='standard'
 										disabled={create ? false : areInputsDisabled}
-										name={character2.hitDiceTotal.name}
-										value={character2.hitDiceTotal.value}
+										name={characterInformation.hitDiceTotal.name}
+										value={characterInformation.hitDiceTotal.value}
 										onChange={handleInputs}
 										InputProps={{
 											inputProps: { style: { textAlign: 'center' } },
@@ -139,8 +119,8 @@ const CharacterInformation = ({ create }) => {
 						<Grid item>
 							<TextField
 								disabled={create ? false : areInputsDisabled}
-								name={character2.hitDiceType.name}
-								value={character2.hitDiceType.value}
+								name={characterInformation.hitDiceType.name}
+								value={characterInformation.hitDiceType.value}
 								onChange={handleInputs}
 								InputProps={{
 									inputProps: { style: { textAlign: 'center' } },
@@ -153,56 +133,64 @@ const CharacterInformation = ({ create }) => {
 					</Typography>
 				</Grid>
 
-				<Grid item sm={6} xs={12} sx={deathSavesContainer}>
-					{/* Death Saves Success */}
-					<Grid container sx={deathSaveSuccesses}>
-						<Grid item md={12}>
-							<Typography sx={deathSaveSuccessesTypography}>
-								Successes
-							</Typography>
+				{create ? null : (
+					<Grid item sm={6} xs={12} sx={deathSavesContainer}>
+						{/* Death Saves Success */}
+						<Grid container sx={deathSaveSuccesses}>
+							<Grid item md={12}>
+								<Typography sx={deathSaveSuccessesTypography}>
+									Successes
+								</Typography>
+							</Grid>
+							<Grid item>
+								{['s1', 's2', 's3'].map((item) => {
+									return (
+										<Radio
+											key={item}
+											// disabled={create ? true : areInputsDisabled}
+											size='small'
+											value={item}
+											onClick={handleRadio}
+											name={characterInformation.deathSaveSuccess.name}
+											checked={
+												characterInformation.deathSaveSuccess.value === item
+											}
+										/>
+									)
+								})}
+							</Grid>
 						</Grid>
-						<Grid item>
-							{['s1', 's2', 's3'].map((item) => {
-								return (
-									<Radio
-										key={item}
-										disabled={create ? true : areInputsDisabled}
-										size='small'
-										value={item}
-										onClick={handleRadio}
-										name={character2.deathSaveSuccess.name}
-										checked={character2.deathSaveSuccess.value === item}
-									/>
-								)
-							})}
-						</Grid>
-					</Grid>
 
-					{/* Death Saves Fail */}
-					<Grid container sx={deathSaveFailures}>
-						<Grid item md={12}>
-							<Typography sx={deathSaveFailuresTypography}>Failures</Typography>
+						{/* Death Saves Fail */}
+						<Grid container sx={deathSaveFailures}>
+							<Grid item md={12}>
+								<Typography sx={deathSaveFailuresTypography}>
+									Failures
+								</Typography>
+							</Grid>
+							<Grid item>
+								{['f1', 'f2', 'f3'].map((item) => {
+									return (
+										<Radio
+											key={item}
+											// disabled={create ? true : areInputsDisabled}
+											size='small'
+											value={item}
+											onClick={handleRadio}
+											name={characterInformation.deathSaveFail.name}
+											checked={
+												characterInformation.deathSaveFail.value === item
+											}
+										/>
+									)
+								})}
+							</Grid>
 						</Grid>
-						<Grid item>
-							{['f1', 'f2', 'f3'].map((item) => {
-								return (
-									<Radio
-										key={item}
-										disabled={create ? true : areInputsDisabled}
-										size='small'
-										value={item}
-										onClick={handleRadio}
-										name={character2.deathSaveFail.name}
-										checked={character2.deathSaveFail.value === item}
-									/>
-								)
-							})}
-						</Grid>
+						<Typography variant='h6' sx={deathSaveTypography}>
+							Death Saves
+						</Typography>
 					</Grid>
-					<Typography variant='h6' sx={deathSaveTypography}>
-						Death Saves
-					</Typography>
-				</Grid>
+				)}
 			</Grid>
 		</Card>
 	)

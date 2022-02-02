@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -9,6 +9,7 @@ import {
 	submitButton,
 	cancelButton,
 	addButton,
+	paper,
 } from './styles'
 
 import {
@@ -85,17 +86,17 @@ const AttacksAndSpellcasting = ({ create }) => {
 	}
 
 	return (
-		<Paper>
+		<Paper sx={paper}>
 			<Container>
 				<Grid container>
 					<Grid container spacing={2}>
-						<Grid item xs={create ? 5 : 4.5} sx={sectionTitles}>
+						<Grid item xs={4.5} sx={sectionTitles}>
 							<Typography variant='subtitle1'>Name</Typography>
 						</Grid>
 						<Grid item xs={2} sx={sectionTitles}>
 							<Typography variant='subtitle1'>Atk</Typography>
 						</Grid>
-						<Grid item xs={create ? 5 : 4.5} sx={sectionTitles}>
+						<Grid item xs={4.5} sx={sectionTitles}>
 							<Typography variant='subtitle1'>Damage/Type</Typography>
 						</Grid>
 					</Grid>
@@ -114,16 +115,15 @@ const AttacksAndSpellcasting = ({ create }) => {
 										index={index}
 										newItem={false}
 									/>
-									{create ? null : (
-										<Grid item xs={1}>
-											<IconButton
-												sx={editButton}
-												onClick={() => deleteItem(index)}
-											>
-												<CancelIcon />
-											</IconButton>
-										</Grid>
-									)}
+
+									<Grid item xs={1}>
+										<IconButton
+											sx={editButton}
+											onClick={() => deleteItem(index)}
+										>
+											<CancelIcon />
+										</IconButton>
+									</Grid>
 								</Fragment>
 							)
 						})}

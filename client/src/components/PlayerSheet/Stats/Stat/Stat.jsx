@@ -1,30 +1,17 @@
-import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Container, Paper } from '@mui/material'
 import * as api from '../../../../api/dndApi'
 import { textField, paperItem, paperContainer } from './styles'
-import { addData } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateAbilityScores } from '../../../../features/character-sheet/abilityScoresSlice'
 
-const Stat = ({ url, name, title, value, modifier }) => {
-	// const [abilityScore, setAbilityScore] = useState({})
-	// const [playerScore, setPlayerScore] = useState(12)
-
+const Stat = ({ url, name, title, value, modifier, create }) => {
 	const dispatch = useDispatch()
-	const characterSheet = useSelector((state) => state.characterSheet)
+
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const handleInputValue = (e) => {
 		dispatch(
-			addData({
-				...characterSheet,
-				abilityScores: {
-					...characterSheet.abilityScores,
-					[e.target.name]: {
-						...characterSheet.abilityScores[e.target.name],
-						value: e.target.value,
-					},
-				},
-			})
+			updateAbilityScores({ name: e.target.name, input: e.target.value })
 		)
 	}
 
@@ -35,18 +22,17 @@ const Stat = ({ url, name, title, value, modifier }) => {
 				<TextField
 					variant='outlined'
 					name={name}
-					value={value}
+					value={value ? value : 0}
 					onChange={handleInputValue}
 					sx={textField}
-					// disabled={areInputsDisabled}
+					disabled={create ? false : areInputsDisabled}
 					InputProps={{ inputProps: { style: { textAlign: 'center' } } }}
 				/>
 			</Container>
 			<Container>
 				<Paper sx={paperItem}>
 					<TextField
-						//value depends on value of ability score, never let player edit this number
-						value={`+${modifier}`}
+						value={value ? modifier : '-'}
 						disabled
 						variant='standard'
 						InputProps={{

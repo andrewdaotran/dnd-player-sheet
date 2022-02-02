@@ -2,15 +2,15 @@ import { Container, Grid, Paper } from '@mui/material'
 
 import HitPoints from './HitPoints/HitPoints'
 import TemporaryHitPoints from './TemporaryHitPoints/TemporaryHitPoints'
-import { container, paper, hitPointsContainer } from './styles'
+import { container, paper, paperCreate, hitPointsContainer } from './styles'
 
-const HitPointsContainer = () => {
+const HitPointsContainer = ({ create }) => {
 	return (
 		<Container sx={container}>
-			<Paper sx={paper}>
+			<Paper sx={create ? paperCreate : paper}>
 				<Grid container sx={hitPointsContainer} spacing={2}>
-					<HitPoints />
-					<TemporaryHitPoints />
+					<HitPoints create={create} />
+					{create ? null : <TemporaryHitPoints />}
 				</Grid>
 			</Paper>
 		</Container>

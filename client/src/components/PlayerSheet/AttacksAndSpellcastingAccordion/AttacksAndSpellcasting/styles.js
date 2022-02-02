@@ -1,5 +1,11 @@
 import { red } from '@mui/material/colors'
 
+export const paper = {
+	justifyContent: 'center',
+	textAlign: 'center',
+	alignItems: 'center',
+}
+
 export const container = {
 	marginTop: '1rem',
 }

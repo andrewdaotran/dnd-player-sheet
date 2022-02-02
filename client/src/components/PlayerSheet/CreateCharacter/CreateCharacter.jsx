@@ -19,17 +19,14 @@ import _BackAndNextButtons from '../../ReusableComponents/_BackAndNextButtons/_B
 import Skills from '../Skills/Skills'
 
 import AttacksAndSpellcasting from '../AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
+import HitPointsContainer from '../HitPointsContainer/HitPointsContainer'
 
 const CLASS_LABEL = 'Class'
 
 const CreateCharacter = () => {
-	const dispatch = useDispatch()
-
-	const characterSheet = useSelector((state) => state.characterSheet)
+	// const dispatch = useDispatch()
 
 	// refactor so the logic is done inside the components and changes to values will be dispatched directly to redux instead
-
-	console.log(characterSheet)
 
 	return (
 		<Grid container sx={gridContainer}>
@@ -41,6 +38,7 @@ const CreateCharacter = () => {
 							path='player-information'
 							element={
 								<>
+									<HitPointsContainer create={true} />
 									<PlayerInformation create={true} />
 									<_BackAndNextButtons
 										back={'modal'}
@@ -67,7 +65,7 @@ const CreateCharacter = () => {
 							path='ability-scores'
 							element={
 								<>
-									<Stats />
+									<Stats create={true} />
 									<_BackAndNextButtons
 										back={'create/character-information'}
 										next={'create/skills'}

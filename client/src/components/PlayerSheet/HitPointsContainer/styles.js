@@ -7,6 +7,11 @@ export const paper = {
 	margin: '0 auto',
 	padding: '1rem',
 }
+export const paperCreate = {
+	width: '10rem',
+	margin: '0 auto',
+	padding: '1rem',
+}
 
 export const hitPointsContainer = {
 	justifyContent: 'center',

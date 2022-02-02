@@ -3,33 +3,20 @@ import { TextField, Grid, Card, useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
 import { inputContainer, inputItem, card } from './styles'
-import { addData } from '../../../../features/character-sheet/characterSheetSlice'
+
+import { updatePlayerInformation } from '../../../../features/character-sheet/playerInformationSlice'
 const PlayerInformation = ({ create }) => {
 	const dispatch = useDispatch()
-	const characterSheet = useSelector((state) => state.characterSheet)
+
+	const playerInformation = useSelector((state) => state.playerInformation)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const theme = useTheme()
 	const mediumScreenAndDown = useMediaQuery(theme.breakpoints.down('md'))
 
-	const character = {
-		class: characterSheet.class,
-		race: characterSheet.race,
-		background: characterSheet.background,
-		alignment: characterSheet.alignment,
-		level: characterSheet.level,
-		experiencePoints: characterSheet.experiencePoints,
-	}
-
 	const handlePlayerInformation = (e) => {
 		dispatch(
-			addData({
-				...characterSheet,
-				[e.target.name]: {
-					...characterSheet[e.target.name],
-					value: e.target.value,
-				},
-			})
+			updatePlayerInformation({ name: e.target.name, input: e.target.value })
 		)
 	}
 
@@ -38,27 +25,26 @@ const PlayerInformation = ({ create }) => {
 			sx={mediumScreenAndDown ? { ...card, margin: '1rem auto 0 auto' } : card}
 		>
 			<Grid container spacing={2} sx={inputContainer}>
-				{character &&
-					Object.keys(character).map((name) => {
-						return (
-							<Grid item lg={4} md={6} sm={4} key={name} sx={inputItem}>
-								<TextField
-									disabled={create ? false : areInputsDisabled}
-									label={character[name].title}
-									name={name}
-									onChange={handlePlayerInformation}
-									value={character[name].value}
-									InputProps={{
-										inputProps: {
-											style: {
-												textAlign: 'center',
-											},
+				{Object.keys(playerInformation).map((name) => {
+					return (
+						<Grid item lg={4} md={6} sm={4} key={name} sx={inputItem}>
+							<TextField
+								disabled={create ? false : areInputsDisabled}
+								label={playerInformation[name].title}
+								name={name}
+								onChange={handlePlayerInformation}
+								value={playerInformation[name].value}
+								InputProps={{
+									inputProps: {
+										style: {
+											textAlign: 'center',
 										},
-									}}
-								/>
-							</Grid>
-						)
-					})}
+									},
+								}}
+							/>
+						</Grid>
+					)
+				})}
 			</Grid>
 		</Card>
 	)

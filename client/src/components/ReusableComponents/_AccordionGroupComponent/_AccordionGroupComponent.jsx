@@ -7,13 +7,11 @@ import {
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-// import _AccordionCategory from '../_AccordionCategory/_AccordionCategory'
-
-const _AccordionGroupComponent = ({ title, categories, setCategories }) => {
+const _AccordionGroupComponent = ({ title, variant }) => {
 	return (
 		<Accordion>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-				<Typography variant='h6'>{title}</Typography>
+				<Typography variant={variant}>{title}</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
 				{/* {categories.map((category) => {

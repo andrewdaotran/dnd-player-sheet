@@ -1,25 +1,40 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
 
-import { TextField, Grid, InputAdornment } from '@mui/material'
+import { TextField, Grid } from '@mui/material'
 
 import {
-	temporaryHitPoints,
 	temporaryHitPointsContainer,
 	temporaryHitPointsTextField,
 } from './styles'
 
+import { updateHitPoints } from '../../../../features/character-sheet/hitPointsSlice'
+
 const TemporaryHitPoints = () => {
+	const dispatch = useDispatch()
+	const temporaryHitPoints = useSelector(
+		(state) => state.hitPoints.temporaryHitPoints
+	)
+	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
+
+	const handleInput = (e) => {
+		dispatch(updateHitPoints({ name: e.target.name, input: e.target.value }))
+	}
+
 	return (
 		<Grid item>
 			<Grid container sx={temporaryHitPointsContainer}>
 				<Grid item sx={temporaryHitPoints}>
-					{/* figure out how to not leave text field blank and default to 0 without prepending the 0 at the beginning of the value when typing a new value in  */}
 					<TextField
 						sx={temporaryHitPointsTextField}
-						label='Temporary HP'
-						// value={currentTemporaryHitPoints}
-						// onChange={handleCurrentTemporaryHitPoints}
+						label={temporaryHitPoints.title}
+						name={temporaryHitPoints.name}
+						disabled={areInputsDisabled}
+						value={
+							!temporaryHitPoints.value.value
+								? temporaryHitPoints.value.default
+								: temporaryHitPoints.value.value
+						}
+						onChange={handleInput}
 						InputProps={{
 							inputProps: {
 								style: { textAlign: 'center' },
