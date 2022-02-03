@@ -1,9 +1,9 @@
 import { IconButton } from '@mui/material'
 import CancelIcon from '@mui/icons-material/Cancel'
 
-const _CancelIcon = ({ handleCancel }) => {
+const _CancelIcon = ({ handleDelete }) => {
 	return (
-		<IconButton onClick={handleCancel}>
+		<IconButton onClick={handleDelete}>
 			<CancelIcon />
 		</IconButton>
 	)
