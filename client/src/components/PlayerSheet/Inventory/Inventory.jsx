@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
 	Container,
 	Card,
@@ -18,31 +18,27 @@ import AddIcon from '@mui/icons-material/Add'
 
 import { card } from './styles'
 import InventoryCategory from './InventoryCategory/InventoryCategory'
-// import _AccordionCategory from '../../ReusableComponents/_AccordionCategory/_AccordionGroupComponent'
+import _AddIcon from '../../ReusableComponents/_AddIcon/_AddIcon'
+import _EditTextFieldAndButtons from '../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
+
+import { createInventoryCategory } from '../../../features/character-sheet/inventorySlice'
 
 const Inventory = () => {
-	const [inventoryCategories, setInventoryCategories] = useState([
-		'Armor',
-		'Misc',
-		'Money',
-		'Jewelry',
-	])
+	const dispatch = useDispatch()
+	const inventoryCategories = useSelector((state) => state.inventory)
 
-	const inventory = useSelector((state) => state.inventory)
-	console.log(inventory)
+	const [isAdding, setIsAdding] = useState(false)
+	const [inventoryName, setInventoryName] = useState('')
 
-	// const handleIsEditing = (post, id) => {
+	const handleAddingInventoryCategory = (name) => {
+		setIsAdding(!isAdding)
+		dispatch(createInventoryCategory({ name }))
+		setInventoryName('')
+	}
 
-	// }
-
-	// export const editPost = (post, id) => async (dispatch) => {
-	// 	try {
-	// 		const { data } = await api.editPost(post, id)
-	// 		dispatch({ type: actionTypes.EDIT_POST, payload: data })
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 	}
-	// }
+	const handleIsAdding = () => {
+		setIsAdding(!isAdding)
+	}
 
 	return (
 		<Container>
@@ -54,27 +50,24 @@ const Inventory = () => {
 						</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						{/* {inventoryCategories.map((category) => {
-							return <InventoryCategory category={category} key={category} />
-						})} */}
-						{inventory.map((category) => {
+						{Object.keys(inventoryCategories).map((category) => {
 							return (
-								<_AccordionCategory
-									// key={category.title}
-									// category={category}
-									// isEditing={isEditing} no longer need as each inventory item has its own
-									handleIsEditing={handleIsEditing}
-									submitEditItem={submitEditItem}
-									cancelEditing={cancelEditing}
-									isAdding={isAdding}
-									handleIsAdding={handleIsAdding}
-									submitAddItem={submitAddItem}
-									cancelAdding={cancelAdding}
-									// textFieldEdit={category.}
-									// textFieldAdd={ }
+								<InventoryCategory
+									{...inventoryCategories[category]}
+									key={category}
 								/>
 							)
 						})}
+						{isAdding ? (
+							<_EditTextFieldAndButtons
+								handleIsEditing={(e) => setInventoryName(e.target.value)}
+								// cancelEditing={cancelAdding}
+								submitItem={(e) => handleAddingInventoryCategory(inventoryName)}
+								textFieldValue={inventoryName}
+							/>
+						) : (
+							<_AddIcon handleIsAdding={handleIsAdding} />
+						)}
 					</AccordionDetails>
 				</Accordion>
 			</Card>
@@ -83,50 +76,3 @@ const Inventory = () => {
 }
 
 export default Inventory
-
-// <_AccordionCategory
-// 			key={/*category.title*/ category}
-// 			category={category}
-// 			isEditing={isEditing}
-// 			handleIsEditing={handleIsEditing}
-// 			isAdding={isAdding}
-// 			cancelEditing={cancelEditing}
-// 			submitEditItem={submitEditItem}
-// 			submitAddItem={submitAddItem}
-// 			cancelAdding={cancelAdding}
-// 			handleIsAdding={handleIsAdding}
-// 	/>
-
-// {
-// 	isAdding ? (
-// 		<form>
-// 			<Grid container>
-// 				<TextField
-// 					fullWidth
-// 					multiline={true}
-// 					rows={3}
-// 					sx={inventoryTextField}
-// 					value={inventoryContent}
-// 					onChange={(e) => setInventoryAdding(e.target.value)}
-// 				></TextField>
-
-// 				<Button
-// 					variant='contained'
-// 					onClick={submitDetails}
-// 					sx={submitButton}
-// 					// type='submit'
-// 				>
-// 					Submit
-// 				</Button>
-
-// 				<Button variant='contained' onClick={cancelAdding} sx={cancelButton}>
-// 					Cancel
-// 				</Button>
-// 			</Grid>
-// 		</form>
-// 	) : (
-// 		<IconButton sx={addButton} onClick={handleIsAdding}>
-// 			<AddIcon />
-// 		</IconButton>
-// 	)
-// }

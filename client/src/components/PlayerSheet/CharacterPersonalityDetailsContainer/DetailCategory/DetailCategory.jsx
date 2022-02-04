@@ -60,7 +60,7 @@ const DetailCategory = ({ name, value, title }) => {
 			setPostToBeAdded('')
 		} else if (!add) {
 			dispatch(updateCharacterDetail({ name, index, main: true, text }))
-			dispatch(updateIsEditingCharacterDetail({ name, index, main: false }))
+			dispatch(updateIsEditingCharacterDetail({ name, index, main: true }))
 			setPostToBeEdited('')
 		} else {
 			dispatch(createCharacterDetail({ name, main: true, text }))

@@ -8,7 +8,7 @@ import hitPointsSlice from './character-sheet/hitPointsSlice'
 import playerInformationSlice from './character-sheet/playerInformationSlice'
 import skillsSlice from './character-sheet/skillsSlice'
 import disableInputsSlice from './disable-inputs/disableInputsSlice'
-import inventorySlice from './inventory/inventorySlice'
+import inventorySlice from './character-sheet/inventorySlice'
 import sidebarOpenSlice from './sidebar-open/sidebarOpenSlice'
 
 const store = configureStore({
@@ -24,6 +24,7 @@ const store = configureStore({
 		abilityScores: abilityScoresSlice,
 		playerInformation: playerInformationSlice,
 		characterInformation: characterInformationSlice,
+		inventory: inventorySlice,
 	},
 })
 

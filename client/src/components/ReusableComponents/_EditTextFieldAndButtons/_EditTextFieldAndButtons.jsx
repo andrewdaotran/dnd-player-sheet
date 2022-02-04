@@ -2,7 +2,7 @@ import { Grid, TextField, Button } from '@mui/material'
 
 import { submitButton, cancelButton } from './styles'
 
-const _EditTextField = ({
+const _EditTextFieldAndButtons = ({
 	handleIsEditing,
 	cancelEditing,
 	submitItem,
@@ -33,4 +33,4 @@ const _EditTextField = ({
 	)
 }
 
-export default _EditTextField
+export default _EditTextFieldAndButtons

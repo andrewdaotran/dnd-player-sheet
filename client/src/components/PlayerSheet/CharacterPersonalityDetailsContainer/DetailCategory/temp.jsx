@@ -256,3 +256,205 @@ const DetailCategory = ({ name, value, title }) => {
 }
 
 export default DetailCategory
+
+
+// separate
+
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	Grid,
+	Typography,
+} from '@mui/material'
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+import { detailTitleTypography } from './styles'
+
+import {
+	createCharacterDetail,
+	updateCharacterDetail,
+	updateIsEditingCharacterDetail,
+	deleteCharacterDetail,
+} from '../../../../features/character-sheet/characterDetailsSlice'
+import _EditTextFieldAndButtons from '../../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
+import _AddIcon from '../../../ReusableComponents/_AddIcon/_AddIcon'
+import _EditIcon from '../../../ReusableComponents/_EditIcon/_EditIcon'
+import _CancelIcon from '../../../ReusableComponents/_CancelIcon/_CancelIcon'
+import _UserItemEntryAndButtons from '../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
+
+const DetailCategory = ({ name, value, title }) => {
+	const dispatch = useDispatch()
+	const [isAdding, setIsAdding] = useState(false)
+	const [postToBeEdited, setPostToBeEdited] = useState('')
+	const [postToBeAdded, setPostToBeAdded] = useState('')
+
+	const handleIsEditing = (name, index, main, text) => {
+		dispatch(updateIsEditingCharacterDetail({ name, index, main }))
+		setPostToBeEdited(text)
+	}
+
+	const handleEdit = (e) => {
+		setPostToBeEdited(e.target.value)
+	}
+
+	const handleSubmit = (name, index, main, text) => {
+		dispatch(updateCharacterDetail({ name, index, main, text }))
+		dispatch(updateIsEditingCharacterDetail({ name, index, main }))
+		setPostToBeEdited('')
+	}
+
+	const cancelEdit = (name, index, main) => {
+		setPostToBeEdited('')
+		dispatch(updateIsEditingCharacterDetail({ name, index, main }))
+	}
+
+	const handleDelete = (name, index, main) => {
+		dispatch(deleteCharacterDetail({ name, index, main }))
+	}
+
+	const handleAddEdit = (e) => {
+		setPostToBeAdded(e.target.value)
+	}
+
+	const handleAddSubmit = (name, main, text) => {
+		dispatch(createCharacterDetail({ name, main, text }))
+		setIsAdding(!isAdding)
+		setPostToBeAdded('')
+	}
+
+	const cancelAdd = () => {
+		setIsAdding(!isAdding)
+		setPostToBeAdded('')
+	}
+
+	const handleIsAdding = () => {
+		setIsAdding(!isAdding)
+	}
+
+	return (
+		<Accordion>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+				<Typography variant='subtitle1' sx={detailTitleTypography}>
+					{title}
+				</Typography>
+			</AccordionSummary>
+			<AccordionDetails>
+				{title !== 'Proficiencies and Languages' ? (
+					<Grid container>
+						{value.map((item, index) => {
+							return !item.isEditing ? (
+								<_UserItemEntryAndButtons
+									key={item.id}
+									text={item.text}
+									handleIsEditing={() =>
+										handleIsEditing(name, index, true, item.text)
+									}
+									handleDelete={() => handleDelete(name, index, true)}
+									name={name}
+								/>
+							) : (
+								<_EditTextFieldAndButtons
+									key={item.id}
+									handleIsEditing={handleEdit}
+									cancelEditing={() => cancelEdit(name, index, true)}
+									submitItem={() =>
+										handleSubmit(name, index, true, postToBeEdited)
+									}
+									textFieldValue={postToBeEdited}
+								/>
+							)
+						})}
+
+						{isAdding ? (
+							<_EditTextFieldAndButtons
+								handleIsEditing={handleAddEdit}
+								cancelEditing={cancelAdd}
+								submitItem={() => handleAddSubmit(name, true, postToBeAdded)}
+								textFieldValue={postToBeAdded}
+							/>
+						) : (
+							<_AddIcon handleIsAdding={handleIsAdding} />
+						)}
+					</Grid>
+				) : (
+					Object.keys(value).map((proficiency) => {
+						return (
+							<Accordion key={proficiency}>
+								<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+									<Typography variant='subtitle1' sx={detailTitleTypography}>
+										{value[proficiency].title}
+									</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Grid container>
+										{value[proficiency].value.map((item, index) => {
+											return !item.isEditing ? (
+												<_UserItemEntryAndButtons
+													key={item.id}
+													text={item.text}
+													handleIsEditing={() =>
+														handleIsEditing(
+															value[proficiency].name,
+															index,
+															false,
+															item.text
+														)
+													}
+													handleDelete={() =>
+														handleDelete(value[proficiency].name, index, false)
+													}
+													name={value[proficiency].name}
+												/>
+											) : (
+												<_EditTextFieldAndButtons
+													key={item.id}
+													handleIsEditing={handleEdit}
+													cancelEditing={() =>
+														cancelEdit(value[proficiency].name, index, false)
+													}
+													submitItem={() =>
+														handleSubmit(
+															value[proficiency].name,
+															index,
+															false,
+															postToBeEdited
+														)
+													}
+													textFieldValue={postToBeEdited}
+												/>
+											)
+										})}
+
+										{isAdding ? (
+											<_EditTextFieldAndButtons
+												handleIsEditing={handleAddEdit}
+												cancelEditing={cancelAdd}
+												submitItem={() =>
+													handleAddSubmit(
+														value[proficiency].name,
+														false,
+														postToBeAdded
+													)
+												}
+												textFieldValue={postToBeAdded}
+											/>
+										) : (
+											<_AddIcon handleIsAdding={handleIsAdding} />
+										)}
+									</Grid>
+								</AccordionDetails>
+							</Accordion>
+						)
+					})
+				)}
+			</AccordionDetails>
+		</Accordion>
+	)
+}
+
+export default DetailCategory

@@ -2,11 +2,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Grid } from '@mui/material'
 
-import {
-	temp,
-	addData,
-} from '../../../features/character-sheet/characterSheetSlice'
-
 import _TitleTypography from '../../ReusableComponents/_TitleTypography/_TitleTypography'
 import PlayerInformation from '../PlayerInformationContainer/PlayerInformation/PlayerInformation'
 import CharacterInformation from '../PlayerInformationContainer/CharacterInformation/CharacterInformation'

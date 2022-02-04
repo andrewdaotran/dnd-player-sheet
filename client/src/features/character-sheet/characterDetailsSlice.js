@@ -93,9 +93,23 @@ const characterDetailsSlice = createSlice({
 		// dispatch with {name, index, main: boolean}
 		updateIsEditingCharacterDetail: (state, action) => {
 			if (action.payload.main) {
+				// map through to change isEditing to false except the one stated
+				state[action.payload.name].value.forEach((item, index) => {
+					if (action.payload.index === index) return
+
+					item.isEditing = false
+				})
+
 				state[action.payload.name].value[action.payload.index].isEditing =
 					!state[action.payload.name].value[action.payload.index].isEditing
 			} else {
+				state.proficienciesAndLanguages.value[
+					action.payload.name
+				].value.forEach((item, index) => {
+					if (action.payload.index === index) return
+
+					item.isEditing = false
+				})
 				state.proficienciesAndLanguages.value[action.payload.name].value[
 					action.payload.index
 				].isEditing =

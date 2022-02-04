@@ -66,14 +66,13 @@ const ProficienciesAndLanguagesCategory = ({ details, name }) => {
 		}
 	}
 
-	const handleIsAdding = (name) => {
+	const handleIsAdding = () => {
 		setIsAdding(!isAdding)
 	}
 
 	return (
 		<>
 			{details.map((item, index) => {
-				console.log(details)
 				return !item.isEditing ? (
 					<_UserItemEntryAndButtons
 						key={item.id}
@@ -100,7 +99,7 @@ const ProficienciesAndLanguagesCategory = ({ details, name }) => {
 					textFieldValue={postToBeAdded}
 				/>
 			) : (
-				<_AddIcon handleIsAdding={() => handleIsAdding(false, name)} />
+				<_AddIcon handleIsAdding={handleIsAdding} />
 			)}
 		</>
 	)

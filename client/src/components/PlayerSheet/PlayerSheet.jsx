@@ -7,6 +7,7 @@ import PlayerInformationContainer from './PlayerInformationContainer/PlayerInfor
 import CharacterPersonalityDetailsContainer from './CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 import Skills from './Skills/Skills'
 import AttacksAndSpellcastingAccordion from './AttacksAndSpellcastingAccordion/AttacksAndSpellcastingAccordion'
+import Inventory from './Inventory/Inventory'
 // import Inventory from './Inventory/Inventory'
 
 const PlayerSheet = () => {
@@ -20,7 +21,7 @@ const PlayerSheet = () => {
 
 			<AttacksAndSpellcastingAccordion />
 
-			{/* <Inventory /> */}
+			<Inventory />
 			<CharacterPersonalityDetailsContainer />
 		</>
 	)
