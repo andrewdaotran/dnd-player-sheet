@@ -1,5 +1,5 @@
 export const inventoryTitleTypography = {
-	textAlign: 'center',
+	// textAlign: 'center',
 }
 
 export const inventoryTypography = {
@@ -8,4 +8,12 @@ export const inventoryTypography = {
 
 export const inventoryTextField = {
 	marginTop: '1rem',
+}
+
+export const inventoryCategoryEditButton = {
+	margin: '0 0 1rem 1rem',
+}
+
+export const inventoryCategoryCancelButton = {
+	margin: '0 0 1rem 1rem',
 }

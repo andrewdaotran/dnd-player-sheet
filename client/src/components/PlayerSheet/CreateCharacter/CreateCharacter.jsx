@@ -15,6 +15,8 @@ import Skills from '../Skills/Skills'
 
 import AttacksAndSpellcasting from '../AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
 import HitPointsContainer from '../HitPointsContainer/HitPointsContainer'
+import Inventory from '../Inventory/Inventory'
+import CharacterPersonalityDetailsContainer from '../CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 
 const CLASS_LABEL = 'Class'
 
@@ -90,7 +92,33 @@ const CreateCharacter = () => {
 									{/* <AttacksAndSpellcasting /> */}
 									<_BackAndNextButtons
 										back={'create/skills'}
-										next={'create/attacks-and-spellcasting'}
+										next={'create/inventory'}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+						<Route
+							path='inventory'
+							element={
+								<>
+									<Inventory create={true} />
+									<_BackAndNextButtons
+										back={'create/attacks-and-spellcasting'}
+										next={'create/character-details'}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+						<Route
+							path='character-details'
+							element={
+								<>
+									<CharacterPersonalityDetailsContainer create={true} />
+									<_BackAndNextButtons
+										back={'create/inventory'}
+										next={'create/character-details'}
 										submitData={() => {}}
 									/>
 								</>

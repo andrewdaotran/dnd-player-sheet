@@ -3,9 +3,9 @@ import AddIcon from '@mui/icons-material/Add'
 
 import { addButton } from './styles'
 
-const _AddIcon = ({ handleIsAdding }) => {
+const _AddIcon = ({ handleIsAdding, sx }) => {
 	return (
-		<IconButton sx={addButton} onClick={handleIsAdding}>
+		<IconButton sx={sx || addButton} onClick={handleIsAdding}>
 			<AddIcon />
 		</IconButton>
 	)

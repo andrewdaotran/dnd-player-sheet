@@ -1,91 +1,134 @@
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import {
 	Accordion,
-	AccordionActions,
 	AccordionDetails,
 	AccordionSummary,
 	Grid,
-	TextField,
 	Typography,
+	Button,
 } from '@mui/material'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
 import {
 	inventoryTextField,
 	inventoryTitleTypography,
 	inventoryTypography,
+	inventoryCategoryEditButton,
+	inventoryCategoryCancelButton,
 } from './styles'
-
-// import _AccordionCategory from '../../../ReusableComponents/_AccordionCategory/_AccordionCategory'
 
 import _UserItemEntryAndButtons from '../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
 import _AddIcon from '../../../ReusableComponents/_AddIcon/_AddIcon'
 import _EditIcon from '../../../ReusableComponents/_EditIcon/_EditIcon'
-import { categoryTitleTypography } from './styles'
 import _EditTextFieldAndButtons from '../../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
-import { createInventoryCategory } from '../../../../features/character-sheet/inventorySlice'
+import _CancelIcon from '../../../ReusableComponents/_CancelIcon/_CancelIcon'
 
-const InventoryCategory = ({ name, title, value }) => {
+import {
+	createInventoryCategory,
+	updateInventoryCategory,
+	updateInventoryCategoryIsEditing,
+	deleteInventoryCategory,
+	createInventoryItem,
+	updateInventoryItem,
+	deleteInventoryItem,
+	updateIsEditingInventoryItem,
+} from '../../../../features/character-sheet/inventorySlice'
+
+const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 	const dispatch = useDispatch()
 	const [isAdding, setIsAdding] = useState(false)
-
-	const [inventoryAdding, setInventoryAdding] = useState('')
-	const [itemAdding, setItemAdding] = useState('')
-
-	const handleAddingInventoryCategory = (name) => {
-		setIsAdding(!isAdding)
-		dispatch(createInventoryCategory({ name }))
-	}
+	const [inventoryCategory, setInventoryCategory] = useState('')
+	const [inventoryItem, setInventoryItem] = useState('')
 
 	const handleIsAdding = () => {
 		setIsAdding(!isAdding)
 	}
 
-	const submitEditItem = () => {
-		// setIsEditing(false)
-	}
-
-	const cancelEditing = () => {
-		// setIsEditing(false)
-	}
-
-	const submitAddItem = () => {
-		// e.preventDefault()
-		// console.log('hello?')
-		setIsAdding(!isAdding)
-		setInventoryAdding('')
-	}
-
 	const cancelAdding = () => {
 		setIsAdding(!isAdding)
-		setInventoryAdding('')
+		setInventoryItem('')
 	}
+
+	// category
+
+	const editInventoryCategory = () => {
+		dispatch(updateInventoryCategoryIsEditing({ name }))
+		setInventoryCategory(title)
+	}
+
+	const submitInventoryCategory = () => {
+		const newName = inventoryCategory.toLowerCase()
+		dispatch(updateInventoryCategory({ name, newName }))
+		dispatch(updateInventoryCategoryIsEditing({ name: newName }))
+		setInventoryCategory('')
+	}
+
+	const cancelInventoryCategoryEditing = () => {
+		dispatch(updateInventoryCategoryIsEditing({ name }))
+		setInventoryCategory('')
+	}
+
+	// item
+
+	const editItem = (text, index) => {
+		// dispatch(updateInventoryItem({ name, index, text: inventoryItem }))
+		dispatch(updateIsEditingInventoryItem({ name, index }))
+		setInventoryItem(text)
+	}
+
+	const submitItem = (add, index) => {
+		if (add) {
+			dispatch(createInventoryItem({ name, text: inventoryItem }))
+			setIsAdding(!isAdding)
+			setInventoryItem('')
+		} else {
+			dispatch(updateInventoryItem({ name, index, text: inventoryItem }))
+			dispatch(updateIsEditingInventoryItem({ name, index }))
+			setInventoryItem('')
+		}
+	}
+
+	const cancelEditingItem = (index) => {
+		dispatch(updateIsEditingInventoryItem({ name, index }))
+		setInventoryItem('')
+	}
+
+	const deleteItem = (name, index) => {
+		dispatch(deleteInventoryItem({ name, index }))
+	}
+
 	return (
 		<Accordion>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-				<Typography variant='subtitle1' sx={inventoryTitleTypography}>
-					{title}
-				</Typography>
+				<Grid container>
+					<Grid item xs={11}>
+						<Typography variant='subtitle1' sx={inventoryTitleTypography}>
+							{title}
+						</Typography>
+					</Grid>
+					<Grid item xs={1} sx={inventoryCategoryCancelButton}></Grid>
+				</Grid>
 			</AccordionSummary>
 			<AccordionDetails>
 				<Grid container spacing={2}>
 					{value.map((item, index) => {
-						console.log(item)
 						return !item.isEditing ? (
 							<_UserItemEntryAndButtons
 								key={item.id}
 								text={item.text}
-								handleIsEditing={() => {}}
-								handleDelete={() => {}}
+								handleIsEditing={() => editItem(item.text, index)}
+								handleDelete={() => deleteItem(name, index)}
 							/>
 						) : (
 							<_EditTextFieldAndButtons
-								handleIsEditing={() => {}}
-								cancelEditing={() => {}}
-								submitItem={() => {}}
-								textFieldValue={''}
+								handleIsEditing={(e) => setInventoryItem(e.target.value)}
+								cancelEditing={() => cancelEditingItem(index)}
+								submitItem={() => submitItem(false, index)}
+								textFieldValue={inventoryItem}
+								key={item.id}
 							/>
 						)
 					})}
@@ -93,13 +136,40 @@ const InventoryCategory = ({ name, title, value }) => {
 
 				{isAdding ? (
 					<_EditTextFieldAndButtons
-						handleIsEditing={(e) => setInventoryAdding(e.target.value)}
+						handleIsEditing={(e) => setInventoryItem(e.target.value)}
 						cancelEditing={cancelAdding}
-						submitItem={(e) => handleAddingInventoryCategory(e.target.value)}
-						textFieldValue={inventoryAdding}
+						submitItem={() => submitItem(true)}
+						textFieldValue={inventoryItem}
+					/>
+				) : isEditing ? (
+					<_EditTextFieldAndButtons
+						handleIsEditing={(e) => setInventoryCategory(e.target.value)}
+						cancelEditing={cancelInventoryCategoryEditing}
+						submitItem={submitInventoryCategory}
+						textFieldValue={inventoryCategory}
 					/>
 				) : (
-					<_AddIcon handleIsAdding={handleIsAdding} />
+					<>
+						<_AddIcon handleIsAdding={handleIsAdding} />
+						{custom ? (
+							<>
+								<Button
+									variant='contained'
+									onClick={editInventoryCategory}
+									sx={inventoryCategoryEditButton}
+								>
+									Edit
+								</Button>
+								<Button
+									sx={inventoryCategoryCancelButton}
+									variant='contained'
+									onClick={() => dispatch(deleteInventoryCategory({ name }))}
+								>
+									Remove
+								</Button>
+							</>
+						) : null}
+					</>
 				)}
 			</AccordionDetails>
 		</Accordion>
