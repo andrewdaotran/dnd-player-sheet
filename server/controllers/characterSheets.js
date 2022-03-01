@@ -71,3 +71,35 @@ export const updateCharacterSheet = async (req, res) => {
 		console.log(error)
 	}
 }
+
+export const updateDeathSaves = async (req, res) => {
+	const { id } = req.params
+	const { deathSaves } = req.body
+
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+	try {
+		const oldCharacterSheet = await CharacterSheetModel.findById(id)
+		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
+			id,
+			{
+				// ...oldCharacterSheet,
+				// characterInformation: {
+				// 	...oldCharacterSheet.characterInformation,
+				// 	deathSaveSuccess: deathSaves.deathSaveSuccess,
+				// 	deathSaveFail: deathSaves.deathSaveFail,
+				// },
+				characterInformation: {
+					...oldCharacterSheet.characterInformation,
+					deathSaveSuccess: deathSaves.deathSaveSuccess,
+					deathSaveFail: deathSaves.deathSaveFail,
+				},
+			},
+			{ new: true }
+		)
+
+		res.status(201).json({ success: true, data: updatedCharacterSheet })
+	} catch (err) {
+		console.log(err)
+	}
+}

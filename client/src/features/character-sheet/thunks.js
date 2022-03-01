@@ -43,3 +43,17 @@ export const updateCharacterSheet = createAsyncThunk(
 		return data.data
 	}
 )
+
+export const updateDeathSaves = createAsyncThunk(
+	'Update Death Saves/updateDeathSaves',
+	async (id, { getState }) => {
+		const state = getState()
+		const { data } = await api.updateDeathSaves(id, {
+			deathSaveSuccess:
+				state.characterSheet.characterInformation.deathSaveSuccess,
+			deathSaveFail: state.characterSheet.characterInformation.deathSaveFail,
+		})
+		console.log(data)
+		return data.data
+	}
+)

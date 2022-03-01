@@ -15,3 +15,6 @@ export const getAllCharacterSheets = () => API.get(characterSheets)
 
 export const updateCharacterSheet = (id, characterSheet) =>
 	API.patch(`${characterSheets}/${id}`, characterSheet)
+
+export const updateDeathSaves = (id, deathSaves) =>
+	API.patch(`${characterSheets}/${id}/deathSave`, { deathSaves })

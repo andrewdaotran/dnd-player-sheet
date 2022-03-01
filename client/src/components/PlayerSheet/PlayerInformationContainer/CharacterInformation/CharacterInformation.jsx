@@ -26,6 +26,7 @@ import {
 } from './styles'
 
 import { updateCharacterInformation } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateDeathSaves } from '../../../../features/character-sheet/thunks'
 
 const CharacterInformation = ({ create }) => {
 	const dispatch = useDispatch()
@@ -63,6 +64,7 @@ const CharacterInformation = ({ create }) => {
 			val = e.target.value
 		}
 		dispatch(updateCharacterInformation({ name: e.target.name, input: val }))
+		dispatch(updateDeathSaves(id))
 	}
 
 	return (

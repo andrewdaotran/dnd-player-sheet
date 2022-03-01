@@ -2,6 +2,7 @@ import {
 	createCharacterSheet,
 	getSingleCharacterSheet,
 	updateCharacterSheet,
+	updateDeathSaves,
 } from './thunks'
 
 const updateRedux = (state, action) => {
@@ -31,6 +32,9 @@ const extraReducers = {
 	},
 	[getSingleCharacterSheet.pending]: (state) => {},
 	[updateCharacterSheet.fulfilled]: (state, action) => {
+		updateRedux(state, action)
+	},
+	[updateDeathSaves.fulfilled]: (state, action) => {
 		updateRedux(state, action)
 	},
 }
