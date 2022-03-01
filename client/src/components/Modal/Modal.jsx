@@ -37,7 +37,7 @@ const Modal = () => {
 					<Grid item justifyItems='center' alignItems='center'>
 						<CardActions
 							sx={modalCardActions}
-							onClick={() => navigate('/create/player-information')}
+							onClick={() => navigate('/create/character-name')}
 						>
 							<Button sx={modalButton} variant='contained'>
 								Create a Character

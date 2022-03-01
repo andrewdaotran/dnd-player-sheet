@@ -25,12 +25,12 @@ import {
 	deathSaveSuccessesTypography,
 } from './styles'
 
-import { updateCharacterInformation } from '../../../../features/character-sheet/characterInformationSlice'
+import { updateCharacterInformation } from '../../../../features/character-sheet/characterSheetSlice'
 
 const CharacterInformation = ({ create }) => {
 	const dispatch = useDispatch()
 	const characterInformation = useSelector(
-		(state) => state.characterInformation
+		(state) => state.characterSheet.characterInformation
 	)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 

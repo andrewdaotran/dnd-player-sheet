@@ -12,10 +12,9 @@ import { useTheme } from '@mui/material/styles'
 import axios from 'axios'
 
 import {
-	addCheck,
-	removeCheck,
+	updateCheck,
 	injectDescription,
-} from '../../../../features/character-sheet/skillsSlice'
+} from '../../../../features/character-sheet/characterSheetSlice'
 
 import { skillContainer } from './styles'
 const Skill = ({
@@ -31,7 +30,9 @@ const Skill = ({
 	const dispatch = useDispatch()
 	const theme = useTheme()
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
-	const fourMaxChecked = useSelector((state) => state.skills.fourMaxChecked)
+	const fourMaxChecked = useSelector(
+		(state) => state.characterSheet.skills.fourMaxChecked
+	)
 	const smallScreenAndUp = useMediaQuery(theme.breakpoints.up('sm'))
 	const [anchor, setAnchor] = useState(null)
 
@@ -47,11 +48,8 @@ const Skill = ({
 	}, [])
 
 	const handleCheck = () => {
-		if (checked) {
-			dispatch(removeCheck(name))
-		} else {
-			dispatch(addCheck(name))
-		}
+		dispatch(updateCheck(name))
+		console.log(name)
 	}
 
 	const handleMouseOver = (e) => {

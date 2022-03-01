@@ -15,7 +15,7 @@ app.use('/characterSheets', characterSheetsRoutes)
 const CONNECTION_URL =
 	'mongodb+srv://ndru:humanrogue@cluster0.cbokp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
-const PORT = process.env.PORT || 6000
+const PORT = process.env.PORT || 4000
 
 mongoose
 	.connect(CONNECTION_URL, {

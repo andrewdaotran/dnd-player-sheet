@@ -16,7 +16,9 @@ import { card } from './styles'
 import DetailCategory from './DetailCategory/DetailCategory'
 
 const CharacterPersonalityDetailsContainer = ({ create }) => {
-	const detailCategories = useSelector((state) => state.characterDetails)
+	const detailCategories = useSelector(
+		(state) => state.characterSheet.characterDetails
+	)
 
 	return (
 		<Container>

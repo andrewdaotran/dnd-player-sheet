@@ -7,12 +7,12 @@ import {
 	temporaryHitPointsTextField,
 } from './styles'
 
-import { updateHitPoints } from '../../../../features/character-sheet/hitPointsSlice'
+import { updateHitPoints } from '../../../../features/character-sheet/characterSheetSlice'
 
 const TemporaryHitPoints = () => {
 	const dispatch = useDispatch()
 	const temporaryHitPoints = useSelector(
-		(state) => state.hitPoints.temporaryHitPoints
+		(state) => state.characterSheet.hitPoints.temporaryHitPoints
 	)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 

@@ -4,11 +4,13 @@ import { useTheme } from '@mui/material/styles'
 
 import { inputContainer, inputItem, card } from './styles'
 
-import { updatePlayerInformation } from '../../../../features/character-sheet/playerInformationSlice'
+import { updatePlayerInformation } from '../../../../features/character-sheet/characterSheetSlice'
 const PlayerInformation = ({ create }) => {
 	const dispatch = useDispatch()
 
-	const playerInformation = useSelector((state) => state.playerInformation)
+	const playerInformation = useSelector(
+		(state) => state.characterSheet.playerInformation
+	)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const theme = useTheme()

@@ -21,8 +21,9 @@ function App() {
 				<Sidebar />
 				<Routes>
 					{/* Need to update to push to /character/:id when authorization is implemented */}
+					{/* <Route path='/characterSheets' element={<PlayerSheet />} /> */}
 					<Route
-						path='/'
+						path='/characterSheets/:id'
 						element={
 							<>
 								<EditButton />
@@ -40,6 +41,7 @@ function App() {
 						}
 					/>
 					<Route path='/create/*' element={<CreateCharacter />} />
+
 					{/* <Route path='/character' element={<PlayerSheet />} /> */}
 				</Routes>
 			</Router>

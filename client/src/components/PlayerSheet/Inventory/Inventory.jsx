@@ -17,11 +17,13 @@ import InventoryCategory from './InventoryCategory/InventoryCategory'
 import _AddIcon from '../../ReusableComponents/_AddIcon/_AddIcon'
 import _EditTextFieldAndButtons from '../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
 
-import { createInventoryCategory } from '../../../features/character-sheet/inventorySlice'
+import { createInventoryCategory } from '../../../features/character-sheet/characterSheetSlice'
 
 const Inventory = ({ create }) => {
 	const dispatch = useDispatch()
-	const inventoryCategories = useSelector((state) => state.inventory)
+	const inventoryCategories = useSelector(
+		(state) => state.characterSheet.inventory
+	)
 	const [isAdding, setIsAdding] = useState(false)
 	const [inventoryName, setInventoryName] = useState('')
 

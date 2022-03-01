@@ -31,12 +31,12 @@ import AttacksAndSpellcastingInputs from '../AttacksAndSpellcastingInputs/Attack
 import {
 	createNewAandS,
 	removeAandS,
-} from '../../../../features/character-sheet/attacksAndSpellcastingSlice'
+} from '../../../../features/character-sheet/characterSheetSlice'
 
 const AttacksAndSpellcasting = ({ create }) => {
 	const dispatch = useDispatch()
 	const attacksAndSpellcasting = useSelector(
-		(state) => state.attacksAndSpellcasting
+		(state) => state.characterSheet.attacksAndSpellcasting
 	)
 	const [isAdding, setIsAdding] = useState(false)
 	const [newAttackOrSpell, setNewAttackOrSpell] = useState({

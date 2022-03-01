@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Grid } from '@mui/material'
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Link,
+	useNavigate,
+} from 'react-router-dom'
 
 import _TitleTypography from '../../ReusableComponents/_TitleTypography/_TitleTypography'
 import PlayerInformation from '../PlayerInformationContainer/PlayerInformation/PlayerInformation'
@@ -9,7 +16,6 @@ import Stats from '../Stats/Stats'
 
 import { gridContainer } from './styles'
 
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import _BackAndNextButtons from '../../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
 import Skills from '../Skills/Skills'
 
@@ -18,12 +24,24 @@ import HitPointsContainer from '../HitPointsContainer/HitPointsContainer'
 import Inventory from '../Inventory/Inventory'
 import CharacterPersonalityDetailsContainer from '../CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 
+import { createCharacterSheet } from '../../../features/character-sheet/thunks'
+import CharacterName from '../../CharacterName/CharacterName'
+
 const CLASS_LABEL = 'Class'
 
 const CreateCharacter = () => {
-	// const dispatch = useDispatch()
+	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
-	// refactor so the logic is done inside the components and changes to values will be dispatched directly to redux instead
+	const characterSheet = useSelector((state) => state.characterSheet)
+
+	const handleCreateCharacter = () => {
+		dispatch(createCharacterSheet({ characterSheet, navigate }))
+	}
+
+	// useEffect(() => {
+	// 	navigate(`character/${characterSheet._id}`)
+	// }, [dispatch, characterSheet])
 
 	return (
 		<Grid container sx={gridContainer}>
@@ -32,13 +50,27 @@ const CreateCharacter = () => {
 					<_TitleTypography title={'Create Your Character'} />
 					<Routes>
 						<Route
+							path='character-name'
+							element={
+								<>
+									<CharacterName create={true} />
+									<_BackAndNextButtons
+										back={'modal'}
+										next={'create/player-information'}
+										submitData={() => {}}
+									/>
+								</>
+							}
+						/>
+
+						<Route
 							path='player-information'
 							element={
 								<>
 									<HitPointsContainer create={true} />
 									<PlayerInformation create={true} />
 									<_BackAndNextButtons
-										back={'modal'}
+										back={'create/character-name'}
 										next={'create/character-information'}
 										submitData={() => {}}
 									/>
@@ -118,8 +150,10 @@ const CreateCharacter = () => {
 									<CharacterPersonalityDetailsContainer create={true} />
 									<_BackAndNextButtons
 										back={'create/inventory'}
-										next={'create/character-details'}
-										submitData={() => {}}
+										// next={'create/character-details'}
+										// next={'characterSheets'}
+										submit={true}
+										submitData={handleCreateCharacter}
 									/>
 								</>
 							}

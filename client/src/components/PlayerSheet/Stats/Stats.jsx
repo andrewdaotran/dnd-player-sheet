@@ -3,9 +3,17 @@ import { Grid, Container } from '@mui/material'
 
 import Stat from './Stat/Stat'
 import { gridItem } from './styles'
+import { useEffect } from 'react'
 
 const Stats = ({ create }) => {
-	const abilityScores = useSelector((state) => state.abilityScores)
+	const abilityScores = useSelector(
+		(state) => state.characterSheet.abilityScores
+	)
+	// console.log('andrew', abilityScores)
+
+	// useEffect(() => {
+	// 	console.log(abilityScores)
+	// }, [abilityScores])
 
 	return (
 		<Container>

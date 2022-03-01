@@ -5,7 +5,7 @@ import { TextField, Grid } from '@mui/material'
 import {
 	createNewAandS,
 	editAandS,
-} from '../../../../features/character-sheet/attacksAndSpellcastingSlice'
+} from '../../../../features/character-sheet/characterSheetSlice'
 
 const AttacksAndSpellcastingInputs = ({
 	newAttackOrSpell,

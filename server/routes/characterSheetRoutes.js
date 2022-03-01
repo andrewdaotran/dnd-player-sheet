@@ -9,8 +9,8 @@ import {
 const router = express.Router()
 
 router.get('/', getAllCharacterSheets)
-router.get('/:id', getSingleCharacterSheet)
 router.post('/', createCharacterSheet)
+router.get('/:id', getSingleCharacterSheet)
 router.delete('/:id', deleteCharacterSheet)
 
 export default router

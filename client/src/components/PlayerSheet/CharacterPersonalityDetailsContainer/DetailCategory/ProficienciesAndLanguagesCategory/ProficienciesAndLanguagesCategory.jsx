@@ -9,7 +9,7 @@ import {
 	updateCharacterDetail,
 	updateIsEditingCharacterDetail,
 	deleteCharacterDetail,
-} from '../../../../../features/character-sheet/characterDetailsSlice'
+} from '../../../../../features/character-sheet/characterSheetSlice'
 
 import React from 'react'
 

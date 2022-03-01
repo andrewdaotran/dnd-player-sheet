@@ -18,7 +18,8 @@ import {
 	updateCharacterDetail,
 	updateIsEditingCharacterDetail,
 	deleteCharacterDetail,
-} from '../../../../features/character-sheet/characterDetailsSlice'
+} from '../../../../features/character-sheet/characterSheetSlice'
+
 import ProficienciesAndLanguagesCategory from './ProficienciesAndLanguagesCategory/ProficienciesAndLanguagesCategory'
 import _EditTextFieldAndButtons from '../../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
 import _AddIcon from '../../../ReusableComponents/_AddIcon/_AddIcon'

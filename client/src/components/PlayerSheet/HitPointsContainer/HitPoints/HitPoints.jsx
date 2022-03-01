@@ -4,13 +4,17 @@ import { TextField, Grid, InputAdornment } from '@mui/material'
 
 import { playerHitPoints, playerHitPointsContainer } from './styles'
 
-import { updateHitPoints } from '../../../../features/character-sheet/hitPointsSlice'
+import { updateHitPoints } from '../../../../features/character-sheet/characterSheetSlice'
 
 const HitPoints = ({ create }) => {
 	const dispatch = useDispatch()
 
-	const hitPoints = useSelector((state) => state.hitPoints.hitPoints)
-	const totalHitPoints = useSelector((state) => state.hitPoints.totalHitPoints)
+	const hitPoints = useSelector(
+		(state) => state.characterSheet.hitPoints.hitPoints
+	)
+	const totalHitPoints = useSelector(
+		(state) => state.characterSheet.hitPoints.totalHitPoints
+	)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const handleInput = (e) => {

@@ -1,30 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-import { getAbilityScores } from './characterSheetExtraReducers'
-
-const initialState = {
-	inventory: [],
-	characterName: '',
-	weapons: [],
-	spells: [],
-	ideals: [],
-	personalityTraits: [],
-	bonds: [],
-	flaws: [],
-	backgroundStory: [],
-}
+import { initialState } from './utils'
+import reducers from './reducers'
+import extraReducers from './extraReducers'
 
 const characterSheetSlice = createSlice({
 	initialState,
 	name: 'Character Sheet',
-	reducers: {},
-	extraReducers: {
-		[getAbilityScores.fulfilled]: (state, action) => {
-			state.abilityScores = action.payload
-		},
-	},
+	reducers,
+	extraReducers,
 })
 
-// export const { } = characterSheetSlice.actions
+export const {
+	updateAbilityScores,
+	createNewAandS,
+	editAandS,
+	removeAandS,
+	createCharacterDetail,
+	updateCharacterDetail,
+	updateIsEditingCharacterDetail,
+	deleteCharacterDetail,
+	updateCharacterInformation,
+	updateCharacterName,
+	updateHitPoints,
+	createInventoryCategory,
+	updateInventoryCategory,
+	updateInventoryCategoryIsEditing,
+	deleteInventoryCategory,
+	createInventoryItem,
+	updateInventoryItem,
+	deleteInventoryItem,
+	updateIsEditingInventoryItem,
+	updatePlayerInformation,
+	updateCheck,
+	injectDescription,
+	// updateCharacterSheet
+} = characterSheetSlice.actions
 
 export default characterSheetSlice.reducer

@@ -6,7 +6,7 @@ import { skillsContainer, skillsTypography, paper } from './styles'
 import { useSelector } from 'react-redux'
 
 const Skills = ({ create }) => {
-	const skills = useSelector((state) => state.skills.skills)
+	const skills = useSelector((state) => state.characterSheet.skills.skills)
 
 	return (
 		<Container sx={skillsContainer}>

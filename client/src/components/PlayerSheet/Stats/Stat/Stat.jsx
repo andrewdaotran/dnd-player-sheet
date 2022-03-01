@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Container, Paper } from '@mui/material'
 import * as api from '../../../../api/dndApi'
 import { textField, paperItem, paperContainer } from './styles'
-import { updateAbilityScores } from '../../../../features/character-sheet/abilityScoresSlice'
+import { updateAbilityScores } from '../../../../features/character-sheet/characterSheetSlice'
 
 const Stat = ({ url, name, title, value, modifier, create }) => {
 	const dispatch = useDispatch()

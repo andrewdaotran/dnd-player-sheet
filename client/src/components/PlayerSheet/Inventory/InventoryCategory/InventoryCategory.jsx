@@ -35,7 +35,7 @@ import {
 	updateInventoryItem,
 	deleteInventoryItem,
 	updateIsEditingInventoryItem,
-} from '../../../../features/character-sheet/inventorySlice'
+} from '../../../../features/character-sheet/characterSheetSlice'
 
 const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 	const dispatch = useDispatch()
