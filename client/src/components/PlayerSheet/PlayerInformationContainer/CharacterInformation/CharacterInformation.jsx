@@ -29,6 +29,8 @@ import { updateCharacterInformation } from '../../../../features/character-sheet
 
 const CharacterInformation = ({ create }) => {
 	const dispatch = useDispatch()
+	const characterSheet = useSelector((state) => state.characterSheet)
+	const id = useSelector((state) => state.characterSheet.id)
 	const characterInformation = useSelector(
 		(state) => state.characterSheet.characterInformation
 	)

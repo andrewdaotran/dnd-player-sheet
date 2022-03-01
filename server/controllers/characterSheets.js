@@ -42,10 +42,31 @@ export const createCharacterSheet = async (req, res) => {
 export const deleteCharacterSheet = async (req, res) => {
 	const { id } = req.params
 
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+
 	try {
 		await CharacterSheetModel.findByIdAndRemove(id)
 
 		res.json('Character Sheet has been deleted')
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+export const updateCharacterSheet = async (req, res) => {
+	const { id } = req.params
+	const characterSheet = req.body
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+	try {
+		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
+			id,
+			{ ...characterSheet },
+			{ new: true }
+		)
+		// const characterSheet = await CharacterSheetModel.findById(id)
+		res.status(201).json({ success: true, data: updatedCharacterSheet })
 	} catch (error) {
 		console.log(error)
 	}

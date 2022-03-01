@@ -32,3 +32,14 @@ export const getSingleCharacterSheet = createAsyncThunk(
 		return data.data
 	}
 )
+
+export const updateCharacterSheet = createAsyncThunk(
+	'Update Character Sheet/updateCharacterSheet',
+	async ({ id, characterSheet }) => {
+		const { data } = await api.updateCharacterSheet(id, characterSheet)
+
+		console.log(data)
+
+		return data.data
+	}
+)

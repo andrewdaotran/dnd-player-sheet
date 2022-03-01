@@ -12,3 +12,6 @@ export const getSingleCharacterSheet = (id) =>
 	API.get(`${characterSheets}/${id}`)
 
 export const getAllCharacterSheets = () => API.get(characterSheets)
+
+export const updateCharacterSheet = (id, characterSheet) =>
+	API.patch(`${characterSheets}/${id}`, characterSheet)
