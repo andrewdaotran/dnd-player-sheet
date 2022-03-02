@@ -5,9 +5,11 @@ import { TextField, Grid, InputAdornment } from '@mui/material'
 import { playerHitPoints, playerHitPointsContainer } from './styles'
 
 import { updateHitPoints } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateHitPointsThunk } from '../../../../features/character-sheet/thunks'
 
 const HitPoints = ({ create }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 
 	const hitPoints = useSelector(
 		(state) => state.characterSheet.hitPoints.hitPoints
@@ -19,6 +21,7 @@ const HitPoints = ({ create }) => {
 
 	const handleInput = (e) => {
 		dispatch(updateHitPoints({ name: e.target.name, input: e.target.value }))
+		if (!create) dispatch(updateHitPointsThunk(id))
 	}
 
 	return (

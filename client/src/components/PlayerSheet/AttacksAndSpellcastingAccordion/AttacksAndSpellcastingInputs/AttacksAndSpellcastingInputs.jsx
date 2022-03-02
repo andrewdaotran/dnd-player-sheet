@@ -36,7 +36,7 @@ const AttacksAndSpellcastingInputs = ({
 				input: e.target.value,
 			})
 		)
-		dispatch(updateAttacksAndSpellcasting(id))
+		if (!create) dispatch(updateAttacksAndSpellcasting(id))
 	}
 
 	return (

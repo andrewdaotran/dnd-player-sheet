@@ -71,6 +71,32 @@ export const updateCharacterSheet = async (req, res) => {
 	}
 }
 
+export const updateHitPoints = async (req, res) => {
+	const { id } = req.params
+	const { hitPoints } = req.body
+
+	console.log(hitPoints)
+
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+	try {
+		const oldCharacterSheet = await CharacterSheetModel.findById(id)
+		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
+			id,
+			{
+				hitPoints: {
+					...oldCharacterSheet.hitPoints,
+					hitPoints,
+				},
+			},
+			{ new: true }
+		)
+		res.status(201).json({ success: true, data: updatedCharacterSheet })
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export const updateDeathSaves = async (req, res) => {
 	const { id } = req.params
 	const { deathSaveFail, deathSaveSuccess } = req.body
@@ -144,8 +170,6 @@ export const updateInventory = async (req, res) => {
 export const updateCharacterDetails = async (req, res) => {
 	const { id } = req.params
 	const { characterDetails } = req.body
-
-	console.log(characterDetails)
 
 	if (!mongoose.Types.ObjectId.isValid(id))
 		res.status(400).send('no post with that id')

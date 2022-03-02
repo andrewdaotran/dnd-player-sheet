@@ -60,7 +60,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 		) {
 			setIsAdding(!isAdding)
 			dispatch(createNewAandS({ ...newAttackOrSpell, attack: '-' }))
-			dispatch(updateAttacksAndSpellcasting(id))
+			if (!create) dispatch(updateAttacksAndSpellcasting(id))
 			setNewAttackOrSpell({
 				name: '',
 				attack: '',
@@ -69,7 +69,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 		} else if (newAttackOrSpell.name && newAttackOrSpell.damageType !== '') {
 			setIsAdding(!isAdding)
 			dispatch(createNewAandS(newAttackOrSpell))
-			dispatch(updateAttacksAndSpellcasting(id))
+			if (!create) dispatch(updateAttacksAndSpellcasting(id))
 			setNewAttackOrSpell({
 				name: '',
 				attack: '',
@@ -87,7 +87,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 	}
 	const deleteItem = (index) => {
 		dispatch(removeAandS(index))
-		dispatch(updateAttacksAndSpellcasting(id))
+		if (!create) dispatch(updateAttacksAndSpellcasting(id))
 	}
 
 	return (

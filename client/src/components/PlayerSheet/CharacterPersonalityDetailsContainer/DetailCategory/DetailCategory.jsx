@@ -28,7 +28,7 @@ import _CancelIcon from '../../../ReusableComponents/_CancelIcon/_CancelIcon'
 import _UserItemEntryAndButtons from '../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
 import { updateCharacterDetails } from '../../../../features/character-sheet/thunks'
 
-const DetailCategory = ({ name, value, title }) => {
+const DetailCategory = ({ name, value, title, create }) => {
 	const dispatch = useDispatch()
 	const id = useSelector((state) => state.characterSheet.id)
 	const [isAdding, setIsAdding] = useState(false)
@@ -58,18 +58,18 @@ const DetailCategory = ({ name, value, title }) => {
 			setPostToBeEdited('')
 			dispatch(updateIsEditingCharacterDetail({ name, index, main: true }))
 			dispatch(deleteCharacterDetail({ name, index, main: true }))
-			dispatch(updateCharacterDetails(id))
+			if (!create) dispatch(updateCharacterDetails(id))
 		} else if (add && !text) {
 			setIsAdding(!isAdding)
 			setPostToBeAdded('')
 		} else if (!add) {
 			dispatch(updateCharacterDetail({ name, index, main: true, text }))
 			dispatch(updateIsEditingCharacterDetail({ name, index, main: true }))
-			dispatch(updateCharacterDetails(id))
+			if (!create) dispatch(updateCharacterDetails(id))
 			setPostToBeEdited('')
 		} else {
 			dispatch(createCharacterDetail({ name, main: true, text }))
-			dispatch(updateCharacterDetails(id))
+			if (!create) dispatch(updateCharacterDetails(id))
 			setIsAdding(!isAdding)
 			setPostToBeAdded('')
 		}
@@ -89,7 +89,7 @@ const DetailCategory = ({ name, value, title }) => {
 	// main is a boolean passed in, if !proficienciesAndLanguages, main = true else false
 	const handleDelete = (name, index, main) => {
 		dispatch(deleteCharacterDetail({ name, index, main }))
-		dispatch(updateCharacterDetails(id))
+		if (!create) dispatch(updateCharacterDetails(id))
 	}
 
 	// main is a boolean passed in, if !proficienciesAndLanguages, main = true else false
@@ -157,6 +157,7 @@ const DetailCategory = ({ name, value, title }) => {
 										<ProficienciesAndLanguagesCategory
 											details={value[proficiency].value}
 											name={value[proficiency].name}
+											create={create}
 										/>
 									</Grid>
 								</AccordionDetails>

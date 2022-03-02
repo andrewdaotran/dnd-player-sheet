@@ -46,6 +46,22 @@ export const updateCharacterSheet = createAsyncThunk(
 	}
 )
 
+export const updateHitPointsThunk = createAsyncThunk(
+	'Update Main Hit Points/updateMainHitPointsThunk',
+	async (id, { getState }) => {
+		const state = getState()
+
+		try {
+			const { data } = await api.updateHitPoints(id, {
+				hitPoints: state.characterSheet.hitPoints.hitPoints,
+			})
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+)
+
 export const updateDeathSaves = createAsyncThunk(
 	'Update Death Saves/updateDeathSaves',
 	async (id, { getState }) => {

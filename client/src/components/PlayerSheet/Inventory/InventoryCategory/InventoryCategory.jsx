@@ -38,7 +38,14 @@ import {
 } from '../../../../features/character-sheet/characterSheetSlice'
 import { updateInventory } from '../../../../features/character-sheet/thunks'
 
-const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
+const InventoryCategory = ({
+	name,
+	title,
+	value,
+	custom,
+	isEditing,
+	create,
+}) => {
 	const dispatch = useDispatch()
 	const id = useSelector((state) => state.characterSheet.id)
 	const [isAdding, setIsAdding] = useState(false)
@@ -92,13 +99,13 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 	const submitItem = (add, index) => {
 		if (add) {
 			dispatch(createInventoryItem({ name, text: inventoryItem }))
-			dispatch(updateInventory(id))
+			if (!create) dispatch(updateInventory(id))
 			setIsAdding(!isAdding)
 			setInventoryItem('')
 		} else {
 			dispatch(updateInventoryItem({ name, index, text: inventoryItem }))
 			dispatch(updateIsEditingInventoryItem({ name, index }))
-			dispatch(updateInventory(id))
+			if (!create) dispatch(updateInventory(id))
 			setInventoryItem('')
 		}
 	}
@@ -110,7 +117,7 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 
 	const deleteItem = (name, index) => {
 		dispatch(deleteInventoryItem({ name, index }))
-		dispatch(updateInventory(id))
+		if (!create) dispatch(updateInventory(id))
 	}
 
 	return (

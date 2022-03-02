@@ -30,7 +30,11 @@ const CharacterPersonalityDetailsContainer = ({ create }) => {
 					<AccordionDetails>
 						{Object.keys(detailCategories).map((detail) => {
 							return (
-								<DetailCategory {...detailCategories[detail]} key={detail} />
+								<DetailCategory
+									{...detailCategories[detail]}
+									key={detail}
+									create={create}
+								/>
 							)
 						})}
 					</AccordionDetails>

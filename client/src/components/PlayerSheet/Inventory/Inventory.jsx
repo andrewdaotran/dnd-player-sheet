@@ -33,7 +33,7 @@ const Inventory = ({ create }) => {
 		setIsAdding(!isAdding)
 		dispatch(createInventoryCategory({ name }))
 
-		dispatch(updateInventory(id))
+		if (!create) dispatch(updateInventory(id))
 		setInventoryName('')
 	}
 
@@ -58,6 +58,7 @@ const Inventory = ({ create }) => {
 								<InventoryCategory
 									{...inventoryCategories[category]}
 									key={category}
+									create={create}
 								/>
 							)
 						})}
