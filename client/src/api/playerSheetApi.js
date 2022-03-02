@@ -27,3 +27,6 @@ export const updateAttacksAndSpellcasting = (id, attacksAndSpellcasting) =>
 
 export const updateInventory = (id, inventory) =>
 	API.patch(`${characterSheets}/${id}/inventory`, inventory)
+
+export const updateCharacterDetails = (id, characterDetails) =>
+	API.patch(`${characterSheets}/${id}/characterDetails`, characterDetails)

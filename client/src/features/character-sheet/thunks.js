@@ -95,3 +95,21 @@ export const updateInventory = createAsyncThunk(
 		}
 	}
 )
+
+export const updateCharacterDetails = createAsyncThunk(
+	'Update Character Details/updateCharacterDetails',
+	async (id, { getState }) => {
+		const state = getState()
+		console.log(state.characterSheet.characterDetails)
+
+		try {
+			const { data } = await api.updateCharacterDetails(id, {
+				characterDetails: state.characterSheet.characterDetails,
+			})
+			console.log(data)
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+)

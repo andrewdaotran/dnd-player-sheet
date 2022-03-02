@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import _UserItemEntryAndButtons from '../../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
 import _EditTextFieldAndButtons from '../../../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
@@ -12,9 +12,11 @@ import {
 } from '../../../../../features/character-sheet/characterSheetSlice'
 
 import React from 'react'
+import { updateCharacterDetails } from '../../../../../features/character-sheet/thunks'
 
 const ProficienciesAndLanguagesCategory = ({ details, name }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 	const [isAdding, setIsAdding] = useState(false)
 	const [postToBeEdited, setPostToBeEdited] = useState('')
 	const [postToBeAdded, setPostToBeAdded] = useState('')
@@ -35,6 +37,7 @@ const ProficienciesAndLanguagesCategory = ({ details, name }) => {
 
 	const handleDelete = (name, index) => {
 		dispatch(deleteCharacterDetail({ name, index, main: false }))
+		dispatch(updateCharacterDetails(id))
 	}
 
 	const cancelEditOrAdd = (add, name, index) => {
@@ -52,15 +55,18 @@ const ProficienciesAndLanguagesCategory = ({ details, name }) => {
 			setPostToBeEdited('')
 			dispatch(updateIsEditingCharacterDetail({ name, index, main: false }))
 			dispatch(deleteCharacterDetail({ name, index, main: false }))
+			dispatch(updateCharacterDetails(id))
 		} else if (add && !text) {
 			setIsAdding(!isAdding)
 			setPostToBeAdded('')
 		} else if (!add) {
 			dispatch(updateCharacterDetail({ name, index, main: false, text }))
 			dispatch(updateIsEditingCharacterDetail({ name, index, main: false }))
+			dispatch(updateCharacterDetails(id))
 			setPostToBeEdited('')
 		} else {
 			dispatch(createCharacterDetail({ name, main: false, text }))
+			dispatch(updateCharacterDetails(id))
 			setIsAdding(!isAdding)
 			setPostToBeAdded('')
 		}

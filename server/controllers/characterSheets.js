@@ -140,3 +140,27 @@ export const updateInventory = async (req, res) => {
 		console.log(err)
 	}
 }
+
+export const updateCharacterDetails = async (req, res) => {
+	const { id } = req.params
+	const { characterDetails } = req.body
+
+	console.log(characterDetails)
+
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+
+	try {
+		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
+			id,
+			{
+				characterDetails,
+			},
+			{ new: true }
+		)
+
+		res.status(201).json({ success: true, data: updatedCharacterSheet })
+	} catch (err) {
+		console.log(err)
+	}
+}
