@@ -118,3 +118,25 @@ export const updateAttacksAndSpellcasting = async (req, res) => {
 		console.log(err)
 	}
 }
+
+export const updateInventory = async (req, res) => {
+	const { id } = req.params
+	const { inventory } = req.body
+
+	if (!mongoose.Types.ObjectId.isValid(id))
+		res.status(400).send('no post with that id')
+
+	try {
+		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
+			id,
+			{
+				inventory,
+			},
+			{ new: true }
+		)
+
+		res.status(201).json({ success: true, data: updatedCharacterSheet })
+	} catch (err) {
+		console.log(err)
+	}
+}

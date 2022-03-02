@@ -16,7 +16,6 @@ const PlayerSheet = () => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
 	const navigate = useNavigate()
-	const characterSheet = useSelector((state) => state.characterSheet)
 	const isLoading = useSelector((state) => state.isLoading.isLoading)
 
 	useEffect(() => {

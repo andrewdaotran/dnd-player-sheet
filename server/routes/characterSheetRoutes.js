@@ -7,6 +7,7 @@ import {
 	updateCharacterSheet,
 	updateDeathSaves,
 	updateAttacksAndSpellcasting,
+	updateInventory,
 } from '../controllers/characterSheets.js'
 
 const router = express.Router()
@@ -17,6 +18,7 @@ router.get('/:id', getSingleCharacterSheet)
 router.patch('/:id', updateCharacterSheet)
 router.patch('/:id/deathSave', updateDeathSaves)
 router.patch('/:id/attacksAndSpellcasting', updateAttacksAndSpellcasting)
+router.patch('/:id/inventory', updateInventory)
 router.delete('/:id', deleteCharacterSheet)
 
 export default router

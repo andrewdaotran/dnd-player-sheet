@@ -3,6 +3,7 @@ import {
 	getSingleCharacterSheet,
 	updateCharacterSheet,
 	updateDeathSaves,
+	updateAttacksAndSpellcasting,
 } from './thunks'
 
 const updateRedux = (state, action) => {
@@ -31,10 +32,15 @@ const extraReducers = {
 		state.id = action.payload._id
 	},
 	[getSingleCharacterSheet.pending]: (state) => {},
+
+	// the reducers already update redux, probably don't need these
 	[updateCharacterSheet.fulfilled]: (state, action) => {
 		updateRedux(state, action)
 	},
 	[updateDeathSaves.fulfilled]: (state, action) => {
+		updateRedux(state, action)
+	},
+	[updateAttacksAndSpellcasting.fulfilled]: (state, action) => {
 		updateRedux(state, action)
 	},
 }

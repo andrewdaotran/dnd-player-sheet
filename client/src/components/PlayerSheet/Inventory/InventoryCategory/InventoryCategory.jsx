@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
 	Accordion,
@@ -36,9 +36,11 @@ import {
 	deleteInventoryItem,
 	updateIsEditingInventoryItem,
 } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateInventory } from '../../../../features/character-sheet/thunks'
 
 const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 	const [isAdding, setIsAdding] = useState(false)
 	const [inventoryCategory, setInventoryCategory] = useState('')
 	const [inventoryItem, setInventoryItem] = useState('')
@@ -56,6 +58,7 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 
 	const editInventoryCategory = () => {
 		dispatch(updateInventoryCategoryIsEditing({ name }))
+		dispatch(updateInventory(id))
 		setInventoryCategory(title)
 	}
 
@@ -63,6 +66,7 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 		const newName = inventoryCategory.toLowerCase()
 		dispatch(updateInventoryCategory({ name, newName }))
 		dispatch(updateInventoryCategoryIsEditing({ name: newName }))
+		dispatch(updateInventory(id))
 		setInventoryCategory('')
 	}
 
@@ -71,22 +75,30 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 		setInventoryCategory('')
 	}
 
+	const removeInventoryCategory = () => {
+		dispatch(deleteInventoryCategory({ name }))
+		dispatch(updateInventory(id))
+	}
+
 	// item
 
 	const editItem = (text, index) => {
 		// dispatch(updateInventoryItem({ name, index, text: inventoryItem }))
 		dispatch(updateIsEditingInventoryItem({ name, index }))
+		// dispatch(updateInventory(id))
 		setInventoryItem(text)
 	}
 
 	const submitItem = (add, index) => {
 		if (add) {
 			dispatch(createInventoryItem({ name, text: inventoryItem }))
+			dispatch(updateInventory(id))
 			setIsAdding(!isAdding)
 			setInventoryItem('')
 		} else {
 			dispatch(updateInventoryItem({ name, index, text: inventoryItem }))
 			dispatch(updateIsEditingInventoryItem({ name, index }))
+			dispatch(updateInventory(id))
 			setInventoryItem('')
 		}
 	}
@@ -98,6 +110,7 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 
 	const deleteItem = (name, index) => {
 		dispatch(deleteInventoryItem({ name, index }))
+		dispatch(updateInventory(id))
 	}
 
 	return (
@@ -163,7 +176,7 @@ const InventoryCategory = ({ name, title, value, custom, isEditing }) => {
 								<Button
 									sx={inventoryCategoryCancelButton}
 									variant='contained'
-									onClick={() => dispatch(deleteInventoryCategory({ name }))}
+									onClick={removeInventoryCategory}
 								>
 									Remove
 								</Button>

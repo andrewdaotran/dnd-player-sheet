@@ -68,13 +68,27 @@ export const updateAttacksAndSpellcasting = createAsyncThunk(
 	'Update Attacks and Spellcasting/updateAttacksAndSpellcasting',
 	async (id, { getState }) => {
 		const state = getState()
-		console.log(state.characterSheet.attacksAndSpellcasting)
 		try {
 			const { data } = await api.updateAttacksAndSpellcasting(id, {
 				attacksAndSpellcasting: state.characterSheet.attacksAndSpellcasting,
 			})
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+)
+
+export const updateInventory = createAsyncThunk(
+	'Update Inventory/updateInventory',
+	async (id, { getState }) => {
+		const state = getState()
+		console.log(state.characterSheet.inventory)
+		try {
+			const { data } = await api.updateInventory(id, {
+				inventory: state.characterSheet.inventory,
+			})
 			console.log(data)
-			console.log('hi')
 			return data.data
 		} catch (err) {
 			console.log(err)

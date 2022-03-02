@@ -18,9 +18,11 @@ import _AddIcon from '../../ReusableComponents/_AddIcon/_AddIcon'
 import _EditTextFieldAndButtons from '../../ReusableComponents/_EditTextFieldAndButtons/_EditTextFieldAndButtons'
 
 import { createInventoryCategory } from '../../../features/character-sheet/characterSheetSlice'
+import { updateInventory } from '../../../features/character-sheet/thunks'
 
 const Inventory = ({ create }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 	const inventoryCategories = useSelector(
 		(state) => state.characterSheet.inventory
 	)
@@ -30,6 +32,8 @@ const Inventory = ({ create }) => {
 	const handleAddingInventoryCategory = (name) => {
 		setIsAdding(!isAdding)
 		dispatch(createInventoryCategory({ name }))
+
+		dispatch(updateInventory(id))
 		setInventoryName('')
 	}
 
