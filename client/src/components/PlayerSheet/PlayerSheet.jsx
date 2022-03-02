@@ -23,13 +23,6 @@ const PlayerSheet = () => {
 		dispatch(getSingleCharacterSheet({ id, navigate }))
 	}, [dispatch])
 
-	// useEffect(() => {
-	// 	console.log('character Sheet boi', characterSheet)
-	// }, [characterSheet])
-
-	useEffect(() => {
-		console.log('whats up', isLoading)
-	}, [isLoading])
 	return isLoading ? (
 		<Loading />
 	) : (

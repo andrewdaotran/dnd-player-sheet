@@ -32,9 +32,11 @@ import {
 	createNewAandS,
 	removeAandS,
 } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateAttacksAndSpellcasting } from '../../../../features/character-sheet/thunks'
 
 const AttacksAndSpellcasting = ({ create }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 	const attacksAndSpellcasting = useSelector(
 		(state) => state.characterSheet.attacksAndSpellcasting
 	)
@@ -58,6 +60,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 		) {
 			setIsAdding(!isAdding)
 			dispatch(createNewAandS({ ...newAttackOrSpell, attack: '-' }))
+			dispatch(updateAttacksAndSpellcasting(id))
 			setNewAttackOrSpell({
 				name: '',
 				attack: '',
@@ -66,6 +69,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 		} else if (newAttackOrSpell.name && newAttackOrSpell.damageType !== '') {
 			setIsAdding(!isAdding)
 			dispatch(createNewAandS(newAttackOrSpell))
+			dispatch(updateAttacksAndSpellcasting(id))
 			setNewAttackOrSpell({
 				name: '',
 				attack: '',
@@ -83,6 +87,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 	}
 	const deleteItem = (index) => {
 		dispatch(removeAandS(index))
+		dispatch(updateAttacksAndSpellcasting(id))
 	}
 
 	return (

@@ -24,23 +24,25 @@ export const getSingleCharacterSheet = createAsyncThunk(
 	'Get One Character/getSingleCharacterSheet',
 	async ({ id, navigate }, { dispatch }) => {
 		dispatch(toggleIsLoading())
-
-		const { data } = await api.getSingleCharacterSheet(id)
-
-		dispatch(toggleIsLoading())
-
-		return data.data
+		try {
+			const { data } = await api.getSingleCharacterSheet(id)
+			dispatch(toggleIsLoading())
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
 	}
 )
 
 export const updateCharacterSheet = createAsyncThunk(
 	'Update Character Sheet/updateCharacterSheet',
 	async ({ id, characterSheet }) => {
-		const { data } = await api.updateCharacterSheet(id, characterSheet)
-
-		console.log(data)
-
-		return data.data
+		try {
+			const { data } = await api.updateCharacterSheet(id, characterSheet)
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
 	}
 )
 
@@ -48,12 +50,34 @@ export const updateDeathSaves = createAsyncThunk(
 	'Update Death Saves/updateDeathSaves',
 	async (id, { getState }) => {
 		const state = getState()
-		const { data } = await api.updateDeathSaves(id, {
-			deathSaveSuccess:
-				state.characterSheet.characterInformation.deathSaveSuccess,
-			deathSaveFail: state.characterSheet.characterInformation.deathSaveFail,
-		})
-		console.log(data)
-		return data.data
+
+		try {
+			const { data } = await api.updateDeathSaves(id, {
+				deathSaveSuccess:
+					state.characterSheet.characterInformation.deathSaveSuccess,
+				deathSaveFail: state.characterSheet.characterInformation.deathSaveFail,
+			})
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
+	}
+)
+
+export const updateAttacksAndSpellcasting = createAsyncThunk(
+	'Update Attacks and Spellcasting/updateAttacksAndSpellcasting',
+	async (id, { getState }) => {
+		const state = getState()
+		console.log(state.characterSheet.attacksAndSpellcasting)
+		try {
+			const { data } = await api.updateAttacksAndSpellcasting(id, {
+				attacksAndSpellcasting: state.characterSheet.attacksAndSpellcasting,
+			})
+			console.log(data)
+			console.log('hi')
+			return data.data
+		} catch (err) {
+			console.log(err)
+		}
 	}
 )
