@@ -30,7 +30,7 @@ import { updateDeathSaves } from '../../../../features/character-sheet/thunks'
 
 const CharacterInformation = ({ create }) => {
 	const dispatch = useDispatch()
-	const characterSheet = useSelector((state) => state.characterSheet)
+	// const characterSheet = useSelector((state) => state.characterSheet)
 	const id = useSelector((state) => state.characterSheet.id)
 	const characterInformation = useSelector(
 		(state) => state.characterSheet.characterInformation

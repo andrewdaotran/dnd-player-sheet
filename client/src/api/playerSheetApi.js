@@ -17,4 +17,10 @@ export const updateCharacterSheet = (id, characterSheet) =>
 	API.patch(`${characterSheets}/${id}`, characterSheet)
 
 export const updateDeathSaves = (id, deathSaves) =>
-	API.patch(`${characterSheets}/${id}/deathSave`, { deathSaves })
+	API.patch(`${characterSheets}/${id}/deathSave`, deathSaves)
+
+export const updateAttacksAndSpellcasting = (id, attacksAndSpellcasting) =>
+	API.patch(
+		`${characterSheets}/${id}/attacksAndSpellcasting`,
+		attacksAndSpellcasting
+	)

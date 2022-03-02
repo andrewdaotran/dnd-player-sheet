@@ -49,7 +49,6 @@ const Skill = ({
 
 	const handleCheck = () => {
 		dispatch(updateCheck(name))
-		console.log(name)
 	}
 
 	const handleMouseOver = (e) => {

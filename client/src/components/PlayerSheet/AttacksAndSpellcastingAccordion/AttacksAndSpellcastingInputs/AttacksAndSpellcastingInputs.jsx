@@ -6,6 +6,7 @@ import {
 	createNewAandS,
 	editAandS,
 } from '../../../../features/character-sheet/characterSheetSlice'
+import { updateAttacksAndSpellcasting } from '../../../../features/character-sheet/thunks'
 
 const AttacksAndSpellcastingInputs = ({
 	newAttackOrSpell,
@@ -17,6 +18,7 @@ const AttacksAndSpellcastingInputs = ({
 	index,
 }) => {
 	const dispatch = useDispatch()
+	const id = useSelector((state) => state.characterSheet.id)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 
 	const handleNewPost = (e) => {
@@ -34,6 +36,7 @@ const AttacksAndSpellcastingInputs = ({
 				input: e.target.value,
 			})
 		)
+		dispatch(updateAttacksAndSpellcasting(id))
 	}
 
 	return (
