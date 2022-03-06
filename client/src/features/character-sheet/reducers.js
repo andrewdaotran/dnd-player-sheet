@@ -3,6 +3,20 @@ import { v4 as uuidv4 } from 'uuid'
 import { statModifiers, limiter } from './utils'
 
 const reducers = {
+	attachUser: (state, action) => {
+		const profile = action.payload.profile
+		const token = action.payload.token
+
+		state.user.token = token
+		state.user.fullName = profile.name
+		state.user.firstName = profile.givenName
+		state.user.lastName = profile.familyName
+		state.user.googleId = profile.googleId
+		state.user.email = profile.email
+	},
+	addUserName: (state, action) => {
+		state.user.userName = action.payload
+	},
 	updateAbilityScores: (state, action) => {
 		state.abilityScores[action.payload.name].value = limiter(
 			parseInt(action.payload.input)

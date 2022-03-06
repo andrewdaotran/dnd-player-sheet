@@ -5,10 +5,7 @@ import mongoose from 'mongoose'
 // const characterSheetSchema = mongoose.Schema(characterSheetOptions)
 
 const characterSheetSchema = mongoose.Schema({
-	// user: {
-	// 	type: Object,
-	// 	required: [true, 'Please sign in']
-	// },
+	user: Object,
 	characterName: Object,
 	hitPoints: Object,
 	playerInformation: Object,

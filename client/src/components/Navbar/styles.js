@@ -9,6 +9,7 @@ export const playerName = {
 
 export const characterName = {
 	paddingRight: '1rem',
+	color: 'white',
 }
 
 export const toolbarButton = {}

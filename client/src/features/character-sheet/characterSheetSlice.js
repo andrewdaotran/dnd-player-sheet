@@ -11,6 +11,8 @@ const characterSheetSlice = createSlice({
 })
 
 export const {
+	attachUser,
+	addUserName,
 	updateAbilityScores,
 	createNewAandS,
 	editAandS,

@@ -1,5 +1,17 @@
 export const initialState = {
 	// isLoading: false,
+	user: {
+		name: 'user',
+		title: 'User',
+		userName: '',
+		token: '',
+		fullName: '',
+		firstName: '',
+		lastName: '',
+		email: '',
+		googleId: '',
+		standardId: '',
+	},
 	characterName: { name: 'characterName', title: 'Character Name', value: '' },
 	hitPoints: {
 		hitPoints: {
