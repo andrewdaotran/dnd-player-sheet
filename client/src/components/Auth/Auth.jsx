@@ -52,7 +52,7 @@ const Auth = () => {
 		const profile = JSON.parse(localStorage.getItem('profile'))
 
 		if (profile) {
-			const userId = profile?.googleId || profile?._id
+			const userId = profile?.googleId || profile?.standardId || profile?._id
 			navigate(`/home/${userId}`)
 		}
 	}, [])
@@ -89,9 +89,8 @@ const Auth = () => {
 		const token = res?.tokenId
 
 		// dispatch(attachUser({ profile, token }))
-		dispatch(googleLogin({ profile, token }))
+		// dispatch(googleLogin({ profile, token }))
 		dispatch(googleLoginThunk({ profile, token, navigate }))
-		navigate(`/home/${profile.googleId}`)
 	}
 
 	const googleFailure = (err) => {

@@ -26,6 +26,8 @@ import CharacterPersonalityDetailsContainer from '../CharacterPersonalityDetails
 
 import { createCharacterSheet } from '../../../features/character-sheet/thunks'
 import CharacterName from '../../CharacterName/CharacterName'
+import { getUserFromLocalStorage } from '../../../features/user/userSlice'
+import { clearCharacterSheet } from '../../../features/character-sheet/characterSheetSlice'
 
 const CLASS_LABEL = 'Class'
 
@@ -38,10 +40,20 @@ const CreateCharacter = () => {
 	const handleCreateCharacter = () => {
 		dispatch(createCharacterSheet({ characterSheet, navigate }))
 	}
+	useEffect(() => {
+		dispatch(clearCharacterSheet())
+		navigate('/create/character-name')
 
-	// useEffect(() => {
-	// 	navigate(`character/${characterSheet._id}`)
-	// }, [dispatch, characterSheet])
+		const profile = JSON.parse(localStorage.getItem('profile'))
+
+		if (profile) dispatch(getUserFromLocalStorage())
+
+		if (!profile) {
+			navigate('/auth')
+			dispatch(clearCharacterSheet())
+			return
+		}
+	}, [dispatch])
 
 	return (
 		<Grid container sx={gridContainer}>

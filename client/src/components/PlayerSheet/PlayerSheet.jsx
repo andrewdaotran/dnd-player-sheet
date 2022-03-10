@@ -11,6 +11,8 @@ import Inventory from './Inventory/Inventory'
 import CharacterPersonalityDetailsContainer from './CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 import { getSingleCharacterSheet } from '../../features/character-sheet/thunks'
 import Loading from '../Loading/Loading'
+import { getUserFromLocalStorage } from '../../features/user/userSlice'
+import { clearCharacterSheet } from '../../features/character-sheet/characterSheetSlice'
 
 const PlayerSheet = () => {
 	const dispatch = useDispatch()
@@ -19,6 +21,16 @@ const PlayerSheet = () => {
 	const isLoading = useSelector((state) => state.isLoading.isLoading)
 
 	useEffect(() => {
+		const profile = JSON.parse(localStorage.getItem('profile'))
+
+		if (profile) dispatch(getUserFromLocalStorage())
+
+		if (!profile) {
+			navigate('/auth')
+			dispatch(clearCharacterSheet())
+			return
+		}
+
 		dispatch(getSingleCharacterSheet({ id, navigate }))
 	}, [dispatch])
 

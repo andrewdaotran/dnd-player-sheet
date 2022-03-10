@@ -10,13 +10,14 @@ const reducers = {
 		state.lastName = profile.familyName || profile.lastName
 		state.email = profile.email
 		state.googleId = profile.googleId
-		state.standardId = profile._id
+		state.standardId = profile.standardId
+		state.characterSheets = profile.characterSheets
 	},
+
+	// replaced with googleLoginThunk
 	googleLogin: (state, action) => {
 		const profile = action.payload.profile
 		const token = action.payload.token
-
-		// console.log(profile, token)
 
 		state.token = token
 		state.fullName = profile.name
@@ -24,6 +25,7 @@ const reducers = {
 		state.lastName = profile.familyName
 		state.email = profile.email
 		state.googleId = profile.googleId
+		// state.standardId = profile._id
 
 		localStorage.setItem('profile', JSON.stringify({ ...profile }))
 		localStorage.setItem('token', JSON.stringify(token))
@@ -37,6 +39,7 @@ const reducers = {
 		state.email = ''
 		state.googleId = ''
 		state.standardId = ''
+		state.username = ''
 
 		localStorage.removeItem('profile')
 		localStorage.removeItem('token')

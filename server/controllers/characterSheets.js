@@ -23,13 +23,18 @@ export const getSingleCharacterSheet = async (req, res) => {
 }
 
 export const createCharacterSheet = async (req, res) => {
-	const character = req.body
+	const { character, user } = req.body
+	// const character = req.body
+	// console.log(req.body)
 	// console.log(character)
-	const characterSheet = new CharacterSheetModel(character)
+	// const characterSheet = new CharacterSheetModel(character)
 
 	try {
-		// const characterSheet = CharacterSheetModel.create(req.body)
-		await characterSheet.save()
+		const characterSheet = await CharacterSheetModel.create({
+			...character,
+			user,
+		})
+		// await characterSheet.save()
 		res.status(201).json({
 			success: true,
 			data: characterSheet,

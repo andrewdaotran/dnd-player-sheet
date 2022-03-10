@@ -1,16 +1,29 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
 
 import * as api from '../../api/playerSheetApi'
 import { toggleIsLoading } from '../loading/isLoadingSlice'
+import { addCharacterSheetToUser } from '../user/thunks'
 
 export const createCharacterSheet = createAsyncThunk(
 	'Create Character/createCharacterSheet',
-	async ({ characterSheet, navigate }) => {
-		try {
-			const { data } = await api.createCharacterSheet(characterSheet)
+	async ({ characterSheet, navigate }, { getState, dispatch }) => {
+		const state = getState()
 
-			console.log(data.data._id, 'hey')
+		try {
+			const { data } = await api.createCharacterSheet(
+				characterSheet,
+				state.user
+			)
+
+			await dispatch(
+				addCharacterSheetToUser({
+					standardId: state.user.standardId,
+					characterSheetId: data.data._id,
+					characterName: characterSheet.characterName.value,
+				})
+			)
+
+			// console.log(data.data._id, 'hey')
 			navigate(`/characterSheets/${data.data._id}`)
 
 			return data.data

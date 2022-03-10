@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 import {
 	Typography,
 	Container,
@@ -16,12 +19,33 @@ import {
 	container,
 } from './styles'
 
-// delete later, just disable and enable inputs for now
-
 import { useNavigate } from 'react-router-dom'
+import { close } from '../../features/sidebar-open/sidebarOpenSlice'
+import { getUserFromLocalStorage } from '../../features/user/userSlice'
+import { clearCharacterSheet } from '../../features/character-sheet/characterSheetSlice'
 
 const Modal = () => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
+	const createCharacterButton = () => {
+		dispatch(close())
+		navigate('/create/character-name')
+	}
+
+	useEffect(() => {
+		dispatch(clearCharacterSheet())
+
+		const profile = JSON.parse(localStorage.getItem('profile'))
+
+		if (profile) dispatch(getUserFromLocalStorage())
+
+		if (!profile) {
+			navigate('/auth')
+			dispatch(clearCharacterSheet())
+			return
+		}
+	}, [dispatch])
 
 	return (
 		<Container sx={container}>
@@ -35,10 +59,7 @@ const Modal = () => {
 						</CardContent>
 					</Grid>
 					<Grid item justifyItems='center' alignItems='center'>
-						<CardActions
-							sx={modalCardActions}
-							onClick={() => navigate('/create/character-name')}
-						>
+						<CardActions sx={modalCardActions} onClick={createCharacterButton}>
 							<Button sx={modalButton} variant='contained'>
 								Create a Character
 							</Button>

@@ -1,12 +1,16 @@
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Button, Grid, Paper, Box } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { backButton, gridContainer, nextButton, paper } from './styles'
+import { close } from '../../../features/sidebar-open/sidebarOpenSlice'
 
 const _BackAndNextButtons = ({ back, next, submitData, submit }) => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
+
 	const characterSheet = useSelector((state) => state.characterSheet)
 
 	return (
@@ -17,6 +21,7 @@ const _BackAndNextButtons = ({ back, next, submitData, submit }) => {
 					sx={backButton}
 					onClick={() => {
 						navigate(`/${back}`)
+						dispatch(close())
 						// submitData()
 					}}
 				>
@@ -29,6 +34,7 @@ const _BackAndNextButtons = ({ back, next, submitData, submit }) => {
 					variant='contained'
 					onClick={() => {
 						submitData()
+						dispatch(close())
 						if (!submit) {
 							// navigate(`/characterSheets/${characterSheet.id}`)
 							// } else {

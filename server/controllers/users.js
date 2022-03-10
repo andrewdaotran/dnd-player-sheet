@@ -133,4 +133,28 @@ export const signup = async (req, res) => {
 	}
 }
 
-export const addCharacterSheetToUser = () => {}
+export const addCharacterSheetToUser = async (req, res) => {
+	const { standardId, characterSheetId, characterName } = req.body
+
+	if (!mongoose.Types.ObjectId.isValid(standardId))
+		res.status(400).send('no account with that id')
+
+	try {
+		const exisitingUser = await UserModel.findById(standardId)
+		// console.log(exisitingUser)
+		const user = await UserModel.findByIdAndUpdate(
+			standardId,
+			{
+				characterSheets: [
+					...exisitingUser.characterSheets,
+					{ characterSheetId, characterName },
+				],
+			},
+			{ new: true }
+		)
+
+		res.status(201).json({ user })
+	} catch (error) {
+		console.log(error)
+	}
+}

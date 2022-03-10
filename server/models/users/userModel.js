@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
 	token: String,
 	googleId: String,
 	standardId: String,
-	characterSheets: [String],
+	characterSheets: [Object],
 })
 
 const UserModel = mongoose.model('User', userSchema)

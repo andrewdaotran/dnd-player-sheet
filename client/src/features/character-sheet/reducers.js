@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import { statModifiers, limiter } from './utils'
+import { statModifiers, limiter, initialState } from './utils'
 
 const reducers = {
 	attachUser: (state, action) => {
@@ -13,6 +13,9 @@ const reducers = {
 		state.user.lastName = profile.familyName
 		state.user.googleId = profile.googleId
 		state.user.email = profile.email
+		state.user.standardId = profile._id
+
+		localStorage.setItem('profile', JSON.stringify({ ...profile }))
 	},
 	addUserName: (state, action) => {
 		state.user.userName = action.payload
@@ -221,6 +224,18 @@ const reducers = {
 	// dispatch {name, desc}
 	injectDescription: (state, action) => {
 		state.skills.skills[action.payload.name].description = action.payload.desc
+	},
+	clearCharacterSheet: (state, action) => {
+		state.user = initialState.user
+		state.characterName = initialState.characterName
+		state.hitPoints = initialState.hitPoints
+		state.playerInformation = initialState.playerInformation
+		state.characterInformation = initialState.characterInformation
+		state.abilityScores = initialState.abilityScores
+		state.skills = initialState.skills
+		state.attacksAndSpellcasting = initialState.attacksAndSpellcasting
+		state.inventory = initialState.inventory
+		state.characterDetails = initialState.characterDetails
 	},
 }
 

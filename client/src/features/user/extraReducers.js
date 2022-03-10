@@ -1,8 +1,13 @@
-import { standardLogin, signup, googleLoginThunk } from './thunks'
+import {
+	standardLogin,
+	signup,
+	googleLoginThunk,
+	addCharacterSheetToUser,
+} from './thunks'
 
 const updateRedux = (state, action) => {
 	const data = action.payload.result
-	const token = action.payload.token || action.payload.result.token
+	const token = action.payload?.token || action.payload.result?.token
 
 	state.token = token
 	state.username = data.username
@@ -24,6 +29,7 @@ const updateRedux = (state, action) => {
 			email: data.email,
 			googleId: data.googleId,
 			standardId: data._id,
+			characterSheets: data.characterSheets,
 		})
 	)
 	localStorage.setItem('token', JSON.stringify(token))
@@ -38,6 +44,24 @@ const extraReducers = {
 	},
 	[googleLoginThunk.fulfilled]: (state, action) => {
 		updateRedux(state, action)
+	},
+	[addCharacterSheetToUser.fulfilled]: (state, action) => {
+		// updateRedux(state, action)
+		const user = action.payload.user
+		state.characterSheets = user.characterSheets
+		localStorage.setItem(
+			'profile',
+			JSON.stringify({
+				username: user.username,
+				fullName: user.fullName,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				googleId: user.googleId,
+				standardId: user._id,
+				characterSheets: user.characterSheets,
+			})
+		)
 	},
 }
 

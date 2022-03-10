@@ -9,6 +9,7 @@ import {
 	getSingleCharacterSheet,
 	updateCharacterSheet,
 } from '../../features/character-sheet/thunks'
+import { close } from '../../features/sidebar-open/sidebarOpenSlice'
 
 const EditButton = () => {
 	const dispatch = useDispatch()
@@ -16,24 +17,28 @@ const EditButton = () => {
 	const characterSheet = useSelector((state) => state.characterSheet)
 	const id = useSelector((state) => state.characterSheet.id)
 
+	const handleEditCharacter = () => {
+		dispatch(toggleInputs())
+		dispatch(close())
+	}
+
 	const handleUpdate = () => {
 		dispatch(toggleInputs())
 		dispatch(updateCharacterSheet({ id, characterSheet }))
+		dispatch(close())
 	}
 
 	const cancelUpdate = () => {
 		dispatch(toggleInputs())
 		dispatch(getSingleCharacterSheet({ id }))
+		dispatch(close())
 	}
 	return (
 		<>
 			<Box sx={buttonContainer}>
 				{areInputsDisabled ? (
 					<>
-						<Button
-							onClick={() => dispatch(toggleInputs())}
-							variant='contained'
-						>
+						<Button onClick={handleEditCharacter} variant='contained'>
 							Edit Character
 						</Button>
 					</>

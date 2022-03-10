@@ -35,6 +35,7 @@ export const {
 	updatePlayerInformation,
 	updateCheck,
 	injectDescription,
+	clearCharacterSheet,
 	// updateCharacterSheet
 } = characterSheetSlice.actions
 

@@ -2,10 +2,18 @@ import axios from 'axios'
 
 const API = axios.create({ baseURL: 'http://localhost:4000/characterSheets' })
 
-const characterSheets = 'characterSheets'
+API.interceptors.request.use((req) => {
+	if (localStorage.getItem('profile')) {
+		req.headers.authorization = `Bearer ${
+			JSON.parse(localStorage.getItem('profile')).token
+		}`
+	}
+	return req
+})
 
-export const createCharacterSheet = (character) =>
-	API.post(characterSheets, character)
+export const createCharacterSheet = (character, user) =>
+	API.post('/', { character, user })
+// export const createCharacterSheet = (character) => API.post('/', character)
 
 export const getSingleCharacterSheet = (id) => API.get(`/${id}`)
 

@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
 	Drawer,
 	IconButton,
@@ -12,11 +14,14 @@ import {
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import CreateIcon from '@mui/icons-material/Create'
 
+import SidebarCharacters from './SidebarCharacters/SidebarCharacters'
 import { close } from '../../features/sidebar-open/sidebarOpenSlice'
 import { sidebarIconContainer } from './styles'
 
 const Sidebar = () => {
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+	const characterSheets = useSelector((state) => state.user.characterSheets)
 	const isSidebarOpen = useSelector((state) => state.sidebar.isSidebarOpen)
 	const drawerWidth = useSelector((state) => state.sidebar.drawerWidth)
 
@@ -39,14 +44,29 @@ const Sidebar = () => {
 				</ListItemButton>
 
 				<Divider />
-				{/* Add .map of characters associated with each account */}
-				<ListItemButton>
+
+				<ListItemButton
+					onClick={() => {
+						navigate(`/modal`)
+						dispatch(close())
+					}}
+				>
 					<ListItemIcon>
 						<CreateIcon />
 					</ListItemIcon>
 					<ListItemText primary='Create a Character' />
 				</ListItemButton>
+
 				<Divider />
+
+				{characterSheets.map((character) => {
+					return (
+						<SidebarCharacters
+							key={character.characterSheetId}
+							{...character}
+						/>
+					)
+				})}
 			</List>
 		</Drawer>
 	)
