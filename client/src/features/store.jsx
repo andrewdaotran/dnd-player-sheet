@@ -5,6 +5,7 @@ import characterSheetSlice from './character-sheet/characterSheetSlice'
 import disableInputsSlice from './disable-inputs/disableInputsSlice'
 import sidebarOpenSlice from './sidebar-open/sidebarOpenSlice'
 import profileLinesIsEditingSlice from './profile-lines-isEditing/profileLinesIsEditingSlice'
+import allSheetsSlice from './all-sheets/allSheetsSlice'
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
 		disableInputs: disableInputsSlice,
 		sidebar: sidebarOpenSlice,
 		profileLinesIsEditing: profileLinesIsEditingSlice,
+		allSheets: allSheetsSlice,
 	},
 })
 

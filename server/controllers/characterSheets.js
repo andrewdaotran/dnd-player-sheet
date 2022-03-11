@@ -1,9 +1,14 @@
 import CharacterSheetModel from '../models/characterSheet/characterSheetModel.js'
 import mongoose from 'mongoose'
 
-export const getAllCharacterSheets = async (req, res) => {
+export const getAllCharacterSheetsByUser = async (req, res) => {
+	const { id } = req.params
 	try {
-		const characterSheets = await CharacterSheetModel.find()
+		const characterSheets = await CharacterSheetModel.find({
+			'user.standardId': id,
+			// user: { standardId: id },
+		})
+
 		res.status(200).json({ success: true, data: characterSheets })
 	} catch (error) {
 		console.log(error)
@@ -24,10 +29,6 @@ export const getSingleCharacterSheet = async (req, res) => {
 
 export const createCharacterSheet = async (req, res) => {
 	const { character, user } = req.body
-	// const character = req.body
-	// console.log(req.body)
-	// console.log(character)
-	// const characterSheet = new CharacterSheetModel(character)
 
 	try {
 		const characterSheet = await CharacterSheetModel.create({

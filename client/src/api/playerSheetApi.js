@@ -11,13 +11,14 @@ API.interceptors.request.use((req) => {
 	return req
 })
 
-export const createCharacterSheet = (character, user) =>
-	API.post('/', { character, user })
-// export const createCharacterSheet = (character) => API.post('/', character)
+export const getAllCharacterSheetsByUser = (id) => API.get(`/user/${id}`)
+// export const getAllCharacterSheetsById = () => API.get('/')
 
 export const getSingleCharacterSheet = (id) => API.get(`/${id}`)
 
-export const getAllCharacterSheets = () => API.get()
+export const createCharacterSheet = (character, user) =>
+	API.post('/', { character, user })
+// export const createCharacterSheet = (character) => API.post('/', character)
 
 export const updateCharacterSheet = (id, characterSheet) =>
 	API.patch(`/${id}`, characterSheet)

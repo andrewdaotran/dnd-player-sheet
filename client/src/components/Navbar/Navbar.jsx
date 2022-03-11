@@ -74,6 +74,10 @@ const Navbar = () => {
 		setAnchorEl(null)
 	}
 
+	const handleNavigateHome = () => {
+		navigate('/home')
+	}
+
 	return (
 		<AppBar position='static'>
 			<Toolbar sx={container}>
@@ -83,7 +87,7 @@ const Navbar = () => {
 					</IconButton>
 				) : null}
 
-				<Typography sx={playerName}>
+				<Typography sx={playerName} onClick={handleNavigateHome}>
 					{/* {playerName} */}
 					{user.username || user.email}
 				</Typography>

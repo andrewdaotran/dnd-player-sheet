@@ -40,7 +40,6 @@ const Profile = () => {
 					</Grid>
 
 					{Object.keys(lineNames).map((lineName) => {
-						console.log(lineNames[lineName])
 						return (
 							<ProfileLines
 								key={lineName}

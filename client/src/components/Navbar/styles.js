@@ -5,6 +5,7 @@ export const container = {
 export const playerName = {
 	flexGrow: '1',
 	paddingLeft: '1rem',
+	cursor: 'pointer',
 }
 
 export const characterName = {

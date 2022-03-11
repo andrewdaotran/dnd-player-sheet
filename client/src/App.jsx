@@ -11,6 +11,7 @@ import CreateCharacter from './components/CreateCharacter/CreateCharacter'
 
 import PlayerSheet from './components/PlayerSheet/PlayerSheet'
 import Sidebar from './components/Sidebar/Sidebar'
+import Home from './components/Home/Home'
 
 function App() {
 	// useEffect and dispatch from backend and fill all values with that information into redux
@@ -22,7 +23,15 @@ function App() {
 				<Navbar />
 				<Sidebar />
 				<Routes>
-					<Route path='/home/:id' element={<Modal />} />
+					<Route
+						path='/home'
+						element={
+							<>
+								<Modal />
+								<Home />
+							</>
+						}
+					/>
 					<Route
 						path='/auth'
 						element={

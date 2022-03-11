@@ -1,5 +1,5 @@
 export const container = {
-	margin: '1rem 0',
+	margin: '0.5rem 0',
 }
 
 export const typography = {

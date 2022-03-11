@@ -2,7 +2,7 @@ import express from 'express'
 import {
 	createCharacterSheet,
 	deleteCharacterSheet,
-	getAllCharacterSheets,
+	getAllCharacterSheetsByUser,
 	getSingleCharacterSheet,
 	updateCharacterSheet,
 	updateDeathSaves,
@@ -16,8 +16,8 @@ import auth from '../middleware/auth.js'
 
 const router = express.Router()
 
-router.get('/', getAllCharacterSheets)
 router.post('/', auth, createCharacterSheet)
+router.get('/user/:id', getAllCharacterSheetsByUser)
 router.get('/:id', auth, getSingleCharacterSheet)
 router.patch('/:id', auth, updateCharacterSheet)
 router.patch('/:id/hitPoints', auth, updateHitPoints)

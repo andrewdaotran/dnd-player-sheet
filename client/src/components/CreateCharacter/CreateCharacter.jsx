@@ -67,7 +67,7 @@ const CreateCharacter = () => {
 								<>
 									<CharacterName create={true} />
 									<_BackAndNextButtons
-										back={'modal'}
+										back={'home'}
 										next={'create/player-information'}
 										required={true}
 										submitData={() => {}}

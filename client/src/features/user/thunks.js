@@ -78,7 +78,7 @@ export const updateUserThunk = createAsyncThunk(
 
 		try {
 			const { data } = await api.updateUser(state.user)
-			console.log(' this is the data', data)
+
 			return { ...data, token: state.user.token }
 		} catch (error) {
 			console.log(error)
