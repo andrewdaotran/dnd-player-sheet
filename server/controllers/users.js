@@ -53,6 +53,7 @@ export const googleLoginBackend = async (req, res) => {
 				googleId,
 				token,
 				characterSheets: [],
+				username: '',
 			})
 
 			res.status(200).json({ result })
@@ -63,7 +64,7 @@ export const googleLoginBackend = async (req, res) => {
 }
 
 export const signin = async (req, res) => {
-	const { usernameOrEmail, password } = req.body
+	const { usernameOrEmail, password, token } = req.body
 
 	try {
 		const existingUser = await UserModel.findOne({
@@ -95,8 +96,15 @@ export const signin = async (req, res) => {
 }
 
 export const signup = async (req, res) => {
-	const { email, password, confirmPassword, firstName, lastName, username } =
-		req.body
+	const {
+		email,
+		password,
+		confirmPassword,
+		firstName,
+		lastName,
+		username,
+		token,
+	} = req.body
 
 	try {
 		const existingUser = await UserModel.findOne({
@@ -156,5 +164,32 @@ export const addCharacterSheetToUser = async (req, res) => {
 		res.status(201).json({ user })
 	} catch (error) {
 		console.log(error)
+	}
+}
+
+export const updateUser = async (req, res) => {
+	const userData = req.body
+
+	// console.log(userData)
+
+	try {
+		const exisitingUser = await UserModel.findById(userData.standardId)
+
+		const user = await UserModel.findByIdAndUpdate(
+			exisitingUser._id,
+			{
+				fullName: userData.fullName,
+				firstName: userData.firstName,
+				lastName: userData.lastName,
+				email: userData.email,
+				username: userData.username,
+			},
+			{ new: true }
+		)
+		// console.log(user)
+
+		res.status(201).json({ user })
+	} catch (err) {
+		console.log(err)
 	}
 }

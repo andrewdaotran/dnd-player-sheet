@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import * as api from '../../api/userApi'
+// import { updateUserReducer } from './userSlice'
 
 export const standardLogin = createAsyncThunk(
 	'Standard Login through Backend/standardLogin',
 	async ({ formData, navigate }, { dispatch, getState }) => {
+		console.log(formData)
 		try {
 			const { data } = await api.signin(formData)
 
@@ -21,9 +23,9 @@ export const signup = createAsyncThunk(
 	'Sign Up through Backend/signUp',
 	async ({ formData, navigate }, { dispatch, getState }) => {
 		try {
+			console.log('reaching?')
 			const { data } = await api.signup(formData)
 
-			// console.log(data)
 			navigate(`/home/${data._id}`)
 
 			return data
@@ -63,6 +65,21 @@ export const addCharacterSheetToUser = createAsyncThunk(
 			console.log('addCharacterSheetToUser', data)
 
 			return data
+		} catch (error) {
+			console.log(error)
+		}
+	}
+)
+
+export const updateUserThunk = createAsyncThunk(
+	'Update User/udateUserThunk',
+	async ({}, { getState, dispatch }) => {
+		const state = getState()
+
+		try {
+			const { data } = await api.updateUser(state.user)
+			console.log(' this is the data', data)
+			return { ...data, token: state.user.token }
 		} catch (error) {
 			console.log(error)
 		}

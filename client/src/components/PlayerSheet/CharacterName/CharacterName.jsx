@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container, Paper, TextField } from '@mui/material'
 
 import { container } from './styles'
-import { updateCharacterName } from '../../features/character-sheet/characterSheetSlice'
+import { updateCharacterName } from '../../../features/character-sheet/characterSheetSlice'
 
 const CharacterName = ({ create }) => {
 	const dispatch = useDispatch()

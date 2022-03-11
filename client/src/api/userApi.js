@@ -31,3 +31,5 @@ export const addCharacterSheetToUser = (
 		characterSheetId,
 		characterName,
 	})
+
+export const updateUser = (user) => API.patch(`/${user.standardId}`, user)

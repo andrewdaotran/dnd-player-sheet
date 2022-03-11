@@ -3,11 +3,15 @@ import {
 	signup,
 	googleLoginThunk,
 	addCharacterSheetToUser,
+	updateUserThunk,
 } from './thunks'
 
 const updateRedux = (state, action) => {
-	const data = action.payload.result
-	const token = action.payload?.token || action.payload.result?.token
+	const data = action.payload.result || action.payload.user
+	const token =
+		action.payload?.token ||
+		action.payload.result?.token ||
+		action.payload.user.token
 
 	state.token = token
 	state.username = data.username
@@ -62,6 +66,9 @@ const extraReducers = {
 				characterSheets: user.characterSheets,
 			})
 		)
+	},
+	[updateUserThunk.fulfilled]: (state, action) => {
+		updateRedux(state, action)
 	},
 }
 

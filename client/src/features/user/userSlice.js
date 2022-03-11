@@ -10,7 +10,11 @@ const userSlice = createSlice({
 	extraReducers,
 })
 
-export const { googleLogin, userLogout, getUserFromLocalStorage } =
-	userSlice.actions
+export const {
+	googleLogin,
+	userLogout,
+	getUserFromLocalStorage,
+	updateUserReducer,
+} = userSlice.actions
 
 export default userSlice.reducer

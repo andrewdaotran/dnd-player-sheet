@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import * as api from '../../api/playerSheetApi'
 import { toggleIsLoading } from '../loading/isLoadingSlice'
 import { addCharacterSheetToUser } from '../user/thunks'
+import { deleteCharacterDetail } from './characterSheetSlice'
 
 export const createCharacterSheet = createAsyncThunk(
 	'Create Character/createCharacterSheet',

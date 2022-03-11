@@ -4,6 +4,7 @@ import isLoadingSlice from './loading/isLoadingSlice'
 import characterSheetSlice from './character-sheet/characterSheetSlice'
 import disableInputsSlice from './disable-inputs/disableInputsSlice'
 import sidebarOpenSlice from './sidebar-open/sidebarOpenSlice'
+import profileLinesIsEditingSlice from './profile-lines-isEditing/profileLinesIsEditingSlice'
 
 const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
 		characterSheet: characterSheetSlice,
 		disableInputs: disableInputsSlice,
 		sidebar: sidebarOpenSlice,
+		profileLinesIsEditing: profileLinesIsEditingSlice,
 	},
 })
 

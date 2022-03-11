@@ -9,25 +9,25 @@ import {
 	useNavigate,
 } from 'react-router-dom'
 
-import _TitleTypography from '../../ReusableComponents/_TitleTypography/_TitleTypography'
-import PlayerInformation from '../PlayerInformationContainer/PlayerInformation/PlayerInformation'
-import CharacterInformation from '../PlayerInformationContainer/CharacterInformation/CharacterInformation'
-import Stats from '../Stats/Stats'
+import _TitleTypography from '../ReusableComponents/_TitleTypography/_TitleTypography'
+import PlayerInformation from '../PlayerSheet/PlayerInformationContainer/PlayerInformation/PlayerInformation'
+import CharacterInformation from '../PlayerSheet/PlayerInformationContainer/CharacterInformation/CharacterInformation'
+import Stats from '../PlayerSheet/Stats/Stats'
 
 import { gridContainer } from './styles'
 
-import _BackAndNextButtons from '../../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
-import Skills from '../Skills/Skills'
+import _BackAndNextButtons from '../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
+import Skills from '../PlayerSheet/Skills/Skills'
 
-import AttacksAndSpellcasting from '../AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
-import HitPointsContainer from '../HitPointsContainer/HitPointsContainer'
-import Inventory from '../Inventory/Inventory'
-import CharacterPersonalityDetailsContainer from '../CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
+import AttacksAndSpellcasting from '../PlayerSheet/AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
+import HitPointsContainer from '../PlayerSheet/HitPointsContainer/HitPointsContainer'
+import Inventory from '../PlayerSheet/Inventory/Inventory'
+import CharacterPersonalityDetailsContainer from '../PlayerSheet/CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
 
-import { createCharacterSheet } from '../../../features/character-sheet/thunks'
-import CharacterName from '../../CharacterName/CharacterName'
-import { getUserFromLocalStorage } from '../../../features/user/userSlice'
-import { clearCharacterSheet } from '../../../features/character-sheet/characterSheetSlice'
+import { createCharacterSheet } from '../../features/character-sheet/thunks'
+import CharacterName from '../PlayerSheet/CharacterName/CharacterName'
+import { getUserFromLocalStorage } from '../../features/user/userSlice'
+import { clearCharacterSheet } from '../../features/character-sheet/characterSheetSlice'
 
 const CLASS_LABEL = 'Class'
 
@@ -69,6 +69,7 @@ const CreateCharacter = () => {
 									<_BackAndNextButtons
 										back={'modal'}
 										next={'create/player-information'}
+										required={true}
 										submitData={() => {}}
 									/>
 								</>

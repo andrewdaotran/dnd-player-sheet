@@ -44,6 +44,16 @@ const reducers = {
 		localStorage.removeItem('profile')
 		localStorage.removeItem('token')
 	},
+	updateUserReducer: (state, action) => {
+		// console.log(state[action.payload.firstName])
+		if (action.payload.secondInput) {
+			state[action.payload.firstName] = action.payload.firstInput
+			state[action.payload.lastName] = action.payload.secondInput
+			state.fullName = `${action.payload.firstInput} ${action.payload.secondInput}`
+		} else {
+			state[action.payload.name] = action.payload.firstInput
+		}
+	},
 }
 
 export default reducers

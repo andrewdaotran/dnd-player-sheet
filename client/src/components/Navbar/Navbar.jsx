@@ -1,14 +1,17 @@
+import { useState } from 'react'
+
 import {
 	Typography,
 	AppBar,
-	Grid,
 	Toolbar,
 	IconButton,
 	Button,
-	cardClasses,
 	TextField,
+	MenuItem,
+	Menu,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import SettingsIcon from '@mui/icons-material/Settings'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -49,11 +52,26 @@ const Navbar = () => {
 		dispatch(updateCharacterName({ input: e.target.value }))
 	}
 
+	const handleProfile = () => {
+		navigate('/profile')
+		setAnchorEl(null)
+	}
+
 	const handleLogout = () => {
 		dispatch(userLogout())
 		dispatch(clearCharacterSheet())
 		dispatch(close())
 		navigate('/auth')
+		setAnchorEl(null)
+	}
+
+	const [anchorEl, setAnchorEl] = useState(null)
+	const anchorOpen = Boolean(anchorEl)
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget)
+	}
+	const handleClose = () => {
+		setAnchorEl(null)
 	}
 
 	return (
@@ -63,9 +81,7 @@ const Navbar = () => {
 					<IconButton aria-label='menu' onClick={() => dispatch(open())}>
 						<MenuIcon />
 					</IconButton>
-				) : (
-					<></>
-				)}
+				) : null}
 
 				<Typography sx={playerName}>
 					{/* {playerName} */}
@@ -86,10 +102,30 @@ const Navbar = () => {
 						{/* functionality */}
 					</TextField>
 				)}
-
-				<Button sx={toolbarButton} variant='contained' onClick={handleLogout}>
-					Logout
-				</Button>
+				{profile ? (
+					<>
+						<IconButton sx={toolbarButton} onClick={handleClick}>
+							<SettingsIcon />
+						</IconButton>
+						<Menu
+							anchorEl={anchorEl}
+							open={anchorOpen}
+							onClose={handleClose}
+							anchorOrigin={{
+								vertical: 'bottom',
+								horizontal: 'left',
+							}}
+							transformOrigin={{
+								vertical: 'top',
+								horizontal: 'left',
+							}}
+						>
+							<MenuItem onClick={handleProfile}>Profile</MenuItem>
+							<MenuItem onClick={handleClose}>My account</MenuItem>
+							<MenuItem onClick={handleLogout}>Logout</MenuItem>
+						</Menu>
+					</>
+				) : null}
 			</Toolbar>
 		</AppBar>
 	)

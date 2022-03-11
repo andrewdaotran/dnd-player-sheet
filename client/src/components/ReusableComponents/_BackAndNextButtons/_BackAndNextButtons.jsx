@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom'
 import { backButton, gridContainer, nextButton, paper } from './styles'
 import { close } from '../../../features/sidebar-open/sidebarOpenSlice'
 
-const _BackAndNextButtons = ({ back, next, submitData, submit }) => {
+const _BackAndNextButtons = ({ back, next, submitData, submit, required }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const characterSheet = useSelector((state) => state.characterSheet)
+
+	console.log(characterSheet.characterName.value)
 
 	return (
 		<Grid container sx={gridContainer}>
@@ -41,6 +43,14 @@ const _BackAndNextButtons = ({ back, next, submitData, submit }) => {
 							navigate(`/${next}`)
 						}
 					}}
+					// character name is required
+					disabled={
+						!required
+							? false
+							: characterSheet.characterName.value
+							? false
+							: true
+					}
 				>
 					{submit ? 'Submit' : 'Next'}
 				</Button>
