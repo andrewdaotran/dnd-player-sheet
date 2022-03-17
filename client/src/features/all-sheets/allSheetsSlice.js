@@ -32,6 +32,9 @@ const allSheetsSlice = createSlice({
 			)
 			// console.log(action.payload)
 		},
+		clearAllSheets: (state, action) => {
+			state.characterSheets = []
+		},
 	},
 	extraReducers: {
 		[getAllSheetsThunk.pending]: (state) => {
@@ -44,6 +47,6 @@ const allSheetsSlice = createSlice({
 	},
 })
 
-export const { removeCharacterSheet } = allSheetsSlice.actions
+export const { removeCharacterSheet, clearAllSheets } = allSheetsSlice.actions
 
 export default allSheetsSlice.reducer

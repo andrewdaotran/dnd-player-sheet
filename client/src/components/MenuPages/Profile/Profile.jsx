@@ -26,6 +26,9 @@ import ProfileLines from './ProfileLines/ProfileLines'
 import WarningModal from '../../WarningModal/WarningModal'
 import { deleteUser } from '../../../api/userApi'
 import { deleteAllCharacterSheetsByUser } from '../../../api/playerSheetApi'
+import { clearCharacterSheet } from '../../../features/character-sheet/characterSheetSlice'
+import { userLogout } from '../../../features/user/userSlice'
+import { clearAllSheets } from '../../../features/all-sheets/allSheetsSlice'
 
 const Profile = () => {
 	const dispatch = useDispatch()
@@ -47,6 +50,9 @@ const Profile = () => {
 		localStorage.clear()
 		await deleteUser(user.standardId)
 		await deleteAllCharacterSheetsByUser(user.standardId)
+		dispatch(userLogout())
+		dispatch(clearCharacterSheet())
+		dispatch(clearAllSheets())
 		navigate('/auth')
 	}
 
