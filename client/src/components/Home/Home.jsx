@@ -19,6 +19,7 @@ import { container, paper, gridContainer, box } from './styles'
 import CharacterCard from './CharacterCard/CharacterCard'
 import { getAllSheetsThunk } from '../../features/all-sheets/allSheetsSlice'
 import { userLogout } from '../../features/user/userSlice'
+import WarningModal from '../WarningModal/WarningModal'
 
 const Home = () => {
 	const dispatch = useDispatch()

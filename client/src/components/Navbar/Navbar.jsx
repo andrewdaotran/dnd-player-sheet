@@ -27,6 +27,7 @@ import {
 	getUserFromLocalStorage,
 } from '../../features/user/userSlice'
 import { useEffect } from 'react'
+import { getAllSheetsThunk } from '../../features/all-sheets/allSheetsSlice'
 
 const Navbar = () => {
 	const dispatch = useDispatch()
@@ -40,7 +41,10 @@ const Navbar = () => {
 	const profile = JSON.parse(localStorage.getItem('profile'))
 
 	useEffect(() => {
-		if (profile) dispatch(getUserFromLocalStorage())
+		if (profile) {
+			dispatch(getUserFromLocalStorage())
+			dispatch(getAllSheetsThunk())
+		}
 
 		if (!profile) {
 			navigate('/auth')

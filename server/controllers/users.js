@@ -216,3 +216,14 @@ export const removeCharacterSheet = async (req, res) => {
 		console.log(error)
 	}
 }
+
+export const deleteUser = async (req, res) => {
+	const { id } = req.params
+
+	try {
+		await UserModel.findByIdAndDelete(id)
+		res.status(202).json({ message: 'User has been successfully deleted' })
+	} catch (error) {
+		console.log(error)
+	}
+}

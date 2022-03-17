@@ -8,6 +8,7 @@ import {
 	addCharacterSheetToUser,
 	updateUser,
 	removeCharacterSheet,
+	deleteUser,
 } from '../controllers/users.js'
 
 const router = express.Router()
@@ -20,5 +21,6 @@ router.patch('/addCharacterSheet', addCharacterSheetToUser)
 router.patch('/removeCharacterSheet', removeCharacterSheet)
 router.patch('/:id', updateUser)
 router.get('/:id', getUser)
+router.delete('/:id', deleteUser)
 
 export default router

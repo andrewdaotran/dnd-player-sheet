@@ -39,3 +39,5 @@ export const updateCharacterDetails = (id, characterDetails) =>
 	API.patch(`/${id}/characterDetails`, characterDetails)
 
 export const deleteCharacterSheet = (id) => API.delete(`/${id}`)
+
+export const deleteAllCharacterSheetsByUser = (id) => API.delete(`/${id}/clear`)

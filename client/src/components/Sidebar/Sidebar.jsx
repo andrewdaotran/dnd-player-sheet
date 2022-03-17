@@ -47,7 +47,7 @@ const Sidebar = () => {
 
 				<ListItemButton
 					onClick={() => {
-						navigate(`/modal`)
+						navigate(`/create/character-name`)
 						dispatch(close())
 					}}
 				>

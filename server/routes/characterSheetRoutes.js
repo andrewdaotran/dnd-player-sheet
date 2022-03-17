@@ -10,6 +10,7 @@ import {
 	updateInventory,
 	updateCharacterDetails,
 	updateHitPoints,
+	deleteAllCharacterSheetsByUser,
 } from '../controllers/characterSheets.js'
 
 import auth from '../middleware/auth.js'
@@ -26,5 +27,6 @@ router.patch('/:id/attacksAndSpellcasting', auth, updateAttacksAndSpellcasting)
 router.patch('/:id/inventory', auth, updateInventory)
 router.patch('/:id/characterDetails', auth, updateCharacterDetails)
 router.delete('/:id', auth, deleteCharacterSheet)
+router.delete('/:id/clear', deleteAllCharacterSheetsByUser)
 
 export default router

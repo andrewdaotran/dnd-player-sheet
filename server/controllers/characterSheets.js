@@ -60,15 +60,33 @@ export const deleteCharacterSheet = async (req, res) => {
 	}
 }
 
+export const deleteAllCharacterSheetsByUser = async (req, res) => {
+	const { id } = req.params
+	try {
+		// await CharacterSheetModel.deleteMany({ 'user.standardId': id }, (err) => {
+		// 	if (err) {
+		// 		return console.log(err)
+		// 	}
+		// })
+		await CharacterSheetModel.deleteMany({ 'user.standardId': id }),
+			res.status(202).json({
+				message: 'Character Sheets have been successfully deleted.',
+			})
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export const updateCharacterSheet = async (req, res) => {
 	const { id } = req.params
 	const characterSheet = req.body
 	if (!mongoose.Types.ObjectId.isValid(id))
 		res.status(400).send('no post with that id')
 	try {
+		const existingCharacterSheet = await CharacterSheetModel.findById(id)
 		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
 			id,
-			{ ...characterSheet },
+			{ ...existingCharacterSheet, ...characterSheet },
 			{ new: true }
 		)
 		res.status(201).json({ success: true, data: updatedCharacterSheet })

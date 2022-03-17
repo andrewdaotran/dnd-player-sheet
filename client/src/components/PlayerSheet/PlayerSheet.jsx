@@ -20,19 +20,19 @@ const PlayerSheet = () => {
 	const navigate = useNavigate()
 	const isLoading = useSelector((state) => state.isLoading.isLoading)
 
-	useEffect(() => {
-		const profile = JSON.parse(localStorage.getItem('profile'))
+	// useEffect(() => {
+	// 	const profile = JSON.parse(localStorage.getItem('profile'))
 
-		if (profile) dispatch(getUserFromLocalStorage())
+	// 	if (profile) dispatch(getUserFromLocalStorage())
 
-		if (!profile) {
-			navigate('/auth')
-			dispatch(clearCharacterSheet())
-			return
-		}
+	// 	if (!profile) {
+	// 		navigate('/auth')
+	// 		dispatch(clearCharacterSheet())
+	// 		return
+	// 	}
 
-		dispatch(getSingleCharacterSheet({ id, navigate }))
-	}, [dispatch])
+	// 	dispatch(getSingleCharacterSheet({ id, navigate }))
+	// }, [dispatch])
 
 	return isLoading ? (
 		<Loading />

@@ -1,12 +1,14 @@
 export const container = {
 	// marginBottom: '2rem',
 	// padding: '5rem',
-	maxWidth: '25rem',
+
 	marginTop: '7rem',
 }
 
 export const paper = {
 	padding: '1rem 2rem',
+	maxWidth: '25rem',
+	margin: '0 auto',
 }
 
 export const modalCardActions = {

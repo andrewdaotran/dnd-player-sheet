@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
 	Grid,
@@ -23,9 +24,12 @@ import {
 } from './styles'
 import ProfileLines from './ProfileLines/ProfileLines'
 import WarningModal from '../../WarningModal/WarningModal'
+import { deleteUser } from '../../../api/userApi'
+import { deleteAllCharacterSheetsByUser } from '../../../api/playerSheetApi'
 
 const Profile = () => {
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 	const user = useSelector((state) => state.user)
 	const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
 
@@ -39,7 +43,12 @@ const Profile = () => {
 		setDeleteConfirmOpen(!deleteConfirmOpen)
 	}
 
-	const handleDeleteUser = () => {}
+	const handleDeleteUser = async () => {
+		localStorage.clear()
+		await deleteUser(user.standardId)
+		await deleteAllCharacterSheetsByUser(user.standardId)
+		navigate('/auth')
+	}
 
 	return (
 		<Paper sx={container}>

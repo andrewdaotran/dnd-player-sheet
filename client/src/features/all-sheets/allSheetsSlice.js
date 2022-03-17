@@ -9,6 +9,7 @@ export const getAllSheetsThunk = createAsyncThunk(
 			const { data } = await api.getAllCharacterSheetsByUser(
 				state.user.standardId
 			)
+
 			return data.data
 		} catch (error) {
 			console.log(error)
