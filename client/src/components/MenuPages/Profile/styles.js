@@ -21,3 +21,8 @@ export const editButton = {
 export const emptyDiv = {
 	marginBottom: '1rem',
 }
+
+export const deleteButton = {
+	margin: '1.5rem auto .5rem auto',
+	// margin: '2rem 0 1rem 0',
+}

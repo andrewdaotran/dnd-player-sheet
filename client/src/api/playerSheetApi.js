@@ -37,3 +37,5 @@ export const updateInventory = (id, inventory) =>
 
 export const updateCharacterDetails = (id, characterDetails) =>
 	API.patch(`/${id}/characterDetails`, characterDetails)
+
+export const deleteCharacterSheet = (id) => API.delete(`/${id}`)

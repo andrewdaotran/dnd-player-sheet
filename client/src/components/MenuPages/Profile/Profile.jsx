@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
@@ -13,20 +13,33 @@ import {
 	Box,
 } from '@mui/material'
 
-import { header, container, editButton, typography, emptyDiv } from './styles'
+import {
+	header,
+	container,
+	editButton,
+	typography,
+	emptyDiv,
+	deleteButton,
+} from './styles'
 import ProfileLines from './ProfileLines/ProfileLines'
+import WarningModal from '../../WarningModal/WarningModal'
 
 const Profile = () => {
 	const dispatch = useDispatch()
 	const user = useSelector((state) => state.user)
+	const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
 
 	const lineNames = {
 		email: user.email,
-		// 'First Name': user.firstName,
-		// 'Last Name': user.lastName,
 		fullName: user.fullName,
 		username: user.username,
 	}
+
+	const handleToggleDeleteConfirm = () => {
+		setDeleteConfirmOpen(!deleteConfirmOpen)
+	}
+
+	const handleDeleteUser = () => {}
 
 	return (
 		<Paper sx={container}>
@@ -48,8 +61,19 @@ const Profile = () => {
 							/>
 						)
 					})}
+					<Grid sx={deleteButton}>
+						<Button variant='contained' onClick={handleToggleDeleteConfirm}>
+							Delete Profile
+						</Button>
+					</Grid>
 				</Grid>
-				<Grid sx={emptyDiv}></Grid>
+				{/* <Grid sx={emptyDiv}></Grid> */}
+				{deleteConfirmOpen ? (
+					<WarningModal
+						cancelFunction={handleToggleDeleteConfirm}
+						submitFunction={handleDeleteUser}
+					/>
+				) : null}
 			</Container>
 		</Paper>
 	)

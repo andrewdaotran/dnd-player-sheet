@@ -53,7 +53,8 @@ const Auth = () => {
 
 		if (profile) {
 			const userId = profile?.googleId || profile?.standardId || profile?._id
-			navigate(`/home/${userId}`)
+			// navigate(`/home/${userId}`)
+			navigate('/home')
 		}
 	}, [])
 

@@ -22,18 +22,27 @@ const allSheetsSlice = createSlice({
 		isLoading: false,
 	},
 	name: 'Sidebar State',
-	reducers: {},
+	reducers: {
+		removeCharacterSheet: (state, action) => {
+			// state.characterSheets = [...action.payload]
+			state.characterSheets = state.characterSheets.filter(
+				(character) =>
+					character.characterSheetId !== /*characterSheetId*/ action.payload
+			)
+			// console.log(action.payload)
+		},
+	},
 	extraReducers: {
 		[getAllSheetsThunk.pending]: (state) => {
 			state.isLoading = true
 		},
 		[getAllSheetsThunk.fulfilled]: (state, action) => {
-			state.characterSheets = action.payload
+			state.characterSheets = [...action.payload]
 			state.isLoading = false
 		},
 	},
 })
 
-// export c onst {  } = allSheetsSlice.actions
+export const { removeCharacterSheet } = allSheetsSlice.actions
 
 export default allSheetsSlice.reducer

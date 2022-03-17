@@ -27,12 +27,22 @@ const PlayerInformation = ({ create }) => {
 			sx={mediumScreenAndDown ? { ...card, margin: '1rem auto 0 auto' } : card}
 		>
 			<Grid container spacing={2} sx={inputContainer}>
-				{Object.keys(playerInformation).map((name) => {
+				{Object.keys(playerInformation).map((name, index) => {
 					return (
 						<Grid item lg={4} md={6} sm={4} key={name} sx={inputItem}>
 							<TextField
 								disabled={create ? false : areInputsDisabled}
-								label={playerInformation[name].title}
+								label={
+									index === 0
+										? `${playerInformation[name].title}*`
+										: index === 1
+										? `${playerInformation[name].title}*`
+										: index === 2
+										? `${playerInformation[name].title}*`
+										: index === 3
+										? `${playerInformation[name].title}*`
+										: playerInformation[name].title
+								}
 								name={name}
 								onChange={handlePlayerInformation}
 								value={playerInformation[name].value}

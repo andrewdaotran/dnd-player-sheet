@@ -193,3 +193,26 @@ export const updateUser = async (req, res) => {
 		console.log(err)
 	}
 }
+
+export const removeCharacterSheet = async (req, res) => {
+	const { standardId, characterSheets } = req.body
+
+	// console.log({ hello: standardId })
+
+	if (!mongoose.Types.ObjectId.isValid(standardId))
+		res.status(400).send('no account with that id')
+
+	try {
+		const user = await UserModel.findByIdAndUpdate(
+			standardId,
+			{
+				characterSheets: [...characterSheets],
+			},
+			{ new: true }
+		)
+
+		res.status(201).json({ user })
+	} catch (error) {
+		console.log(error)
+	}
+}

@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import * as api from '../../api/userApi'
+import {
+	getAllSheetsThunk,
+	removeCharacterSheet,
+} from '../all-sheets/allSheetsSlice'
 // import { updateUserReducer } from './userSlice'
 
 export const standardLogin = createAsyncThunk(
@@ -11,7 +15,8 @@ export const standardLogin = createAsyncThunk(
 			const { data } = await api.signin(formData)
 
 			// console.log(data)
-			navigate(`/home/${data._id}`)
+			// navigate(`/home/${data._id}`)
+			navigate(`/home/`)
 			return data
 		} catch (error) {
 			console.log(error)
@@ -26,7 +31,8 @@ export const signup = createAsyncThunk(
 			console.log('reaching?')
 			const { data } = await api.signup(formData)
 
-			navigate(`/home/${data._id}`)
+			// navigate(`/home/${data._id}`)
+			navigate(`/home/`)
 
 			return data
 		} catch (error) {
@@ -41,7 +47,8 @@ export const googleLoginThunk = createAsyncThunk(
 		try {
 			const { data } = await api.googleLogin({ ...profile, token })
 			// console.log(data)
-			navigate(`/home/${data._id}`)
+			// navigate(`/home/${data.result._id}`)
+			navigate(`/home/`)
 			return data
 		} catch (err) {
 			console.log(err)
@@ -62,7 +69,7 @@ export const addCharacterSheetToUser = createAsyncThunk(
 				characterName
 			)
 
-			console.log('addCharacterSheetToUser', data)
+			// console.log('addCharacterSheetToUser', data)
 
 			return data
 		} catch (error) {
@@ -80,6 +87,30 @@ export const updateUserThunk = createAsyncThunk(
 			const { data } = await api.updateUser(state.user)
 
 			return { ...data, token: state.user.token }
+		} catch (error) {
+			console.log(error)
+		}
+	}
+)
+
+export const removeCharacterSheetThunk = createAsyncThunk(
+	'Remove Character Sheet/removeCharacterSheet',
+	async (characterSheetId, { getState, dispatch }) => {
+		const state = getState()
+
+		const characterSheets = state.user.characterSheets.filter(
+			(character) => character.characterSheetId !== characterSheetId
+		)
+
+		// dispatch(getAllSheetsThunk({}))
+
+		try {
+			const { data } = await api.removeCharacterSheet(
+				state.user.standardId,
+				characterSheets
+			)
+
+			return { user: data.user, token: state.user.token }
 		} catch (error) {
 			console.log(error)
 		}

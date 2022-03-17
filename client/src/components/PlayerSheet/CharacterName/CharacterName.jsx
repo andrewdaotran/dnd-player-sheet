@@ -21,7 +21,7 @@ const CharacterName = ({ create }) => {
 				<TextField
 					fullWidth
 					disabled={create ? false : areInputsDisabled}
-					label={characterName.title}
+					label={`${characterName.title}*`}
 					onChange={handleCharacterName}
 					name={characterName.name}
 					value={characterName.value}

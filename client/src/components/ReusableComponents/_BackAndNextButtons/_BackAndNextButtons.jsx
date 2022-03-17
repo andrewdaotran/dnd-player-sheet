@@ -7,13 +7,20 @@ import { useNavigate } from 'react-router-dom'
 import { backButton, gridContainer, nextButton, paper } from './styles'
 import { close } from '../../../features/sidebar-open/sidebarOpenSlice'
 
-const _BackAndNextButtons = ({ back, next, submitData, submit, required }) => {
+const _BackAndNextButtons = ({
+	back,
+	next,
+	submitData,
+	submit,
+	characterNamePage,
+	playerInformationPage,
+}) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
 	const characterSheet = useSelector((state) => state.characterSheet)
 
-	console.log(characterSheet.characterName.value)
+	// console.log(characterSheet.characterName.value)
 
 	return (
 		<Grid container sx={gridContainer}>
@@ -43,13 +50,15 @@ const _BackAndNextButtons = ({ back, next, submitData, submit, required }) => {
 							navigate(`/${next}`)
 						}
 					}}
-					// character name is required
 					disabled={
-						!required
-							? false
-							: characterSheet.characterName.value
-							? false
-							: true
+						characterNamePage
+							? !characterSheet.characterName.value
+							: playerInformationPage
+							? !characterSheet.playerInformation.class.value ||
+							  !characterSheet.playerInformation.race.value ||
+							  !characterSheet.playerInformation.background.value ||
+							  !characterSheet.playerInformation.alignment.value
+							: false
 					}
 				>
 					{submit ? 'Submit' : 'Next'}

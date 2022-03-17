@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import * as api from '../../api/playerSheetApi'
+import { getAllSheetsThunk } from '../all-sheets/allSheetsSlice'
 import { toggleIsLoading } from '../loading/isLoadingSlice'
 import { addCharacterSheetToUser } from '../user/thunks'
 import { deleteCharacterDetail } from './characterSheetSlice'
@@ -23,7 +24,7 @@ export const createCharacterSheet = createAsyncThunk(
 					characterName: characterSheet.characterName.value,
 				})
 			)
-
+			await dispatch(getAllSheetsThunk({}))
 			// console.log(data.data._id, 'hey')
 			navigate(`/characterSheets/${data.data._id}`)
 
@@ -140,6 +141,17 @@ export const updateCharacterDetails = createAsyncThunk(
 			return data.data
 		} catch (err) {
 			console.log(err)
+		}
+	}
+)
+
+export const deleteCharacterSheetThunk = createAsyncThunk(
+	'Delete Character Sheet/deleteCharacterSheetThunk',
+	async (id) => {
+		try {
+			const { data } = await api.deleteCharacterSheet(id)
+		} catch (error) {
+			console.log(error)
 		}
 	}
 )

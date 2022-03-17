@@ -69,7 +69,7 @@ const CreateCharacter = () => {
 									<_BackAndNextButtons
 										back={'home'}
 										next={'create/player-information'}
-										required={true}
+										characterNamePage={true}
 										submitData={() => {}}
 									/>
 								</>
@@ -85,6 +85,7 @@ const CreateCharacter = () => {
 									<_BackAndNextButtons
 										back={'create/character-name'}
 										next={'create/character-information'}
+										playerInformationPage={true}
 										submitData={() => {}}
 									/>
 								</>

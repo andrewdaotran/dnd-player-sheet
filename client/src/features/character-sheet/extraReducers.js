@@ -5,6 +5,7 @@ import {
 	updateDeathSaves,
 	updateAttacksAndSpellcasting,
 	updateInventory,
+	deleteCharacterSheetThunk,
 } from './thunks'
 
 const updateRedux = (state, action) => {
@@ -49,6 +50,9 @@ const extraReducers = {
 	},
 	[updateCharacterSheet.fulfilled]: (state, action) => {
 		updateRedux(state, action)
+	},
+	[deleteCharacterSheetThunk.fulfilled]: (state, action) => {
+		// updateRedux(state, action)
 	},
 }
 

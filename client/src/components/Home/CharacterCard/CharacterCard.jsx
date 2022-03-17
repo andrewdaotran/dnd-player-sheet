@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoogleLogin } from 'react-google-login'
 import { useNavigate } from 'react-router-dom'
+import WarningModal from '../../WarningModal/WarningModal'
 
 import {
 	Typography,
@@ -11,17 +12,30 @@ import {
 	Card,
 	CardContent,
 	CardActionArea,
+	CardActions,
 	Grid,
 	Paper,
 	Divider,
 } from '@mui/material'
 
-import { cardTitle, card, divider } from './styles'
+import {
+	cardTitle,
+	card,
+	divider,
+	deleteButton,
+	deleteButtonContainer,
+} from './styles'
+import { deleteCharacterSheetThunk } from '../../../features/character-sheet/thunks'
+import { removeCharacterSheetThunk } from '../../../features/user/thunks'
+import { removeCharacterSheet } from '../../../features/all-sheets/allSheetsSlice'
 
 const CharacterCard = ({ characterSheetId, characterName, index }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const standardId = useSelector((state) => state.user.standardId)
 	const sheetsLoading = useSelector((state) => state.allSheets.isLoading)
+	const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
+
 	const characterSheetData = useSelector(
 		(state) => state.allSheets.characterSheets[index]
 	)
@@ -30,12 +44,24 @@ const CharacterCard = ({ characterSheetId, characterName, index }) => {
 		navigate(`/characterSheets/${characterSheetId}`)
 	}
 
+	const handleDeleteCharacter = () => {
+		dispatch(deleteCharacterSheetThunk(characterSheetId))
+		dispatch(removeCharacterSheetThunk(characterSheetId))
+		dispatch(removeCharacterSheet(characterSheetId))
+		setDeleteConfirmOpen(!deleteConfirmOpen)
+	}
+
+	const handleToggleDeleteConfirm = () => {
+		setDeleteConfirmOpen(!deleteConfirmOpen)
+	}
+
 	return (
-		<Grid item>
-			<Card sx={card}>
-				<CardActionArea onClick={handleNavigate}>
+		<>
+			<Grid item>
+				<Card sx={card}>
+					{/* <CardActionArea> */}
 					<CardContent>
-						<Typography variant='h5' sx={cardTitle}>
+						<Typography variant='h5' sx={cardTitle} onClick={handleNavigate}>
 							{characterName}
 						</Typography>
 						<Divider sx={divider} />
@@ -66,10 +92,28 @@ const CharacterCard = ({ characterSheetId, characterName, index }) => {
 						) : (
 							<h5>Loading</h5>
 						)}
+						<CardActions sx={deleteButtonContainer}>
+							<Button
+								sx={deleteButton}
+								variant='contained'
+								onClick={handleToggleDeleteConfirm}
+							>
+								Delete
+							</Button>
+						</CardActions>
 					</CardContent>
-				</CardActionArea>
-			</Card>
-		</Grid>
+					{/* </CardActionArea> */}
+				</Card>
+			</Grid>
+			{deleteConfirmOpen ? (
+				<WarningModal
+					submitFunction={handleDeleteCharacter}
+					cancelFunction={handleToggleDeleteConfirm}
+					deleteCharacter={true}
+					textInsert={characterName}
+				/>
+			) : null}
+		</>
 	)
 }
 

@@ -7,6 +7,7 @@ import {
 	googleLoginBackend,
 	addCharacterSheetToUser,
 	updateUser,
+	removeCharacterSheet,
 } from '../controllers/users.js'
 
 const router = express.Router()
@@ -16,6 +17,7 @@ router.post('/signup', signup)
 router.post('/signin', signin)
 router.post('/googleSignin', googleLoginBackend)
 router.patch('/addCharacterSheet', addCharacterSheetToUser)
+router.patch('/removeCharacterSheet', removeCharacterSheet)
 router.patch('/:id', updateUser)
 router.get('/:id', getUser)
 

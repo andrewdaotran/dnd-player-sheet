@@ -33,3 +33,6 @@ export const addCharacterSheetToUser = (
 	})
 
 export const updateUser = (user) => API.patch(`/${user.standardId}`, user)
+
+export const removeCharacterSheet = (standardId, characterSheets) =>
+	API.patch('/removeCharacterSheet', { standardId, characterSheets })

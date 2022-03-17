@@ -4,6 +4,7 @@ import {
 	googleLoginThunk,
 	addCharacterSheetToUser,
 	updateUserThunk,
+	removeCharacterSheetThunk,
 } from './thunks'
 
 const updateRedux = (state, action) => {
@@ -68,6 +69,9 @@ const extraReducers = {
 		)
 	},
 	[updateUserThunk.fulfilled]: (state, action) => {
+		updateRedux(state, action)
+	},
+	[removeCharacterSheetThunk.fulfilled]: (state, action) => {
 		updateRedux(state, action)
 	},
 }

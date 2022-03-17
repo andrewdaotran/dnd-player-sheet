@@ -12,16 +12,10 @@ import {
 	CardActionArea,
 	Grid,
 	Paper,
+	Box,
 } from '@mui/material'
 
-import {
-	modalButton,
-	modalCardActions,
-	modalGrid,
-	cardText,
-	container,
-	card,
-} from './styles'
+import { container, paper, gridContainer, box } from './styles'
 import CharacterCard from './CharacterCard/CharacterCard'
 import { getAllSheetsThunk } from '../../features/all-sheets/allSheetsSlice'
 import { userLogout } from '../../features/user/userSlice'
@@ -35,26 +29,32 @@ const Home = () => {
 
 	useEffect(() => {
 		dispatch(getAllSheetsThunk({}))
-	}, [])
+	}, [characterSheets])
 
 	// console.log(characterSheets)
 	return (
-		<Container sx={container}>
-			<Paper>
-				<Grid container spacing={2}>
-					{characterSheets.map((character, index) => {
-						return (
-							<CharacterCard
-								key={character.characterSheetId}
-								characterSheetId={character.characterSheetId}
-								characterName={character.characterName}
-								index={index}
-							/>
-						)
-					})}
-				</Grid>
-			</Paper>
-		</Container>
+		<>
+			{characterSheets.length > 0 ? (
+				<Container sx={container}>
+					{/* <Box sx={box}> */}
+					<Paper sx={paper}>
+						<Grid container spacing={2} sx={gridContainer}>
+							{characterSheets.map((character, index) => {
+								return (
+									<CharacterCard
+										key={character.characterSheetId}
+										characterSheetId={character.characterSheetId}
+										characterName={character.characterName}
+										index={index}
+									/>
+								)
+							})}
+						</Grid>
+					</Paper>
+					{/* </Box> */}
+				</Container>
+			) : null}
+		</>
 	)
 }
 
