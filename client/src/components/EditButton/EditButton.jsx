@@ -17,6 +17,8 @@ const EditButton = () => {
 	const characterSheet = useSelector((state) => state.characterSheet)
 	const id = useSelector((state) => state.characterSheet.id)
 
+	console.log(id)
+
 	const handleEditCharacter = () => {
 		dispatch(toggleInputs())
 		dispatch(close())

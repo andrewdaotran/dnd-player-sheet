@@ -25,7 +25,10 @@ import {
 	deleteButton,
 	deleteButtonContainer,
 } from './styles'
-import { deleteCharacterSheetThunk } from '../../../features/character-sheet/thunks'
+import {
+	deleteCharacterSheetThunk,
+	getSingleCharacterSheet,
+} from '../../../features/character-sheet/thunks'
 import { removeCharacterSheetThunk } from '../../../features/user/thunks'
 import { removeCharacterSheet } from '../../../features/all-sheets/allSheetsSlice'
 
@@ -42,6 +45,7 @@ const CharacterCard = ({ characterSheetId, characterName, index }) => {
 
 	const handleNavigate = () => {
 		navigate(`/characterSheets/${characterSheetId}`)
+		dispatch(getSingleCharacterSheet({ id: characterSheetId, navigate }))
 	}
 
 	const handleDeleteCharacter = () => {
@@ -54,6 +58,8 @@ const CharacterCard = ({ characterSheetId, characterName, index }) => {
 	const handleToggleDeleteConfirm = () => {
 		setDeleteConfirmOpen(!deleteConfirmOpen)
 	}
+
+	// console.log(characterSheetData)
 
 	return (
 		<>

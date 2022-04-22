@@ -27,14 +27,16 @@ const Home = () => {
 	// 	(state) => state.allSheets.characterSheets
 	// )
 	const characterSheets = useSelector((state) => state.user.characterSheets)
+	const allSheets = useSelector((state) => state.allSheets.characterSheets)
 
 	useEffect(() => {
 		dispatch(getAllSheetsThunk({}))
 	}, [characterSheets])
 
-	// console.log(characterSheets)
+	// console.log(allSheets)
 	return (
 		<>
+			{/* {characterSheets.length > 0 ? ( */}
 			{characterSheets.length > 0 ? (
 				<Container sx={container}>
 					{/* <Box sx={box}> */}
