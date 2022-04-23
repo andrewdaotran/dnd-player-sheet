@@ -44,7 +44,9 @@ const Skill = ({
 	}
 
 	useEffect(() => {
-		getDescription()
+		if (create) {
+			getDescription()
+		}
 	}, [])
 
 	const handleCheck = () => {

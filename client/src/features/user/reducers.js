@@ -54,6 +54,18 @@ const reducers = {
 			state[action.payload.name] = action.payload.firstInput
 		}
 	},
+	updateCharacterNameInCharacterSheets: (state, action) => {
+		const locStorage = JSON.parse(localStorage.getItem('profile'))
+		locStorage.characterSheets.map((characterSheet, index) => {
+			if (characterSheet.characterSheetId === action.payload.characterSheetId) {
+				locStorage.characterSheets[index].characterName =
+					action.payload.characterName
+			}
+			return
+		})
+		state.characterSheets = locStorage.characterSheets
+		localStorage.setItem('profile', JSON.stringify({ ...locStorage }))
+	},
 }
 
 export default reducers

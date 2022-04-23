@@ -15,6 +15,7 @@ export const {
 	userLogout,
 	getUserFromLocalStorage,
 	updateUserReducer,
+	updateCharacterNameInCharacterSheets,
 } = userSlice.actions
 
 export default userSlice.reducer

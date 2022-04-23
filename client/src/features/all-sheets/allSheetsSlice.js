@@ -5,6 +5,7 @@ export const getAllSheetsThunk = createAsyncThunk(
 	'Get all sheets/getAllSheetsThunk',
 	async ({}, { getState }) => {
 		const state = getState()
+
 		try {
 			const { data } = await api.getAllCharacterSheetsByUser(
 				state.user.standardId

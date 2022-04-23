@@ -59,8 +59,6 @@ const CharacterCard = ({ characterSheetId, characterName, index }) => {
 		setDeleteConfirmOpen(!deleteConfirmOpen)
 	}
 
-	// console.log(characterSheetData)
-
 	return (
 		<>
 			<Grid item>

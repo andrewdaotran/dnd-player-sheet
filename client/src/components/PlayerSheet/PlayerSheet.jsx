@@ -13,6 +13,7 @@ import { getSingleCharacterSheet } from '../../features/character-sheet/thunks'
 import Loading from '../Loading/Loading'
 import { getUserFromLocalStorage } from '../../features/user/userSlice'
 import { clearCharacterSheet } from '../../features/character-sheet/characterSheetSlice'
+import RollButton from '../RollButton/RollButton'
 
 const PlayerSheet = () => {
 	const dispatch = useDispatch()
@@ -20,19 +21,19 @@ const PlayerSheet = () => {
 	const navigate = useNavigate()
 	const isLoading = useSelector((state) => state.isLoading.isLoading)
 
-	// useEffect(() => {
-	// 	const profile = JSON.parse(localStorage.getItem('profile'))
+	useEffect(() => {
+		const profile = JSON.parse(localStorage.getItem('profile'))
 
-	// 	if (profile) dispatch(getUserFromLocalStorage())
+		if (profile) dispatch(getUserFromLocalStorage())
 
-	// 	if (!profile) {
-	// 		navigate('/auth')
-	// 		dispatch(clearCharacterSheet())
-	// 		return
-	// 	}
+		// if (!profile) {
+		// 	navigate('/auth')
+		// 	dispatch(clearCharacterSheet())
+		// 	return
+		// }
 
-	// 	dispatch(getSingleCharacterSheet({ id, navigate }))
-	// }, [dispatch])
+		dispatch(getSingleCharacterSheet({ id, navigate }))
+	}, [dispatch])
 
 	return isLoading ? (
 		<Loading />
@@ -45,6 +46,7 @@ const PlayerSheet = () => {
 			<AttacksAndSpellcastingAccordion />
 			<Inventory />
 			<CharacterPersonalityDetailsContainer />
+			<RollButton />
 		</>
 	)
 }

@@ -10,6 +10,7 @@ import {
 
 const updateRedux = (state, action) => {
 	const data = action.payload
+	state.user = data.user
 	state.characterName = data.characterName
 	state.hitPoints = data.hitPoints
 	state.playerInformation = data.playerInformation

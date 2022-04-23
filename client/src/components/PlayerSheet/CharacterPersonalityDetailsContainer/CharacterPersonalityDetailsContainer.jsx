@@ -11,7 +11,7 @@ import {
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-import { card } from './styles'
+import { card, container } from './styles'
 
 import DetailCategory from './DetailCategory/DetailCategory'
 
@@ -21,7 +21,7 @@ const CharacterPersonalityDetailsContainer = ({ create }) => {
 	)
 
 	return (
-		<Container>
+		<Container sx={container}>
 			<Card sx={card}>
 				<Accordion defaultExpanded={create ? true : false}>
 					<AccordionSummary expandIcon={<ExpandMoreIcon />}>

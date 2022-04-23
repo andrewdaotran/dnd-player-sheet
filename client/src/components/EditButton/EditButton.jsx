@@ -10,14 +10,13 @@ import {
 	updateCharacterSheet,
 } from '../../features/character-sheet/thunks'
 import { close } from '../../features/sidebar-open/sidebarOpenSlice'
+import { updateCharacterNameInCharacterSheets } from '../../features/user/userSlice'
 
 const EditButton = () => {
 	const dispatch = useDispatch()
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
 	const characterSheet = useSelector((state) => state.characterSheet)
 	const id = useSelector((state) => state.characterSheet.id)
-
-	console.log(id)
 
 	const handleEditCharacter = () => {
 		dispatch(toggleInputs())
@@ -27,6 +26,12 @@ const EditButton = () => {
 	const handleUpdate = () => {
 		dispatch(toggleInputs())
 		dispatch(updateCharacterSheet({ id, characterSheet }))
+		dispatch(
+			updateCharacterNameInCharacterSheets({
+				characterSheetId: id,
+				characterName: characterSheet.characterName.value,
+			})
+		)
 		dispatch(close())
 	}
 

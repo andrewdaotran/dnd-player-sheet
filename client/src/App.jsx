@@ -22,6 +22,7 @@ function App() {
 				<CssBaseline />
 				<Navbar />
 				<Sidebar />
+
 				<Routes>
 					<Route
 						path='/home'
