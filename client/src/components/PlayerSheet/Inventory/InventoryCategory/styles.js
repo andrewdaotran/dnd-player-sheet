@@ -17,3 +17,9 @@ export const inventoryCategoryEditButton = {
 export const inventoryCategoryCancelButton = {
 	margin: '0 0 1rem 1rem',
 }
+
+export const gridContainer = {
+	display: 'grid',
+	paddingRight: '1rem',
+	gridGap: '1rem',
+}

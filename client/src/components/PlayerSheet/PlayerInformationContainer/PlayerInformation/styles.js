@@ -7,7 +7,7 @@ export const container = {
 export const inputContainer = {
 	padding: '1rem',
 	justifyContent: 'center',
-	maxWidth: '700px',
+	// maxWidth: '700px',
 }
 export const card = {
 	// margin: '0 auto',

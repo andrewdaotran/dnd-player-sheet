@@ -40,6 +40,7 @@ const CreateCharacter = () => {
 	const handleCreateCharacter = () => {
 		dispatch(createCharacterSheet({ characterSheet, navigate }))
 	}
+
 	useEffect(() => {
 		dispatch(clearCharacterSheet())
 		navigate('/create/character-name')

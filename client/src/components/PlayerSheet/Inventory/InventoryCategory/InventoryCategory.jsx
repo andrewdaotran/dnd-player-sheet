@@ -18,6 +18,7 @@ import {
 	inventoryTypography,
 	inventoryCategoryEditButton,
 	inventoryCategoryCancelButton,
+	gridContainer,
 } from './styles'
 
 import _UserItemEntryAndButtons from '../../../ReusableComponents/_UserItemEntryAndButtons/_UserItemEntryAndButtons'
@@ -133,7 +134,7 @@ const InventoryCategory = ({
 				</Grid>
 			</AccordionSummary>
 			<AccordionDetails>
-				<Grid container spacing={2}>
+				<Grid container spacing={2} sx={gridContainer}>
 					{value.map((item, index) => {
 						return !item.isEditing ? (
 							<_UserItemEntryAndButtons

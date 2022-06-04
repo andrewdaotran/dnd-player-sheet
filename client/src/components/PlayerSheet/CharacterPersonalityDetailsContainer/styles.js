@@ -4,4 +4,5 @@ export const container = {
 
 export const card = {
 	marginTop: '1rem',
+	border: 'none',
 }

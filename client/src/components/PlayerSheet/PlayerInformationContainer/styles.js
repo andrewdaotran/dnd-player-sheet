@@ -1,1 +1,3 @@
-export const gridItem = {}
+export const gridItem = {
+	justifyContent: 'center',
+}

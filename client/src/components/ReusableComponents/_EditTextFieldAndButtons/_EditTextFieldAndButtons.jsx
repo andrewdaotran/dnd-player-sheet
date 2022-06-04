@@ -1,6 +1,6 @@
 import { Grid, TextField, Button } from '@mui/material'
 
-import { submitButton, cancelButton } from './styles'
+import { submitButton, cancelButton, container } from './styles'
 
 const _EditTextFieldAndButtons = ({
 	handleIsEditing,
@@ -9,7 +9,7 @@ const _EditTextFieldAndButtons = ({
 	textFieldValue,
 }) => {
 	return (
-		<Grid item xs={12}>
+		<Grid item xs={12} sx={container}>
 			<TextField
 				fullWidth
 				multiline={true}

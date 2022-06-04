@@ -12,70 +12,142 @@ import CreateCharacter from './components/CreateCharacter/CreateCharacter'
 import PlayerSheet from './components/PlayerSheet/PlayerSheet'
 import Sidebar from './components/Sidebar/Sidebar'
 import Home from './components/Home/Home'
-
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { purple, lightGreen } from '@mui/material/colors'
+import { themeColors } from './utils'
+import './App.css'
 function App() {
-	// useEffect and dispatch from backend and fill all values with that information into redux
-
+	const theme = createTheme({
+		palette: {
+			background: {
+				default: themeColors.greyWhite,
+			},
+			// primary:
+			// secondary: {
+			// 	main: '#a34c50',
+			// 	light: '#e8443c',
+			// 	dark: '#4a2932',
+			// 	contrastText: '#000',
+			// },
+			// success: { main: lightGreen[200] },
+		},
+		typography: {
+			fontFamily: 'Rajdhani, sans-serif',
+		},
+		components: {
+			MuiAppBar: {
+				styleOverrides: {
+					root: {
+						backgroundColor: themeColors.dirtyOrange,
+					},
+				},
+			},
+			MuiButton: {
+				styleOverrides: {
+					root: {
+						backgroundColor: themeColors.royalRed,
+						border: `1px solid ${themeColors.offBlack}`,
+						':hover': {
+							backgroundColor: themeColors.ligherRoyalRed,
+						},
+						danger: '#ff0000',
+					},
+				},
+			},
+			MuiCard: {
+				styleOverrides: {
+					root: {
+						border: `2px solid ${themeColors.offBlack}`,
+						// backgroundColor: themeColors.greyWhite,
+					},
+				},
+			},
+			MuiPaper: {
+				styleOverrides: {
+					root: {
+						border: `2px solid ${themeColors.offBlack}`,
+					},
+				},
+			},
+			MuiTextField: {
+				styleOverrides: {
+					root: {},
+				},
+			},
+		},
+	})
 	return (
-		<div className='App'>
-			<Router>
-				<CssBaseline />
-				<Navbar />
-				<Sidebar />
+		<ThemeProvider theme={theme}>
+			<div className='App'>
+				<Router>
+					<CssBaseline />
+					<Navbar />
+					<Sidebar />
 
-				<Routes>
-					<Route
-						path='/home'
-						element={
-							<>
-								<Modal />
-								<Home />
-							</>
-						}
-					/>
-					<Route
-						path='/auth'
-						element={
-							<>
-								<Auth />
-							</>
-						}
-					/>
-					{/* Need to update to push to /character/:id when authorization is implemented */}
-					{/* <Route path='/characterSheets' element={<PlayerSheet />} /> */}
-					<Route
-						path='/characterSheets/:id'
-						element={
-							<>
-								<EditButton />
-								<PlayerSheet />
-							</>
-						}
-					/>
+					<Routes>
+						<Route
+							path='/'
+							element={
+								<>
+									<Modal />
+									<Home />
+								</>
+							}
+						/>
+						<Route
+							path='/home'
+							// path='/'
+							element={
+								<>
+									<Modal />
+									<Home />
+								</>
+							}
+						/>
+						<Route
+							path='/auth'
+							element={
+								<>
+									<Auth />
+								</>
+							}
+						/>
+						{/* Need to update to push to /character/:id when authorization is implemented */}
+						{/* <Route path='/characterSheets' element={<PlayerSheet />} /> */}
+						<Route
+							path='/characterSheets/:id'
+							element={
+								<>
+									<EditButton />
+									<PlayerSheet />
+								</>
+							}
+						/>
 
-					<Route
-						path='/modal'
-						element={
-							<>
-								<Modal />
-							</>
-						}
-					/>
-					<Route path='/create/*' element={<CreateCharacter />} />
+						<Route
+							path='/modal'
+							element={
+								<>
+									<Modal />
+								</>
+							}
+						/>
+						<Route path='/create/*' element={<CreateCharacter />} />
 
-					{/* <Route path='/character' element={<PlayerSheet />} /> */}
+						{/* <Route path='/character' element={<PlayerSheet />} /> */}
 
-					<Route
-						path='/profile'
-						element={
-							<>
-								<Profile />
-							</>
-						}
-					/>
-				</Routes>
-			</Router>
-		</div>
+						<Route
+							path='/profile'
+							element={
+								<>
+									<Profile />
+								</>
+							}
+						/>
+					</Routes>
+				</Router>
+			</div>
+		</ThemeProvider>
 	)
 }
 

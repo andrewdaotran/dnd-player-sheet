@@ -15,7 +15,7 @@ import {
 	Box,
 } from '@mui/material'
 
-import { container, paper, gridContainer, box } from './styles'
+import { container, paper, gridContainer, box, title, username } from './styles'
 import CharacterCard from './CharacterCard/CharacterCard'
 import { getAllSheetsThunk } from '../../features/all-sheets/allSheetsSlice'
 import { userLogout } from '../../features/user/userSlice'
@@ -28,6 +28,7 @@ const Home = () => {
 	// )
 	const characterSheets = useSelector((state) => state.user.characterSheets)
 	const allSheets = useSelector((state) => state.allSheets.characterSheets)
+	const user = useSelector((state) => state.user)
 
 	useEffect(() => {
 		dispatch(getAllSheetsThunk({}))
@@ -39,22 +40,31 @@ const Home = () => {
 			{/* {characterSheets.length > 0 ? ( */}
 			{characterSheets.length > 0 ? (
 				<Container sx={container}>
-					{/* <Box sx={box}> */}
-					<Paper sx={paper}>
-						<Grid container spacing={2} sx={gridContainer}>
-							{characterSheets.map((character, index) => {
-								return (
-									<CharacterCard
-										key={character.characterSheetId}
-										characterSheetId={character.characterSheetId}
-										characterName={character.characterName}
-										index={index}
-									/>
-								)
-							})}
-						</Grid>
-					</Paper>
-					{/* </Box> */}
+					{/* <Paper sx={paper}> */}
+					<Typography variant='h3' sx={title}>
+						{/* Your Character Sheets */}
+						{user.username ? (
+							<>
+								<span style={username}>{user.username}</span>'s
+							</>
+						) : (
+							'Your'
+						)}{' '}
+						Character Sheets
+					</Typography>
+					<Grid container spacing={2} sx={gridContainer}>
+						{characterSheets.map((character, index) => {
+							return (
+								<CharacterCard
+									key={character.characterSheetId}
+									characterSheetId={character.characterSheetId}
+									characterName={character.characterName}
+									index={index}
+								/>
+							)
+						})}
+					</Grid>
+					{/* </Paper> */}
 				</Container>
 			) : null}
 		</>

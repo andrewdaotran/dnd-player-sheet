@@ -26,7 +26,7 @@ const _BackAndNextButtons = ({
 		<Grid container sx={gridContainer}>
 			<Grid item>
 				<Button
-					variant='outlined'
+					variant='contained'
 					sx={backButton}
 					onClick={() => {
 						navigate(`/${back}`)

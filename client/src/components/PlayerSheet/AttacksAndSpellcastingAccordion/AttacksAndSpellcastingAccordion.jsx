@@ -16,7 +16,7 @@ import AttacksAndSpellcasting from './AttacksAndSpellcasting/AttacksAndSpellcast
 const AttacksAndSpellcastingAccordion = () => {
 	return (
 		<Container sx={container}>
-			<Paper>
+			<Paper sx={{ border: 'none' }}>
 				<Accordion>
 					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 						<Typography variant='h6'>Attacks and Spellcasting</Typography>

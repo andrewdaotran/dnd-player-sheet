@@ -15,6 +15,7 @@ import {
 import { useTheme } from '@mui/material/styles'
 import Zoom from '@mui/material/Zoom'
 import CasinoIcon from '@mui/icons-material/Casino'
+import Dice from 'react-dice-roll'
 
 import { fab } from './styles'
 const RollButton = () => {
@@ -99,6 +100,7 @@ const RollButton = () => {
 					</Fade>
 				)}
 			</Popper>
+			<Dice onRoll={(value) => console.log(value)} defaultValue={20} />
 		</>
 	)
 }

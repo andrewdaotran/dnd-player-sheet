@@ -1,5 +1,5 @@
 export const card = {
-	border: '1px solid black',
+	// border: '1px solid black',
 	width: '15rem',
 }
 

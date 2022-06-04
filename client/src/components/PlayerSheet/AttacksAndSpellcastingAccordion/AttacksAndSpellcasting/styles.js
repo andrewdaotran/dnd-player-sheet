@@ -1,4 +1,5 @@
 import { red } from '@mui/material/colors'
+import { themeColors } from '../../../../utils'
 
 export const paper = {
 	justifyContent: 'center',
@@ -24,8 +25,16 @@ export const listContainer = {
 	marginBottom: '1rem',
 }
 
+export const buttonsContainer = {
+	marginBottom: '1rem',
+}
+
 export const submitButton = {
 	margin: '1rem 0 0 1rem',
+	backgroundColor: themeColors.dirtyOrange,
+	':hover': {
+		backgroundColor: themeColors.lighterDirtyOrange,
+	},
 }
 
 export const submitButtonXS = {
@@ -34,6 +43,6 @@ export const submitButtonXS = {
 
 export const cancelButton = {
 	margin: '1rem 0 0 1rem',
-	backgroundColor: red[800],
-	'&:hover': { backgroundColor: red[900] },
+	// backgroundColor: red[800],
+	// '&:hover': { backgroundColor: red[900] },
 }

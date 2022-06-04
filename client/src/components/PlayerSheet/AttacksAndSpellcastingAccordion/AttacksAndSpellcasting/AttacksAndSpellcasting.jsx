@@ -10,6 +10,7 @@ import {
 	cancelButton,
 	addButton,
 	paper,
+	buttonsContainer,
 } from './styles'
 
 import {
@@ -135,7 +136,11 @@ const AttacksAndSpellcasting = ({ create }) => {
 					</Grid>
 
 					{isAdding ? (
-						<Grid container spacing={smallScreenAndDown ? 1 : 2}>
+						<Grid
+							container
+							sx={buttonsContainer}
+							spacing={smallScreenAndDown ? 1 : 2}
+						>
 							<AttacksAndSpellcastingInputs
 								newAttackOrSpell={newAttackOrSpell}
 								setNewAttackOrSpell={setNewAttackOrSpell}

@@ -2,15 +2,16 @@ export const container = {
 	position: 'fixed',
 	top: 0,
 	left: 0,
-	width: '100%',
+	// width: '100%',
 	height: '100vh',
 	backgroundColor: 'rgba(0, 0, 0, 0.4)',
-	justifyContent: 'center',
-	alignItems: 'center',
+	// justifyContent: 'center',
+	// alignItems: 'center',
+	zIndex: 1,
 }
 
 export const card = {
-	position: 'relative',
+	// position: 'relative',
 	padding: '32px',
 	// width: '100%',
 	maxWidth: '640px',

@@ -82,11 +82,14 @@ export const updateCharacterSheet = async (req, res) => {
 	const characterSheet = req.body
 	if (!mongoose.Types.ObjectId.isValid(id))
 		res.status(400).send('no post with that id')
+	// console.log(characterSheet)
 	try {
 		const existingCharacterSheet = await CharacterSheetModel.findById(id)
+
 		const updatedCharacterSheet = await CharacterSheetModel.findByIdAndUpdate(
 			id,
-			{ ...existingCharacterSheet, ...characterSheet },
+			// { ...existingCharacterSheet, ...characterSheet },
+			{ ...characterSheet },
 			{ new: true }
 		)
 		res.status(201).json({ success: true, data: updatedCharacterSheet })
