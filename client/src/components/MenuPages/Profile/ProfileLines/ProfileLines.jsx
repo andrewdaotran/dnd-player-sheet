@@ -13,7 +13,7 @@ import {
 	Box,
 } from '@mui/material'
 
-import { editButton, typography, container } from './styles'
+import { editButton, typography, container, buttonBox } from './styles'
 import { updateUserThunk } from '../../../../features/user/thunks'
 import { updateUserReducer } from '../../../../features/user/userSlice'
 import { toggleIsEditingProfile } from '../../../../features/profile-lines-isEditing/profileLinesIsEditingSlice'
@@ -132,8 +132,9 @@ const ProfileLines = ({ value, title }) => {
 					)}
 
 					<Grid item xs={4}>
-						<Box sx={editButton}>
+						<Box sx={buttonBox}>
 							<Button
+								sx={editButton}
 								onClick={handleEdit}
 								disabled={
 									user.token.length > 500 && title === 'email' ? true : false

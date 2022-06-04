@@ -1,3 +1,5 @@
+import { themeColors } from '../../../utils'
+
 export const container = {
 	padding: '1rem',
 	maxWidth: '40rem',
@@ -21,8 +23,15 @@ export const editButton = {
 export const emptyDiv = {
 	marginBottom: '1rem',
 }
+export const buttonContainer = {
+	margin: '1.5rem auto .5rem auto',
+}
 
 export const deleteButton = {
-	margin: '1.5rem auto .5rem auto',
 	// margin: '2rem 0 1rem 0',
+	backgroundColor: themeColors.royalRed,
+	':hover': {
+		backgroundColor: themeColors.lighterRoyalRed,
+	},
+	borderRadius: '0.4rem',
 }

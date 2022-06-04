@@ -71,7 +71,17 @@ function App() {
 			},
 			MuiTextField: {
 				styleOverrides: {
-					root: {},
+					root: {
+						borderRadius: '4px',
+					},
+				},
+			},
+			MuiDrawer: {
+				styleOverrides: {
+					paper: {
+						border: `2px solid ${themeColors.offBlack}`,
+						backgroundColor: themeColors.greyWhite,
+					},
 				},
 			},
 		},

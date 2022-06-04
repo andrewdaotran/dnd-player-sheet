@@ -22,8 +22,9 @@ import {
 	container,
 	modalText,
 	modalCardActions,
-	modalButton,
+	cancelButton,
 	modalGrid,
+	confirmButton,
 } from './styles'
 
 const WarningModal = ({
@@ -51,14 +52,14 @@ const WarningModal = ({
 					<Grid item justifyItems='center' alignItems='center'>
 						<CardActions sx={modalCardActions}>
 							<Button
-								sx={modalButton}
+								sx={cancelButton}
 								variant='contained'
 								onClick={cancelFunction}
 							>
 								Cancel
 							</Button>
 							<Button
-								sx={modalButton}
+								sx={confirmButton}
 								variant='contained'
 								onClick={submitFunction}
 							>

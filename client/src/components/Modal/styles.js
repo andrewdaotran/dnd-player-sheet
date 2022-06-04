@@ -1,3 +1,5 @@
+import { themeColors } from '../../utils'
+
 export const container = {
 	// marginBottom: '2rem',
 }
@@ -18,4 +20,8 @@ export const modalText = {
 
 export const modalButton = {
 	marginBottom: '1rem',
+	backgroundColor: themeColors.dirtyOrange,
+	':hover': {
+		backgroundColor: themeColors.lighterDirtyOrange,
+	},
 }

@@ -21,6 +21,7 @@ import {
 	typography,
 	emptyDiv,
 	deleteButton,
+	buttonContainer,
 } from './styles'
 import ProfileLines from './ProfileLines/ProfileLines'
 import WarningModal from '../../WarningModal/WarningModal'
@@ -76,8 +77,12 @@ const Profile = () => {
 							/>
 						)
 					})}
-					<Grid sx={deleteButton}>
-						<Button variant='contained' onClick={handleToggleDeleteConfirm}>
+					<Grid sx={buttonContainer}>
+						<Button
+							variant='contained'
+							onClick={handleToggleDeleteConfirm}
+							sx={deleteButton}
+						>
 							Delete Profile
 						</Button>
 					</Grid>

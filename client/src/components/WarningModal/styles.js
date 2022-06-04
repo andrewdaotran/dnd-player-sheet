@@ -1,3 +1,5 @@
+import { themeColors } from '../../utils'
+
 export const container = {
 	position: 'fixed',
 	top: 0,
@@ -32,6 +34,16 @@ export const modalText = {
 	textAlign: 'center',
 }
 
-export const modalButton = {
-	// marginBottom: '1rem',
+export const cancelButton = {
+	backgroundColor: themeColors.royalRed,
+	':hover': {
+		backgroundColor: themeColors.lighterRoyalRed,
+	},
+}
+
+export const confirmButton = {
+	backgroundColor: themeColors.dirtyOrange,
+	':hover': {
+		backgroundColor: themeColors.lighterDirtyOrange,
+	},
 }

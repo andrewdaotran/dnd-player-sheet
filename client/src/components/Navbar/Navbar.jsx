@@ -5,7 +5,6 @@ import {
 	AppBar,
 	Toolbar,
 	IconButton,
-	Button,
 	TextField,
 	MenuItem,
 	Menu,
@@ -20,7 +19,13 @@ import {
 	updateCharacterName,
 } from '../../features/character-sheet/characterSheetSlice'
 
-import { characterName, container, playerName, toolbarButton } from './styles'
+import {
+	characterName,
+	container,
+	playerName,
+	toolbarButton,
+	characterNameTextField,
+} from './styles'
 import { open, close } from '../../features/sidebar-open/sidebarOpenSlice'
 import {
 	userLogout,
@@ -86,7 +91,11 @@ const Navbar = () => {
 		<AppBar position='static'>
 			<Toolbar sx={container}>
 				{profile ? (
-					<IconButton aria-label='menu' onClick={() => dispatch(open())}>
+					<IconButton
+						aria-label='menu'
+						onClick={() => dispatch(open())}
+						sx={toolbarButton}
+					>
 						<MenuIcon />
 					</IconButton>
 				) : null}
@@ -95,13 +104,15 @@ const Navbar = () => {
 					{/* {playerName} */}
 					{user.username || user.email}
 				</Typography>
+				{/* Empty div to separate in middle of player and character name */}
+				<div style={{ flexGrow: 1 }}></div>
 				{areInputsDisabled ? (
 					<Typography sx={characterName}>
 						{characterSheet.characterName.value}
 					</Typography>
 				) : (
 					<TextField
-						sx={characterName}
+						sx={characterNameTextField}
 						onChange={handleNameChange}
 						value={characterSheet.characterName.value}
 						size='small'
@@ -110,6 +121,7 @@ const Navbar = () => {
 						{/* functionality */}
 					</TextField>
 				)}
+
 				{profile ? (
 					<>
 						<IconButton sx={toolbarButton} onClick={handleClick}>
@@ -129,7 +141,7 @@ const Navbar = () => {
 							}}
 						>
 							<MenuItem onClick={handleProfile}>Profile</MenuItem>
-							<MenuItem onClick={handleClose}>My account</MenuItem>
+							{/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
 							<MenuItem onClick={handleLogout}>Logout</MenuItem>
 						</Menu>
 					</>

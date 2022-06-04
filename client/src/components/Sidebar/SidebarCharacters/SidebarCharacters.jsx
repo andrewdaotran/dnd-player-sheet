@@ -14,8 +14,15 @@ import {
 import FaceIcon from '@mui/icons-material/Face'
 import { getSingleCharacterSheet } from '../../../features/character-sheet/thunks'
 import { close } from '../../../features/sidebar-open/sidebarOpenSlice'
+import {
+	listItemButtonOdd,
+	listItemIconOdd,
+	listItemIconEven,
+	listItemText,
+	listItemButtonEven,
+} from './styles'
 
-const SidebarCharacters = ({ characterSheetId, characterName }) => {
+const SidebarCharacters = ({ characterSheetId, characterName, index }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
@@ -27,11 +34,14 @@ const SidebarCharacters = ({ characterSheetId, characterName }) => {
 
 	return (
 		<>
-			<ListItemButton onClick={handleCharacterNavigate}>
-				<ListItemIcon>
+			<ListItemButton
+				onClick={handleCharacterNavigate}
+				sx={index % 2 ? listItemButtonOdd : listItemButtonEven}
+			>
+				<ListItemIcon sx={index % 2 ? listItemIconEven : listItemIconOdd}>
 					<FaceIcon />
 				</ListItemIcon>
-				<ListItemText primary={characterName} />
+				<ListItemText primary={characterName} sx={listItemText} />
 			</ListItemButton>
 
 			<Divider />

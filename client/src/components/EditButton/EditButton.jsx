@@ -2,7 +2,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button, Box } from '@mui/material'
 
-import { buttonContainer, cancelButton } from './styles'
+import {
+	buttonContainer,
+	cancelButton,
+	editCharacterButton,
+	saveCharacterButton,
+} from './styles'
 
 import { toggleInputs } from '../../features/disable-inputs/disableInputsSlice'
 import {
@@ -45,7 +50,11 @@ const EditButton = () => {
 			<Box sx={buttonContainer}>
 				{areInputsDisabled ? (
 					<>
-						<Button onClick={handleEditCharacter} variant='contained'>
+						<Button
+							onClick={handleEditCharacter}
+							variant='contained'
+							sx={editCharacterButton}
+						>
 							Edit Character
 						</Button>
 					</>
@@ -54,7 +63,11 @@ const EditButton = () => {
 						<Button onClick={cancelUpdate} variant='outlined' sx={cancelButton}>
 							Cancel Edit
 						</Button>
-						<Button onClick={handleUpdate} variant='contained'>
+						<Button
+							onClick={handleUpdate}
+							variant='contained'
+							sx={saveCharacterButton}
+						>
 							Save Edits
 						</Button>
 					</>

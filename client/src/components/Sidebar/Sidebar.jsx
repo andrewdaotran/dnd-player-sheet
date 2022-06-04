@@ -16,7 +16,7 @@ import CreateIcon from '@mui/icons-material/Create'
 
 import SidebarCharacters from './SidebarCharacters/SidebarCharacters'
 import { close } from '../../features/sidebar-open/sidebarOpenSlice'
-import { sidebarIconContainer } from './styles'
+import { sidebarIconContainer, list, listItemButton } from './styles'
 
 const Sidebar = () => {
 	const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const Sidebar = () => {
 			sx={{ width: drawerWidth }}
 			PaperProps={{ sx: { width: `${drawerWidth}px` } }}
 		>
-			<List>
+			<List sx={list}>
 				<ListItemButton
 					sx={sidebarIconContainer}
 					onClick={() => dispatch(close())}
@@ -50,6 +50,7 @@ const Sidebar = () => {
 						navigate(`/create/character-name`)
 						dispatch(close())
 					}}
+					sx={listItemButton}
 				>
 					<ListItemIcon>
 						<CreateIcon />
@@ -59,11 +60,12 @@ const Sidebar = () => {
 
 				<Divider />
 
-				{characterSheets.map((character) => {
+				{characterSheets.map((character, index) => {
 					return (
 						<SidebarCharacters
 							key={character.characterSheetId}
 							{...character}
+							index={index}
 						/>
 					)
 				})}

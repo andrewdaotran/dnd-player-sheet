@@ -1,16 +1,35 @@
+import { themeColors } from '../../utils'
+
 export const container = {
 	margin: '0 1rem',
 }
 
 export const playerName = {
-	flexGrow: '1',
-	paddingLeft: '1rem',
+	marginLeft: '1rem',
 	cursor: 'pointer',
+	fontWeight: 'bold',
+	transition: 'all 0.3s ease-in-out',
+	':hover': {
+		color: themeColors.offBlack,
+	},
+	width: 'fit-content',
+	fontSize: '2rem',
 }
 
 export const characterName = {
-	paddingRight: '1rem',
+	marginRight: '1rem',
 	color: 'white',
+	fontWeight: 'bold',
 }
 
-export const toolbarButton = {}
+export const characterNameTextField = {
+	backgroundColor: themeColors.greyWhite,
+}
+
+export const toolbarButton = {
+	color: 'white',
+	transition: 'all 0.3s ease-in-out',
+	':hover': {
+		color: themeColors.offBlack,
+	},
+}
