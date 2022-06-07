@@ -11,6 +11,8 @@ import {
 	addButton,
 	paper,
 	buttonsContainer,
+	iconGrid,
+	titleContainer,
 } from './styles'
 
 import {
@@ -95,8 +97,8 @@ const AttacksAndSpellcasting = ({ create }) => {
 		<Paper sx={paper}>
 			<Container>
 				<Grid container>
-					<Grid container spacing={2}>
-						<Grid item xs={4.5} sx={sectionTitles}>
+					<Grid container spacing={2} sx={titleContainer}>
+						<Grid item xs={smallScreenAndDown ? 4 : 4.5} sx={sectionTitles}>
 							<Typography variant='subtitle1'>Name</Typography>
 						</Grid>
 						<Grid item xs={2} sx={sectionTitles}>
@@ -122,7 +124,7 @@ const AttacksAndSpellcasting = ({ create }) => {
 										newItem={false}
 									/>
 
-									<Grid item xs={1}>
+									<Grid item xs={1} sx={iconGrid}>
 										<IconButton
 											sx={editButton}
 											onClick={() => deleteItem(index)}
@@ -152,7 +154,11 @@ const AttacksAndSpellcasting = ({ create }) => {
 							<Button
 								variant='contained'
 								onClick={submitNewItem}
-								sx={smallScreenAndDown ? submitButtonXS : submitButton}
+								sx={
+									smallScreenAndDown
+										? { ...submitButton, ...submitButtonXS }
+										: submitButton
+								}
 							>
 								Submit
 							</Button>

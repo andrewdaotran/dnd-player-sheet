@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TextField, Grid } from '@mui/material'
+import { TextField, Grid, useMediaQuery, useTheme } from '@mui/material'
 
 import {
 	createNewAandS,
@@ -20,6 +20,8 @@ const AttacksAndSpellcastingInputs = ({
 	const dispatch = useDispatch()
 	const id = useSelector((state) => state.characterSheet.id)
 	const areInputsDisabled = useSelector((state) => state.disableInputs.toggle)
+	const theme = useTheme()
+	const smallScreenAndDown = useMediaQuery(theme.breakpoints.down('sm'))
 
 	const handleNewPost = (e) => {
 		setNewAttackOrSpell({
@@ -41,7 +43,7 @@ const AttacksAndSpellcastingInputs = ({
 
 	return (
 		<>
-			<Grid item xs={4.5}>
+			<Grid item xs={smallScreenAndDown ? 4 : 4.5}>
 				<TextField
 					fullWidth
 					name='name'
