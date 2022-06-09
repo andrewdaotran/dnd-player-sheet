@@ -10,13 +10,23 @@ import {
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import axios from 'axios'
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'
+import SportsMartialArtsIcon from '@mui/icons-material/SportsMartialArts'
 
 import {
 	updateCheck,
 	injectDescription,
 } from '../../../../features/character-sheet/characterSheetSlice'
 
-import { skillContainer } from './styles'
+import {
+	skillContainer,
+	skillModifier,
+	proficientSkillModifier,
+	expertSkillModifier,
+	checkBoxes,
+	checkBoxExpertise,
+} from './styles'
 const Skill = ({
 	name,
 	title,
@@ -26,6 +36,7 @@ const Skill = ({
 	abilityScore,
 	url,
 	create,
+	status,
 }) => {
 	const dispatch = useDispatch()
 	const theme = useTheme()
@@ -66,6 +77,18 @@ const Skill = ({
 			<Grid container spacing={2} sx={skillContainer}>
 				<Grid item xs={2}>
 					<Checkbox
+						sx={
+							status === 'proficiency'
+								? checkBoxes
+								: { ...checkBoxes, ...checkBoxExpertise }
+						}
+						checkedIcon={
+							status === 'expertise' ? (
+								<SportsMartialArtsIcon />
+							) : (
+								<AccessibilityNewIcon />
+							)
+						}
 						checked={checked}
 						onChange={handleCheck}
 						disabled={
@@ -78,7 +101,15 @@ const Skill = ({
 					/>
 				</Grid>
 				<Grid item xs={2}>
-					<Typography>
+					<Typography
+						sx={
+							status === 'none'
+								? skillModifier
+								: status === 'proficiency'
+								? { ...skillModifier, ...proficientSkillModifier }
+								: { ...skillModifier, ...expertSkillModifier }
+						}
+					>
 						{/* added modifiers: proficiency bonus, stats, and class/race bonus */}
 						{modifier}
 					</Typography>

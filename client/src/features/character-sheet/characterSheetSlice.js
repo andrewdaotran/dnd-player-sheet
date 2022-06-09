@@ -36,6 +36,7 @@ export const {
 	updateCheck,
 	injectDescription,
 	clearCharacterSheet,
+	updateSkillModifiers,
 	// updateCharacterSheet
 } = characterSheetSlice.actions
 

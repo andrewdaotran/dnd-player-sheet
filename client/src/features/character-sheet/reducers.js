@@ -24,9 +24,51 @@ const reducers = {
 		state.abilityScores[action.payload.name].value = limiter(
 			parseInt(action.payload.input)
 		)
+
 		state.abilityScores[action.payload.name].modifier =
 			statModifiers[limiter(parseInt(action.payload.input))]
+
+		// Update skills modifier
+		Object.keys(state.skills.skills).forEach((skill) => {
+			if (state.skills.skills[skill].abilityScore.name !== action.payload.name)
+				return
+
+			if (!state.abilityScores[action.payload.name].modifier) {
+				state.skills.skills[skill].modifier = '-'
+				return
+			}
+
+			state.skills.skills[skill].modifier =
+				state.abilityScores[action.payload.name].modifier
+
+			// Update skills modifier with proficiency bonus
+
+			if (state.skills.skills[skill].status === 'proficiency') {
+				if (Number(state.skills.skills[skill].modifier) + 2 >= 0) {
+					state.skills.skills[skill].modifier = `+${String(
+						Number(state.skills.skills[skill].modifier) + 2
+					)}`
+				} else {
+					state.skills.skills[skill].modifier = String(
+						Number(state.skills.skills[skill].modifier) + 2
+					)
+				}
+			}
+			// Update skills modifier with  expertise bonus
+			if (state.skills.skills[skill].status === 'expertise') {
+				if (Number(state.skills.skills[skill].modifier) + 4 >= 0) {
+					state.skills.skills[skill].modifier = `+${String(
+						Number(state.skills.skills[skill].modifier) + 4
+					)}`
+				} else {
+					state.skills.skills[skill].modifier = String(
+						Number(state.skills.skills[skill].modifier) + 4
+					)
+				}
+			}
+		})
 	},
+
 	// dispatch with {name, attack, damageType}
 	createNewAandS: (state, action) => {
 		state.attacksAndSpellcasting.push({ id: uuidv4(), ...action.payload })
@@ -209,16 +251,80 @@ const reducers = {
 	updatePlayerInformation: (state, action) => {
 		state.playerInformation[action.payload.name].value = action.payload.input
 	},
-	updateCheck: (state, action) => {
-		// dispatch name
 
-		if (state.skills.skills[action.payload].checked === false) {
+	// dispatch name
+	updateCheck: (state, action) => {
+		// If not checked at all
+		if (state.skills.skills[action.payload].status === 'none') {
 			state.skills.fourMaxChecked += 1
-		} else {
-			state.skills.fourMaxChecked -= 1
+			state.skills.skills[action.payload].status = 'proficiency'
+			state.skills.skills[action.payload].checked =
+				!state.skills.skills[action.payload].checked
+
+			if (Number(state.skills.skills[action.payload].modifier) + 2 >= 0) {
+				state.skills.skills[action.payload].modifier = `+${String(
+					Number(state.skills.skills[action.payload].modifier) + 2
+				)}`
+			} else {
+				state.skills.skills[action.payload].modifier = String(
+					Number(state.skills.skills[action.payload].modifier) + 2
+				)
+			}
+			return
 		}
-		state.skills.skills[action.payload].checked =
-			!state.skills.skills[action.payload].checked
+
+		// If checked once for proficiency
+		if (state.skills.skills[action.payload].status === 'proficiency') {
+			// Check if 2 expertise checks are exhausted
+			if (state.skills.twoExpertiseChecked < 2) {
+				state.skills.twoExpertiseChecked += 1
+				state.skills.skills[action.payload].status = 'expertise'
+				if (Number(state.skills.skills[action.payload].modifier) + 2 >= 0) {
+					state.skills.skills[action.payload].modifier = `+${String(
+						Number(state.skills.skills[action.payload].modifier) + 2
+					)}`
+				} else {
+					state.skills.skills[action.payload].modifier = String(
+						Number(state.skills.skills[action.payload].modifier) + 2
+					)
+				}
+			} else {
+				state.skills.fourMaxChecked -= 1
+				state.skills.skills[action.payload].status = 'none'
+				state.skills.skills[action.payload].checked =
+					!state.skills.skills[action.payload].checked
+				if (Number(state.skills.skills[action.payload].modifier) - 2 >= 0) {
+					state.skills.skills[action.payload].modifier = `+${String(
+						Number(state.skills.skills[action.payload].modifier) - 2
+					)}`
+				} else {
+					state.skills.skills[action.payload].modifier = String(
+						Number(state.skills.skills[action.payload].modifier) - 2
+					)
+				}
+			}
+			return
+		}
+
+		// If checked twice for expertise
+		if (state.skills.skills[action.payload].status === 'expertise') {
+			state.skills.fourMaxChecked -= 1
+			state.skills.twoExpertiseChecked -= 1
+			state.skills.skills[action.payload].checked =
+				!state.skills.skills[action.payload].checked
+			state.skills.skills[action.payload].status = 'none'
+
+			if (Number(state.skills.skills[action.payload].modifier) - 4 >= 0) {
+				state.skills.skills[action.payload].modifier = `+${String(
+					Number(state.skills.skills[action.payload].modifier) - 4
+				)}`
+			} else {
+				state.skills.skills[action.payload].modifier = String(
+					Number(state.skills.skills[action.payload].modifier) - 4
+				)
+			}
+		}
+		return
 	},
 
 	// dispatch {name, desc}
