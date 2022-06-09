@@ -1,9 +1,13 @@
 import { themeColors } from '../../../utils'
 
-export const container = {
+export const paper = {
 	padding: '1rem',
 	maxWidth: '40rem',
 	margin: '7rem auto 0 auto',
+	position: 'relative',
+}
+export const container = {
+	position: 'relative',
 }
 
 export const header = {

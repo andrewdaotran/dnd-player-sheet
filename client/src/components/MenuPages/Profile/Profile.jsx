@@ -16,6 +16,7 @@ import {
 
 import {
 	header,
+	paper,
 	container,
 	editButton,
 	typography,
@@ -58,8 +59,8 @@ const Profile = () => {
 	}
 
 	return (
-		<Paper sx={container}>
-			<Container>
+		<Paper sx={paper}>
+			<Container sx={container}>
 				<Grid container>
 					<Grid item xs={12}>
 						<Typography variant='h4' sx={header}>

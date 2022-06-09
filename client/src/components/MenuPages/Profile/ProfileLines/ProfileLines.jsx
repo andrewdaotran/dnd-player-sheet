@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
 	Grid,
-	Container,
-	Paper,
 	TextField,
 	Button,
-	IconButton,
 	Typography,
 	Divider,
 	Box,
 } from '@mui/material'
 
-import { editButton, typography, container, buttonBox } from './styles'
+import {
+	editButton,
+	typography,
+	container,
+	buttonBox,
+	cancelButton,
+	submitButton,
+} from './styles'
 import { updateUserThunk } from '../../../../features/user/thunks'
 import { updateUserReducer } from '../../../../features/user/userSlice'
 import { toggleIsEditingProfile } from '../../../../features/profile-lines-isEditing/profileLinesIsEditingSlice'
@@ -120,10 +124,16 @@ const ProfileLines = ({ value, title }) => {
 								) : null}
 
 								<Grid item>
-									<Button onClick={handleCancel}>Cancel</Button>
+									<Button onClick={handleCancel} sx={cancelButton}>
+										Cancel
+									</Button>
 								</Grid>
 								<Grid item>
-									<Button onClick={handleSubmit} variant='contained'>
+									<Button
+										onClick={handleSubmit}
+										variant='contained'
+										sx={submitButton}
+									>
 										Save
 									</Button>
 								</Grid>

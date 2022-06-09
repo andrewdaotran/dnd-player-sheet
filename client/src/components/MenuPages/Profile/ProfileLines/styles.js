@@ -19,3 +19,18 @@ export const editButton = {
 		backgroundColor: themeColors.lighterDirtyOrange,
 	},
 }
+
+export const submitButton = {
+	backgroundColor: themeColors.dirtyOrange,
+	':hover': {
+		backgroundColor: themeColors.lighterDirtyOrange,
+	},
+}
+
+export const cancelButton = {
+	backgroundColor: themeColors.royalRed,
+	':hover': {
+		backgroundColor: themeColors.lighterRoyalRed,
+	},
+	color: 'white',
+}
