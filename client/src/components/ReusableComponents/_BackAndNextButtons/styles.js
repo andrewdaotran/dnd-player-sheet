@@ -18,4 +18,9 @@ export const nextButton = {
 	},
 }
 
-export const backButton = {}
+export const backButton = {
+	backgroundColor: themeColors.royalRed,
+	':hover': {
+		backgroundColor: themeColors.lighterRoyalRed,
+	},
+}

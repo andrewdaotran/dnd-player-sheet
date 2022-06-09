@@ -1,3 +1,5 @@
+import { themeColors } from '../../../../utils'
+
 export const textField = {
 	padding: '0 auto',
 }
@@ -15,5 +17,5 @@ export const paperItem = {
 	right: 0,
 	top: '70%',
 	borderRadius: '30%',
-	border: '1px solid red',
+	border: `1px solid ${themeColors.lighterRoyalRed}`,
 }

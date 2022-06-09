@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Grid } from '@mui/material'
 import {
 	BrowserRouter as Router,
 	Routes,
 	Route,
-	Link,
 	useNavigate,
 } from 'react-router-dom'
 
@@ -13,13 +12,9 @@ import _TitleTypography from '../ReusableComponents/_TitleTypography/_TitleTypog
 import PlayerInformation from '../PlayerSheet/PlayerInformationContainer/PlayerInformation/PlayerInformation'
 import CharacterInformation from '../PlayerSheet/PlayerInformationContainer/CharacterInformation/CharacterInformation'
 import Stats from '../PlayerSheet/Stats/Stats'
-
 import { gridContainer } from './styles'
-
 import _BackAndNextButtons from '../ReusableComponents/_BackAndNextButtons/_BackAndNextButtons'
 import Skills from '../PlayerSheet/Skills/Skills'
-
-import AttacksAndSpellcasting from '../PlayerSheet/AttacksAndSpellcastingAccordion/AttacksAndSpellcasting/AttacksAndSpellcasting'
 import HitPointsContainer from '../PlayerSheet/HitPointsContainer/HitPointsContainer'
 import Inventory from '../PlayerSheet/Inventory/Inventory'
 import CharacterPersonalityDetailsContainer from '../PlayerSheet/CharacterPersonalityDetailsContainer/CharacterPersonalityDetailsContainer'
@@ -28,6 +23,7 @@ import { createCharacterSheet } from '../../features/character-sheet/thunks'
 import CharacterName from '../PlayerSheet/CharacterName/CharacterName'
 import { getUserFromLocalStorage } from '../../features/user/userSlice'
 import { clearCharacterSheet } from '../../features/character-sheet/characterSheetSlice'
+import AttacksAndSpellcastingAccordion from '../PlayerSheet/AttacksAndSpellcastingAccordion/AttacksAndSpellcastingAccordion'
 
 const CLASS_LABEL = 'Class'
 
@@ -135,8 +131,8 @@ const CreateCharacter = () => {
 							path='attacks-and-spellcasting'
 							element={
 								<>
-									<AttacksAndSpellcasting create={true} />
-									{/* <AttacksAndSpellcasting /> */}
+									{/* <AttacksAndSpellcasting create={true} /> */}
+									<AttacksAndSpellcastingAccordion create={true} />
 									<_BackAndNextButtons
 										back={'create/skills'}
 										next={'create/inventory'}

@@ -13,16 +13,16 @@ import { container } from './styles'
 
 import AttacksAndSpellcasting from './AttacksAndSpellcasting/AttacksAndSpellcasting'
 
-const AttacksAndSpellcastingAccordion = () => {
+const AttacksAndSpellcastingAccordion = ({ create }) => {
 	return (
 		<Container sx={container}>
 			<Paper sx={{ border: 'none' }}>
-				<Accordion>
+				<Accordion defaultExpanded={create ? true : false}>
 					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 						<Typography variant='h6'>Attacks and Spellcasting</Typography>
 					</AccordionSummary>
 					<AccordionDetails>
-						<AttacksAndSpellcasting />
+						<AttacksAndSpellcasting create={create} />
 					</AccordionDetails>
 				</Accordion>
 			</Paper>

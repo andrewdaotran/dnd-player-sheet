@@ -20,7 +20,7 @@ export const expertSkillModifier = {
 }
 
 export const checkBoxes = {
-	color: themeColors.lighterRoyalRed,
+	color: themeColors.greyWhite,
 	'&.Mui-checked': {
 		color: themeColors.lighterDirtyOrange,
 	},
