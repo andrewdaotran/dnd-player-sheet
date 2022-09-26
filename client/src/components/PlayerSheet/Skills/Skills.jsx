@@ -33,7 +33,7 @@ const Skills = ({ create }) => {
 					Check once for{' '}
 					<span style={{ color: themeColors.lighterDirtyOrange }}>
 						proficiency
-					</span>{' '}
+					</span>
 					, check again for{' '}
 					<span style={{ color: themeColors.offBlack }}>expertise</span>.
 				</Typography>

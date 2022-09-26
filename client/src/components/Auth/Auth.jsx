@@ -13,7 +13,12 @@ import {
 	CardActions,
 	Grid,
 	Paper,
+	InputAdornment,
+	IconButton,
 } from '@mui/material'
+
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import {
 	authButton,
@@ -24,6 +29,7 @@ import {
 	paper,
 	questionText,
 	authTextFieldContainer,
+	bottomContainer,
 } from './styles'
 
 import {
@@ -38,15 +44,20 @@ const Auth = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const [formData, setFormData] = useState({
-		usernameOrEmail: '',
+		usernameOrEmail: 'free_entry',
 		firstName: '',
 		lastName: '',
 		username: '',
 		email: '',
-		password: '',
+		password: 'please_enter',
 		confirmPassword: '',
 	})
 	const [haveLogin, setHaveLogin] = useState(true)
+	const [showPassword, setShowPassword] = useState({
+		signIn: false,
+		signUp: false,
+		confirmPassword: false,
+	})
 
 	useEffect(() => {
 		const profile = JSON.parse(localStorage.getItem('profile'))
@@ -83,6 +94,11 @@ const Auth = () => {
 			password: '',
 			confirmPassword: '',
 		})
+		setShowPassword({
+			signIn: false,
+			signUp: false,
+			confirmPassword: false,
+		})
 	}
 
 	const googleSuccess = async (res) => {
@@ -97,6 +113,22 @@ const Auth = () => {
 	const googleFailure = (err) => {
 		console.log(err)
 	}
+
+	const handleShowPassword = (passwordField) => {
+		if (passwordField === 'signIn') {
+			setShowPassword({ ...showPassword, signIn: !showPassword.signIn })
+		}
+		if (passwordField === 'signUp') {
+			setShowPassword({ ...showPassword, signUp: !showPassword.signUp })
+		}
+		if (passwordField === 'confirmPassword') {
+			setShowPassword({
+				...showPassword,
+				confirmPassword: !showPassword.confirmPassword,
+			})
+		}
+	}
+
 	return (
 		<Container sx={container}>
 			<Paper sx={paper}>
@@ -132,6 +164,23 @@ const Auth = () => {
 									value={formData.password}
 									name='password'
 									onChange={handleSetForm}
+									autoComplete='current-password'
+									type={showPassword.signIn ? `text` : `password`}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													onClick={() => handleShowPassword('signIn')}
+												>
+													{showPassword.signIn ? (
+														<VisibilityOff />
+													) : (
+														<Visibility />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
 								/>
 							</Grid>
 						</Grid>
@@ -185,6 +234,23 @@ const Auth = () => {
 									value={formData.password}
 									name='password'
 									onChange={handleSetForm}
+									type={showPassword.signUp ? `text` : `password`}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													onClick={() => handleShowPassword('signUp')}
+												>
+													{showPassword.signUp ? (
+														<VisibilityOff />
+													) : (
+														<Visibility />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
+									autoComplete='current-password'
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -195,6 +261,23 @@ const Auth = () => {
 									value={formData.confirmPassword}
 									name='confirmPassword'
 									onChange={handleSetForm}
+									type={showPassword.confirmPassword ? `text` : `password`}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position='end'>
+												<IconButton
+													onClick={() => handleShowPassword('confirmPassword')}
+												>
+													{showPassword.confirmPassword ? (
+														<VisibilityOff />
+													) : (
+														<Visibility />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
+									autoComplete='current-password'
 								/>
 							</Grid>
 						</Grid>
@@ -257,15 +340,14 @@ const Auth = () => {
 				</form>
 
 				{/* Bottom Typography  */}
-				{haveLogin ? (
+
+				<Grid container sx={bottomContainer}>
 					<Typography onClick={handleSwitchForms} sx={questionText}>
-						Don't have a login? Sign Up.
+						{haveLogin
+							? `Don't have a login? Sign Up.`
+							: `Already have a login? Sign In.`}
 					</Typography>
-				) : (
-					<Typography onClick={handleSwitchForms} sx={questionText}>
-						Already have a login? Sign In.
-					</Typography>
-				)}
+				</Grid>
 			</Paper>
 			{/* </Grid> */}
 		</Container>

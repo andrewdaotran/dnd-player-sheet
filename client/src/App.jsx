@@ -16,6 +16,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { purple, lightGreen } from '@mui/material/colors'
 import { themeColors } from './utils'
 import './App.css'
+import Footer from './components/Footer/Footer'
 function App() {
 	const theme = createTheme({
 		palette: {
@@ -45,12 +46,17 @@ function App() {
 			MuiButton: {
 				styleOverrides: {
 					root: {
-						backgroundColor: themeColors.royalRed,
+						backgroundColor: themeColors.dirtyOrange,
 						border: `1px solid ${themeColors.offBlack}`,
 						':hover': {
-							backgroundColor: themeColors.ligherRoyalRed,
+							backgroundColor: themeColors.lighterDirtyOrange,
 						},
-						danger: '#ff0000',
+						danger: {
+							backgroundColor: themeColors.royalRed,
+							':hover': {
+								backgroundColor: themeColors.lighterRoyalRed,
+							},
+						},
 					},
 				},
 			},
@@ -155,6 +161,7 @@ function App() {
 							}
 						/>
 					</Routes>
+					{/* <Footer /> */}
 				</Router>
 			</div>
 		</ThemeProvider>

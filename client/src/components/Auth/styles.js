@@ -1,3 +1,5 @@
+import { themeColors } from '../../utils'
+
 export const container = {
 	// marginBottom: '2rem',
 	// padding: '5rem',
@@ -35,6 +37,16 @@ export const authButton = {
 }
 
 export const questionText = {
-	textAlign: 'end',
+	// textAlign: 'end',
 	cursor: 'pointer',
+	transition: 'all 0.3s ease-in-out',
+	width: 'fit-content',
+	':hover': {
+		color: themeColors.greyWhite,
+	},
+}
+
+export const bottomContainer = {
+	display: 'flex',
+	justifyContent: 'flex-end',
 }
